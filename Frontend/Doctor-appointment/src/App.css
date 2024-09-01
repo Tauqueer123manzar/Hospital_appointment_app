@@ -1,0 +1,57 @@
+.hero_section{
+  width: 100%;
+}
+@keyframes fadIn{
+ from{
+  opacity: 0;
+  transform: translateX(-50px) translateY(-50px) translateZ(-50px);
+ }
+ To{
+  opacity: 1;
+  transform: translateX(0);
+ }
+}
+.hero_image{
+  animation: fadIn 1s infinite alternate ease-in-out;
+}
+
+.container.departments {
+  padding: 20px;
+}
+.department-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: white;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 10px;
+  margin: 5px;
+  opacity: 0.8;
+}
+.department-card:hover{
+  opacity: 1;
+}
+.depart-name {
+  font-size: 16px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.depart-image {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+.message{
+  background-color: rgb(138, 155, 155);
+}
+@media (max-width: 477px) {
+  .button {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin-top: 5px;
+  }
+}
