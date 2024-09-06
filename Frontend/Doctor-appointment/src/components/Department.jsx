@@ -10,7 +10,7 @@ import Pediatrics from '../assets/pedia.jpg';
 import Oncology from '../assets/onco.jpg';
 import Therapy from '../assets/therapy.jpg';
 import Dermatology from '../assets/derma.jpg';
-import '../App.css'; // Ensure you have the appropriate styles here
+import '../App.css';
 
 const Department = () => {
   const departmentData = [

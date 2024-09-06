@@ -22,6 +22,7 @@ const Topbar = () => {
           <Nav.Link className='text-secondary' style={{fontWeight:"bold"}} href="/">HOME</Nav.Link>
           <Nav.Link className='text-secondary' style={{fontWeight:"bold"}} href="/appointment">APPOINTMENT</Nav.Link>
           <Nav.Link className='text-secondary' style={{fontWeight:"bold"}} href="/about">ABOUT US</Nav.Link>
+          <Nav.Link className='text-secondary' style={{fontWeight:"bold"}} href="/register">REGISTER</Nav.Link>
           </Nav>
           <div className='button'>
           <Button variant="outline-success" style={{borderRadius:"10px",width:"100px",backgroundColor:"black",color:"white"}}>Login</Button>
