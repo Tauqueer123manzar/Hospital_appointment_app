@@ -28,6 +28,5 @@ app.use(fileUpload({
 
 // Routes
 app.use("/api/v1/message", MessageRouter);
-app.use("/api/v1/user",UserRouter);
 app.use(Errormiddleware);
 module.exports = app;

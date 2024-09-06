@@ -1,6 +1,5 @@
 import React from 'react'
 import { Row,Col,Container } from 'react-bootstrap';
-import about from '../assets/about.png';
 import '../App.css'
 const Biography = ({ imageurl }) => {
   return (
