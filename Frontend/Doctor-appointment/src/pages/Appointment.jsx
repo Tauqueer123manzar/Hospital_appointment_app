@@ -1,106 +1,192 @@
-import React, { useState } from 'react';
+import React, { useState } from 'react'
 import { Container, Row, Col, Form, Button } from 'react-bootstrap';
-import Topbar from '../components/Topbar'
-
+import Topbar from '../components/Topbar';
+import image from '../assets/signupheader (1).png';
+import Footer from '../components/Footer';
 const Appointment = () => {
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
-  const [email, setEmail] = useState('');
-  const [phone, setPhone] = useState('');
-  const [message, setMessage] = useState('');
 
-  const handlechange = (e) => {
-    e.preventDefault();
-    // Handle form submission logic here
-    console.log({
-      firstName,
-      lastName,
-      email,
-      phone,
-      message
-    });
-  };
+  const [dob, setDob] = useState('');
+  const [appointment, setAppointment] = useState('');
 
+  const departmentsArray = [
+    "Pediatrics",
+    "Orthopedics",
+    "Cardiology",
+    "Neurology",
+    "Oncology",
+    "Radiology",
+    "Physical Therapy",
+    "Dermatology",
+    "ENT",
+  ];
   return (
     <Container fluid>
-     <Topbar/>
-      <div className='message'>
-        <h2 className='text-center text-black fw-1' style={{ fontSize: "30px", fontWeight: "bold" }}>Send Us A Message</h2>
-        <Form onSubmit={handlechange}>
+      <div className='box-1'>
+        <Topbar />
+        <Row>
+          <Col xs={12} lg={4} md={6} className='animate__animated animate__fadeInLeft'>
+            <h1 style={{ fontFamily: "inherit", fontWeight: "700" }} className='mt-5 p-4'>Schedule Your Appointment | Zeecare Medical Institue</h1>
+            <p className='p-4'>Zeecare Medical Institute, founded in 1985, has been a cornerstone of medical excellence and compassionate care in our community for nearly four decades. Nestled in the heart of downtown, our state-of-the-art facility is renowned for its commitment to delivering top-tier healthcare services to patients from all walks of life.</p>
+          </Col>
 
-          <Row className="m-5">
-            <Col lg={6} md={4} sm={12} className='p-2'>
-              <Form.Group controlId="formfname">
-                <Form.Control
-                  type="text"
-                  value={firstName}
-                  onChange={(e) => setFirstName(e.target.value)}
-                  placeholder="First name"
-                />
-              </Form.Group>
-            </Col>
+          <Col xs={12} lg={8} md={6} className='d-flex justify-content-center align-items-center animate__animated animate__fadeInRight'>
+            <img src={image} width={550} height={450} />
+          </Col>
+        </Row>
 
-            <Col lg={6} md={4} sm={12} className='p-2'>
-              <Form.Group controlId="formlname">
-                <Form.Control
-                  type="text"
-                  value={lastName}
-                  onChange={(e) => setLastName(e.target.value)}
-                  placeholder="Last name"
-                />
-              </Form.Group>
-            </Col>
-          </Row>
+        <Row className='d-flex justify-content-center align-items-center'>
+          <h1 className='p-5' style={{ fontWeight: "bold" }}>Appointemnts</h1>
+          <Col xs={12} md={6} lg={5}>
+            <Form.Group className='mb-3 p-2' controlId='firstname'>
+              <Form.Control
+                required
+                type='text'
+                placeholder='First Name'
+                style={{ padding: "12px", maxWidth: "auto" }}
+              >
+              </Form.Control>
+            </Form.Group>
+          </Col>
 
-          <Row className="m-5">
-            <Col lg={6} md={4} sm={12} className='p-2'>
-              <Form.Group controlId="formemail">
-                <Form.Control
-                  type="text"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  placeholder="Email"
-                />
-              </Form.Group>
-            </Col>
+          <Col xs={12} md={6} lg={5}>
+            <Form.Group className='mb-3 p-2' controlId='lastname'>
+              <Form.Control
+                required
+                type='text'
+                placeholder='Last Name'
+                style={{ padding: "12px", maxWidth: "auto" }}
+              >
+              </Form.Control>
+            </Form.Group>
+          </Col>
 
-            <Col lg={6} md={4} sm={12} className='p-2'>
-              <Form.Group controlId="formnumber">
-                <Form.Control
-                  type="number"
-                  value={phone}
-                  onChange={(e) => setPhone(e.target.value)}
-                  placeholder="Phone Number"
-                />
-              </Form.Group>
-            </Col>
-          </Row>
+          <Col xs={12} md={6} lg={5}>
+            <Form.Group className='mb-3 p-2' controlId='email'>
+              <Form.Control
+                required
+                type='email'
+                placeholder='Email'
+                style={{ padding: "12px", maxWidth: "auto" }}
+              >
+              </Form.Control>
+            </Form.Group>
+          </Col>
 
-          <Row className='m-5'>
-            <Col lg={12} md={12} sm={12}>
-              <Form.Group controlId="exampleForm.ControlTextarea1">
-                <Form.Control
-                  as="textarea"
-                  rows={8}
-                  value={message}
-                  onChange={(e) => setMessage(e.target.value)}
-                  placeholder='Message'
-                />
-              </Form.Group>
-            </Col>
-          </Row>
+          <Col xs={12} md={6} lg={5}>
+            <Form.Group className='mb-3 p-2' controlId='mobile'>
+              <Form.Control
+                required
+                type='Number'
+                placeholder='Mobile Number'
+                style={{ padding: "12px", maxWidth: "auto" }}
+              >
+              </Form.Control>
+            </Form.Group>
+          </Col>
 
-          <Row className='d-flex justify-content-center p-2'>
-            <Col xs='auto'>
-              <Button variant='primary' type='submit' style={{ width: "150px" }}>
-                Send
-              </Button>
-            </Col>
-          </Row>
-        </Form>
+          <Col xs={12} md={6} lg={5}>
+            <Form.Group className='mb-3 p-2' controlId='pincode'>
+              <Form.Control
+                required
+                type='Number'
+                placeholder='Pin code'
+                style={{ padding: "12px", maxWidth: "auto" }}
+              >
+              </Form.Control>
+            </Form.Group>
+          </Col>
+
+          <Col xs={12} md={6} lg={5}>
+            <Form.Group className='mb-3 p-2' controlId='dob'>
+              <Form.Control
+                required
+                type='date - Date of Birth'
+                placeholder='Date of Birth'
+                style={{ padding: "12px", maxWidth: "auto" }}
+              >
+              </Form.Control>
+            </Form.Group>
+          </Col>
+
+          <Col xs={12} md={6} lg={5}>
+            <Form.Group className='mb-3 p-2' controlId='gender'>
+              <Form.Select
+                required
+                style={{ padding: "12px", maxWidth: "auto" }}
+              >
+                <option value="">Select Gender</option>
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+                <option value="Others">Others</option>
+              </Form.Select>
+            </Form.Group>
+          </Col>
+
+          <Col xs={12} md={6} lg={5}>
+            <Form.Group className='mb-3 p-2' controlId='date'>
+              <Form.Control
+                required
+                type='date - Appointment Date'
+                placeholder='Appointment Date'
+                style={{ padding: "12px", maxWidth: "auto" }}
+              >
+              </Form.Control>
+            </Form.Group>
+          </Col>
+
+          <Col xs={12} md={6} lg={5}>
+            <Form.Group className='mb-3 p-2' controlId='date'>
+              <Form.Select
+                required
+                style={{ padding: "12px", maxWidth: "auto" }}
+              >
+                <option value="">Select Department</option>
+                <option value="Pediatrics">Pediatrics</option>
+                <option value="Orthopedics">Orthopedics</option>
+                <option value="Cardiology">Cardiology</option>
+                <option value="Neurology">Neurology</option>
+                <option value="Oncology">Oncology</option>
+                <option value="ENT">ENT</option>
+              </Form.Select>
+            </Form.Group>
+          </Col>
+
+          <Col xs={12} md={6} lg={5}>
+            <Form.Group className='mb-3 p-2' controlId='date'>
+              <Form.Select
+                required
+                style={{ padding: "12px", maxWidth: "auto" }}
+              >
+                <option value="">Select Doctor</option>
+                <option value="Mahes">Dr Mahesh</option>
+                <option value="Rahman">Dr K.Rahman</option>
+              </Form.Select>
+            </Form.Group>
+          </Col>
+
+
+          <Col xs={12} md={6} lg={10}>
+            <Form.Group className='mb-3 p-2' controlId='address'>
+              <Form.Control
+                as="textarea"
+                rows={10}
+                placeholder='Address'
+              >
+              </Form.Control>
+            </Form.Group>
+          </Col>
+
+          <div className='d-flex justify-content-center align-items-center mb-3 p-2 w-100'>
+            <Button variant='primary'>
+              GET APPOINTMENT
+            </Button>
+          </div>
+        </Row>
+        <hr style={{ margin: 0, border: "1px solid black" }} />
       </div>
+      <Footer />
     </Container>
-  );
-};
+  )
+}
 
-export default Appointment;
+export default Appointment

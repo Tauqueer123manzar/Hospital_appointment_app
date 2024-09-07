@@ -7,7 +7,7 @@ const Biography = ({ imageurl }) => {
     <div className='biography' style={{maxWidth:"100%",maxHeight:"100%"}}>
       <Row>
         <Col lg={7} md={6} sm={12} className='animate__animated animate__fadeInLeft'>
-           <img className="biography_image" src={imageurl} alt="missing image" style={{maxWidth:"100%",height:"auto"}}/>
+           <img className="biography_image" src={imageurl} alt="missing image" style={{maxWidth:"100%",maxHeight:"100%"}}/>
         </Col>
         <Col lg={5} md={6} sm={12} className='animate__animated animate__fadeInRight'>
           <p className='mt-5 fs-3' style={{fontWeight:"700",fontFamily:"initial"}}>BIOGRPAHY</p>
