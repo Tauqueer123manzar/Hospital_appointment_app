@@ -14,7 +14,7 @@ const MessageForm = () => {
   };
 
   return (
-    <Container fluid style={{ backgroundColor: "#10E5D0", maxHeight: "100%", maxWidth: "100%" }} className='p-2'>
+    <Container fluid style={{ backgroundColor: "#10E5D0", maxHeight: "100%", maxWidth: "100%" }}>
       <div className='message animate__animated animate__fadeInRight'>
         <h2 className='text-center text-black fw-1' style={{ fontSize: "30px", fontWeight: "bold" }}>Send Us A Message</h2>
         <Form onSubmit={handlechange}>
