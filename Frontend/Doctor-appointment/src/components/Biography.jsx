@@ -4,7 +4,7 @@ import '../App.css'
 const Biography = ({ imageurl }) => {
   return (
    <Container fluid style={{backgroundColor:"#10E5D0"}}>
-    <div className='biography' style={{maxWidth:"auto",maxHeight:"auto"}}>
+    <div className='biography' style={{maxWidth:"100%",maxHeight:"100%"}}>
       <Row>
         <Col lg={7} md={6} sm={12} className='animate__animated animate__fadeInLeft'>
            <img className="biography_image" src={imageurl} alt="missing image" style={{maxWidth:"100%",height:"auto"}}/>
