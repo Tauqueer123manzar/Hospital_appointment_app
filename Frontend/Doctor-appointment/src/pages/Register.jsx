@@ -1,10 +1,20 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Container, Row, Col, Form, Button } from 'react-bootstrap';
 import '../App.css'
 import Topbar from '../components/Topbar';
 import signup from '../assets/healthbg.jpg'
 import Footer from '../components/Footer';
 const Register = () => {
+  const[formdata,setFormdata]=useState({});
+  const[error,setError]=useState(false);
+  
+  const handlechange=(e)=>{
+     
+  }
+  const handlesubmit=(e)=>{
+    e.preventDefault();
+    console.log(formdata);
+  }
   return (
     <Container fluid>
       <div className='box' style={{
@@ -25,6 +35,7 @@ const Register = () => {
                   required
                   type='text'
                   placeholder='Firstname'
+                  onClick={handlechange}
                   style={{ padding: "12px", maxWidth: "auto" }}
                 />
               </Form.Group>
@@ -121,7 +132,7 @@ const Register = () => {
         </Form>
       </div>
       <hr style={{border:"1px solid black"}}/>
-      <div style={{marginTop:"55px"}}>
+      <div>
       <Footer/>
       </div>
     </Container>

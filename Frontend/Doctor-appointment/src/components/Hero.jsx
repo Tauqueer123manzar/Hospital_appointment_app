@@ -7,7 +7,7 @@ import 'animate.css'
 const Hero = ({ title, imageurl }) => {
   return (
     <Container fluid>
-      <div className='hero_section' style={{ maxWidth: "auto", maxHeight: "auto" }}>
+      <div className='hero_section' style={{ maxWidth: "100%", maxHeight: "100%" }}>
         <Row
           style={{
             backgroundImage: `url(${background})`,

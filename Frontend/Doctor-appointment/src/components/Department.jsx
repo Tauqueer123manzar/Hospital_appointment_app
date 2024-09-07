@@ -49,7 +49,7 @@ const Department = () => {
   };
 
   return (
-    <div className="container departments" style={{backgroundColor:"#10E5D0",maxWidth:"100%"}}>
+    <div className="container departments" style={{backgroundColor:"#10E5D0",maxWidth:"100%",maxHeight:"100%"}}>
       <h2 style={{fontFamily:"initial",fontWeight:"700"}}>DEPARTMENTS</h2>
       <Carousel
         responsive={responsive}
