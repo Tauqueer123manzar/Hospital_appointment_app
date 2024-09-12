@@ -1,5 +1,3 @@
-const { Error } = require("mongoose");
-
 class Errorhandler extends Error {                //custom Error class.
     constructor(message, statuscode) {
         super(message);
@@ -38,4 +36,4 @@ const Errormiddleware = (err, req, res, next) => {
     });
 };
 
-module.exports = {Errorhandler,Errormiddleware}
+module.exports=Errormiddleware;

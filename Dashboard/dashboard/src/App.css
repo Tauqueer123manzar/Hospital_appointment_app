@@ -1,0 +1,46 @@
+.sidebar{
+    position: fixed;
+    width: 300px;
+    background-color: #1836dd;
+    display: flex;
+    flex-direction: column;
+    top: 0;
+    left: 0;
+    height: 100%;
+    align-items: center;
+    color: #18d7dd;
+    padding: 30px 0;
+}
+.sidebar .links{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    gap: 35px;
+    cursor: pointer;
+}
+.items {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px 0;
+    width: 300px;
+    transition: background-color 0.3s ease, transform 0.3s ease-in-out;
+}
+  
+.items:hover {
+    background-color: #fff;
+    transform: scale(1.05);
+}
+  
+.items svg {
+    font-size: 40px;
+    color: #18d7dd;
+    transition: color 0.3s ease;
+}
+  
+.items:hover svg {
+    color: #1836dd; /* Change icon color on hover */
+}
+
+
+
