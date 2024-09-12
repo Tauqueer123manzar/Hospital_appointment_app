@@ -126,7 +126,7 @@ const Appointment = () => {
             <Form.Group className='mb-3 p-2' controlId='date'>
               <Form.Control
                 required
-                type='date - Appointment Date'
+                type='Date'
                 placeholder='Appointment Date'
                 style={{ padding: "12px", maxWidth: "auto" }}
               >
