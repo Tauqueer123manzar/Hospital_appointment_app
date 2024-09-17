@@ -12,7 +12,7 @@ const Home = () => {
      <Topbar/>
       <Hero
         title={
-          "Welcome to Zeecare Medical Institute | Your Trusted Healthcare Provider"
+          "Welcome to EasyCare Clinic Your Trusted Healthcare Provider"
         }
         imageurl={heroimage}
       />
