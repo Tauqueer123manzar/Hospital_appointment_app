@@ -36,7 +36,7 @@ const Dashboard = () => {
        <div className='val-box'>
        <i style={{fontSize:"35px",fontWeight:"700",marginLeft:"20px"}}><FaUsers /></i>
         <div>
-          <span>Patient Details</span>
+          <span>Register Doctors</span>
           <h3>2000</h3>
         </div>
        </div>

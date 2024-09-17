@@ -2,7 +2,7 @@ import React from 'react'
 import { Container, Row, Col, Image } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { FaPhoneAlt } from "react-icons/fa";
-import logo from '../../src/assets/medical-logo (4).png'
+// import logo from '../../src/assets/medical-logo (4).png'
 import { CgMail } from "react-icons/cg";
 import { CiLocationArrow1 } from "react-icons/ci";
 import 'animate.css'
@@ -13,7 +13,8 @@ const Footer = () => {
                 <Row className='d-flex justify-content-center' style={{ maxWidth: "100%", maxHeight: "100%" }}>
 
                     <Col sm={12} lg={2} md={4}>
-                        <Image src={logo} style={{ maxWidth: "100%", maxHeight: "100%" }} className='fs-3' />
+                        {/* <Image src={logo} style={{ maxWidth: "100%", maxHeight: "100%" }} className='fs-3' /> */}
+                        <h1 style={{fontFamily:"initial",color:"blue",fontWeight:"bold"}}>EasyCare</h1>
                     </Col>
 
                     <Col sm={12} lg={3} md={4}>
@@ -48,6 +49,9 @@ const Footer = () => {
                             </span>
                         </p>
                     </Col>
+                    <div className='text-center m-4'>
+                    <span style={{color:"red",fontSize:"700"}}>Copyright © 2024, Easy Care.</span>
+                    </div>
                 </Row>
             </Container>
         </>
