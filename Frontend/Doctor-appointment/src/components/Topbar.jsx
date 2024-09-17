@@ -3,14 +3,15 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
-import logo from '../assets/medical-logo (4).png'
+import logo from '../assets/Easy care-1.jpg'
 import '../App.css'
 const Topbar = () => {
   return (
     <Navbar expand="lg" className="navbar">
     <Container fluid>
       <Navbar.Brand>
-        <img src={logo} alt='logo missing' style={{width:"200px",height:"65px"}}/>
+        {/* <img src={logo} alt='logo missing' style={{width:"185px",height:"45px"}}/> */}
+        <h2 style={{fontFamily:"initial",color:"blue",fontWeight:"bold"}}>EasyCare</h2>
       </Navbar.Brand>
       <Navbar.Toggle aria-controls="navbarScroll" />
       <Navbar.Collapse id="navbarScroll">

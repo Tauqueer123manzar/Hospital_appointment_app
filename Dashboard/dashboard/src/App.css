@@ -28,7 +28,7 @@
 }
 .items:hover {
     background-color: #fff;
-    transform: scale(1.05);
+    transform: scale(1.0);
 }
   
 .items svg {
