@@ -3,14 +3,12 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
-import logo from '../assets/Easy care-1.jpg'
 import '../App.css'
 const Topbar = () => {
   return (
     <Navbar expand="lg" className="navbar shadow">
     <Container fluid>
       <Navbar.Brand>
-        {/* <img src={logo} alt='logo missing' style={{width:"185px",height:"45px"}}/> */}
         <h2 style={{fontFamily:"initial",color:"blue",fontWeight:"bold",marginLeft:"10px"}}>EasyCare</h2>
       </Navbar.Brand>
       <Navbar.Toggle aria-controls="navbarScroll" />
@@ -24,6 +22,7 @@ const Topbar = () => {
           <Nav.Link className='text-secondary' style={{fontWeight:"bold"}} href="/appointment">APPOINTMENT</Nav.Link>
           <Nav.Link className='text-secondary' style={{fontWeight:"bold"}} href="/about">ABOUT US</Nav.Link>
           <Nav.Link className='text-secondary' style={{fontWeight:"bold"}} href='/service'>SERVICE</Nav.Link>
+          <Nav.Link className='text-secondary' style={{fontWeight:"bold"}} href='/contact'>CONTACT</Nav.Link>
           </Nav>
           <div className='button'>
           <Button variant="outline-success" style={{borderRadius:"10px",width:"100px",backgroundColor:"black",color:"white"}} href='/login'>Login</Button>
