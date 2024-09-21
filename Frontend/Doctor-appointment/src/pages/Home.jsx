@@ -19,7 +19,6 @@ const Home = () => {
       />
       <Biography imageurl={whoweare}/>
       <Department/>
-      {/* <MessageForm/> */}
       <hr style={{ border: "1px solid black" }} />
       <Footer/>
     </div>
