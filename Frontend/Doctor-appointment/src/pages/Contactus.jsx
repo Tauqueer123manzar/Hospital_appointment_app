@@ -1,5 +1,5 @@
 import React from 'react'
-import { Container, Row, Col } from 'react-bootstrap'
+import { Container, Row} from 'react-bootstrap'
 import Topbar from '../components/Topbar';
 import hospital from '../assets/Rectangle 1548.jpg';
 import MessageForm from '../components/MessageForm';

@@ -16,19 +16,21 @@ const Register = () => {
     console.log(formdata);
   }
   return (
-    <Container fluid>
-      <div className='box' style={{
+    <>
+    <Topbar />
+    <Container fluid className='d-flex flex-column' style={{maxHeight:"100vh",padding:0}}>
+      <div className='' style={{
         backgroundImage: `url(${signup})`,
         backgroundSize: "cover",
         backgroundPosition: "center",
         backgroundRepeat: "no-repeat",
+        width:"100%",
       }}>
-        <Topbar />
         <h2 className='text-center mt-4' sm={12} md={6} lg={4} style={{ fontFamily: "initial", fontWeight: "bold" }}>SignUp</h2>
         <p  className='text-center mt-2 text-secondary' style={{ fontSize: "20px", fontFamily: "initial" }}>Please Sign Up To Continue</p>
         <p  className='text-center text-secondary' style={{ fontFamily: "initial" }}>If you are not registered ,then please registered after register you can Signin</p>
-        <Form>
-          <Row className='display-flex justify-content-center'>
+        <Form style={{ maxWidth: '98%'}}>
+          <Row className='d-flex justify-content-center'>
             <Col xs={12} md={6} lg={5}>
               <Form.Group className="mb-3 p-2" controlId='firstname'>
                 <Form.Control
@@ -131,11 +133,9 @@ const Register = () => {
           </Row>
         </Form>
       </div>
-      <hr style={{border:"1px solid black"}}/>
-      <div>
       <Footer/>
-      </div>
     </Container>
+    </>
   )
 }
 

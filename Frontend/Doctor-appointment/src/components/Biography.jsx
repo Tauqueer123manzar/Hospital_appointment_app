@@ -6,10 +6,10 @@ const Biography = ({ imageurl }) => {
    <Container fluid style={{backgroundColor:"#10E5D0"}}>
     <div className='biography' style={{maxWidth:"100%",maxHeight:"100%"}}>
       <Row>
-        <Col lg={7} md={6} sm={12} className='animate__animated animate__fadeInLeft'>
+        <Col lg={7} md={6} sm={12}>
            <img className="biography_image" src={imageurl} alt="missing image" style={{maxWidth:"100%",maxHeight:"100%"}}/>
         </Col>
-        <Col lg={5} md={6} sm={12} className='animate__animated animate__fadeInRight'>
+        <Col lg={5} md={6} sm={12}>
           <p className='mt-5 fs-3' style={{fontWeight:"700",fontFamily:"initial"}}>BIOGRPAHY</p>
           <h3>Who we are</h3>
           <p>EasyCare clinic, founded in 1985, has been a cornerstone of medical excellence and compassionate care in our community for nearly four decades. Nestled in the heart of downtown, our state-of-the-art facility is renowned for its commitment to delivering top-tier healthcare services to patients from all walks of life.</p>

@@ -16,7 +16,6 @@ const AboutUs = () => {
         imageurl={about}
       />
       <Biography  imageurl={whoweare}/>
-      <hr style={{border:"1px solid black"}}/>
       <Footer/>
     </>
   )

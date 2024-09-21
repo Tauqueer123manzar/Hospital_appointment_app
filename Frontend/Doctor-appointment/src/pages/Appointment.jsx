@@ -3,6 +3,7 @@ import { Container, Row, Col, Form, Button } from 'react-bootstrap';
 import Topbar from '../components/Topbar';
 import image from '../assets/signupheader (1).png';
 import Footer from '../components/Footer';
+import '../App.css'
 const Appointment = () => {
 
   const [dob, setDob] = useState('');
@@ -20,16 +21,17 @@ const Appointment = () => {
     "ENT",
   ];
   return (
-    <Container fluid>
-      <div className='box-1'>
-        <Topbar className="bg-dark"/>
-        <Row>
-          <Col xs={12} lg={4} md={6} className='animate__animated animate__fadeInLeft'>
+    <>
+    <Topbar/>
+    <Container fluid style={{maxWidth:"100%",maxHeight:"100vh",padding:0,margin:0}}>
+      <div className='box-1' style={{width:"100%"}}>
+        <Row >
+          <Col xs={12} lg={4} md={6} className=''>
             <h1 style={{ fontFamily: "inherit", fontWeight: "700" }} className='mt-5 p-4'>Schedule Your Appointment | EasyCare clinic consult</h1>
             <p className='p-4'>EasyCare clinic, founded in 1985, has been a cornerstone of medical excellence and compassionate care in our community for nearly four decades. Nestled in the heart of downtown, our state-of-the-art facility is renowned for its commitment to delivering top-tier healthcare services to patients from all walks of life.</p>
           </Col>
 
-          <Col xs={12} lg={8} md={6} className='d-flex justify-content-center align-items-center animate__animated animate__fadeInRight'>
+          <Col xs={12} lg={8} md={6} className='d-flex justify-content-center align-items-center '>
             <img src={image} width={550} height={450} />
           </Col>
         </Row>
@@ -186,6 +188,7 @@ const Appointment = () => {
       </div>
       <Footer />
     </Container>
+    </>
   )
 }
 
