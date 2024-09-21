@@ -22,7 +22,7 @@ const Appointment = () => {
   return (
     <Container fluid>
       <div className='box-1'>
-        <Topbar />
+        <Topbar className="bg-dark"/>
         <Row>
           <Col xs={12} lg={4} md={6} className='animate__animated animate__fadeInLeft'>
             <h1 style={{ fontFamily: "inherit", fontWeight: "700" }} className='mt-5 p-4'>Schedule Your Appointment | EasyCare clinic consult</h1>

@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
-import { Container, Row, Col, Form, Button,Image} from 'react-bootstrap';
+import { Container, Row, Col, Form, Button} from 'react-bootstrap';
 import '../App.css'
-import Footer from './Footer';
 const MessageForm = () => {
   //usestate function
   const [firstName, setFirstName] = useState("");
@@ -14,8 +13,8 @@ const MessageForm = () => {
   };
 
   return (
-    <Container fluid style={{maxHeight: "100%", maxWidth: "100%",backgroundColor:"lightgray"}}>
-      <div className='message animate__animated animate__fadeInRight'>
+    <Container fluid style={{maxHeight: "100%", maxWidth: "100%"}}>
+      <div>
         <h2 className='text-center text-black fw-1' style={{ fontSize: "30px", fontWeight: "bold" }}>Send Us A Message</h2>
         <Form onSubmit={handlechange}>
 
@@ -80,8 +79,6 @@ const MessageForm = () => {
           </Row>
         </Form>
       </div>
-      <hr style={{ border: "1px solid black" }} />
-      <Footer/>
     </Container>
 
   )
