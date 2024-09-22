@@ -27,11 +27,11 @@ const Appointment = () => {
       <div className='box-1' style={{width:"100%"}}>
         <Row >
           <Col xs={12} lg={4} md={6} className=''>
-            <h1 style={{ fontFamily: "inherit", fontWeight: "700" }} className='mt-5 p-4'>Schedule Your Appointment | EasyCare clinic consult</h1>
+            <h1 style={{ fontFamily: "inherit", fontWeight: "700" }} className='mt-5 p-4 animate__animated animate__fadeInLeft'>Schedule Your Appointment | EasyCare clinic consult</h1>
             <p className='p-4'>EasyCare clinic, founded in 1985, has been a cornerstone of medical excellence and compassionate care in our community for nearly four decades. Nestled in the heart of downtown, our state-of-the-art facility is renowned for its commitment to delivering top-tier healthcare services to patients from all walks of life.</p>
           </Col>
 
-          <Col xs={12} lg={8} md={6} className='d-flex justify-content-center align-items-center '>
+          <Col xs={12} lg={8} md={6} className='d-flex justify-content-center align-items-center animate__animated animate__fadeInRight'>
             <img src={image} width={550} height={450} />
           </Col>
         </Row>

@@ -13,18 +13,18 @@ const MessageForm = () => {
   };
 
   return (
-    <Container fluid style={{maxHeight: "100%", maxWidth: "100%"}}>
-      <div>
-        <h2 className='text-center text-black fw-1' style={{ fontSize: "30px", fontWeight: "bold" }}>Send Us A Message</h2>
+    <Container fluid className='d-flex justify-content-center align-items-center' style={{height:'100vh'}}>
+      <div className="shadow-lg p-5 bg-white rounded mt-5 message-form" style={{ maxWidth: '800px', width: '100%',height:"90%",marginBottom:"45px"}}>
+        <h2 className='text-center fw-1' style={{ fontSize: "30px", fontWeight: "bold",color:"rgba(0, 126, 133, 1)"}}>Send Us A Message</h2>
         <Form onSubmit={handlechange}>
-
           <Row className="m-5">
             <Col lg={6} md={4} sm={12} className='p-2'>
               <Form.Group as={Col} controlId="formfname">
                 <Form.Control type="text"
                   value={firstName}
                   onChange={(e) => setFirstName(e.target.value)}
-                  placeholder="First name" />
+                  placeholder="First name"
+                  style={{padding:'10px'}} />
               </Form.Group>
             </Col>
 
@@ -33,7 +33,8 @@ const MessageForm = () => {
                 <Form.Control type="text"
                   value={lastName}
                   onChange={(e) => setLastName(e.target.value)}
-                  placeholder="Last name" />
+                  placeholder="Last name"
+                  style={{padding:'10px'}} />
               </Form.Group>
             </Col>
           </Row>
@@ -44,7 +45,8 @@ const MessageForm = () => {
                 <Form.Control type='text'
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  placeholder="Email" />
+                  placeholder="Email"
+                  style={{padding:'10px'}} />
               </Form.Group>
             </Col>
 
@@ -53,7 +55,8 @@ const MessageForm = () => {
                 <Form.Control type='number'
                   value={phone}
                   onChange={(e) => setPhone(e.target.value)}
-                  placeholder="Phone Number" />
+                  placeholder="Phone Number"
+                  style={{padding:'10px'}} />
               </Form.Group>
             </Col>
           </Row>
@@ -65,7 +68,8 @@ const MessageForm = () => {
                   type='text'
                   value={message}
                   onChange={(e) => setMessage(e.target.value)}
-                  placeholder='Message' />
+                  placeholder='Message'
+                  style={{padding:'10px'}} />
               </Form.Group>
             </Col>
           </Row>
@@ -85,3 +89,4 @@ const MessageForm = () => {
 }
 
 export default MessageForm
+

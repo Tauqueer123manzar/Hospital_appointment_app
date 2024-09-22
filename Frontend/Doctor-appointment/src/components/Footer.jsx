@@ -10,11 +10,11 @@ const Footer = () => {
     return (
         <>
             <Container fluid style={{ maxWidth: "100%", maxHeight: "100%",backgroundColor:"#00008B"}}>
-                <Row className='d-flex justify-content-center' style={{ maxWidth: "100%", maxHeight: "100%" }}>
+                <Row className='d-flex justify-content-center p-4' style={{ maxWidth: "100%", maxHeight: "100%" }}>
 
                     <Col sm={12} lg={2} md={4}>
                         {/* <Image src={logo} style={{ maxWidth: "100%", maxHeight: "100%" }} className='fs-3' /> */}
-                        <h1 style={{fontFamily:"initial",color:"white",fontWeight:"bold"}}>EasyCare</h1>
+                        <h1 style={{fontFamily:"initial",color:"white",fontWeight:"bold"}}><a href='/'/>EasyCare</h1>
                     </Col>
 
                     <Col sm={12} lg={3} md={4}>

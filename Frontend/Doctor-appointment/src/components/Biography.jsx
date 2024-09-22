@@ -3,7 +3,7 @@ import { Row,Col,Container } from 'react-bootstrap';
 import '../App.css'
 const Biography = ({ imageurl }) => {
   return (
-   <Container fluid style={{backgroundColor:"#10E5D0"}}>
+   <Container fluid style={{backgroundColor:""}}>
     <div className='biography' style={{maxWidth:"100%",maxHeight:"100%"}}>
       <Row>
         <Col lg={7} md={6} sm={12}>

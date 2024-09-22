@@ -70,7 +70,7 @@ const Services = () => {
         </Row>
         <Row>
           <h1 className='mt-5 text-center' style={{ color: "rgba(0, 126, 133, 1)", fontWeight: "bold", fontFamily: "initial" }}>what our customer say</h1>
-          <p className='text-center mt-2'>Problems trying to resolve the conflict between the two major realms of Classical physics: Newtonian mechanics </p>
+          <p className='text-center mt-2'>This is feedback of our customer side</p>
           <Col sm={12} md={6} lg={4} className='p-3'>
             <Card style={{ width: '25rem', marginLeft: "45px", height: "250px" }}>
               <Card.Body>
