@@ -28,7 +28,9 @@ const Login = () => {
           </p>
 
           <Form style={{ width: '100%', maxWidth: '600px' }}>
-            <Row className='d-flex justify-content-center'>
+          <div className='shadow-lg p-5 bg-white rounded mt-3' style={{maxWidth:"800px",height:"100%"}}>
+            <Row className='d-flex justify-content-center align-items-center'>
+            <h2 className='text-center'>Login</h2>
               <Col xs={12}>
                 <Form.Group className='mb-3 p-2' controlId='email'>
                   <Form.Control
@@ -81,6 +83,7 @@ const Login = () => {
                 </Button>
               </Col>
             </Row>
+            </div>
           </Form>
         </div>
         <Footer />

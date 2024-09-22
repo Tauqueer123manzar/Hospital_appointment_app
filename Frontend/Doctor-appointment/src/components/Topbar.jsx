@@ -1,8 +1,10 @@
 import React from 'react'
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
-import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
+import Dropdown from 'react-bootstrap/Dropdown';
+import Image from 'react-bootstrap/Image';
+import Tauqueer from '../assets/Tauqueer Image.jpg'
 import '../App.css'
 const Topbar = () => {
   return (
@@ -23,9 +25,22 @@ const Topbar = () => {
           <Nav.Link className='text-secondary about' style={{fontWeight:"bold"}} href="/about">ABOUT US</Nav.Link>
           <Nav.Link className='text-secondary service' style={{fontWeight:"bold"}} href='/service'>SERVICE</Nav.Link>
           <Nav.Link className='text-secondary contact' style={{fontWeight:"bold"}} href='/contact'>CONTACT</Nav.Link>
+          <Nav.Link className='text-secondary myprofile' style={{fontWeight:"bold"}} href='/myprofile'></Nav.Link>
+          <Nav.Link className='text-secondary myappointment' style={{fontWeight:"bold"}} href='/myappointment'></Nav.Link>
           </Nav>
           <div className='button'>
-          <Button variant="outline-success" style={{borderRadius:"10px",width:"100px",backgroundColor:"black",color:"white"}} href='/login'>Login</Button>
+          <Dropdown>
+              <Dropdown.Toggle id="dropdown-basic" style={{backgroundColor:"white",borderRadius:"50%",width:"75px",height:"60px",padding:0,display:"flex",justifyContent:"center",alignItems:"center",border:"none"}}>
+                <Image src={Tauqueer} roundedCircle style={{ width: '100%', height: '100%', objectFit:"cover"}} />
+              </Dropdown.Toggle>
+
+              <Dropdown.Menu align="end" className='bg-gray'>
+                <Dropdown.Item href="/login">Login</Dropdown.Item>
+                <Dropdown.Item href="/myappointment">My Appointments</Dropdown.Item>
+                <Dropdown.Item href="/myprofile">My Profile</Dropdown.Item>
+                <Dropdown.Item href="/logout">Logout</Dropdown.Item>
+              </Dropdown.Menu>
+            </Dropdown>
           </div>
       </Navbar.Collapse>
     </Container>

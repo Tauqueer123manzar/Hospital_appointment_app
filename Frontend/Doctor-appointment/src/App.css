@@ -65,19 +65,19 @@
   background-color: rgb(205, 205, 205);
 }
 .home:hover{
-  border-bottom: 1px solid red;
+  border-bottom: 4px solid red;
 }
 .about:hover{
-  border-bottom: 1px solid red;
+  border-bottom: 4px solid red;
 }
 .appointment:hover{
-  border-bottom: 1px solid red;
+  border-bottom: 4px solid red;
 }
 .service:hover{
-  border-bottom: 1px solid red;
+  border-bottom: 4px solid red;
 }
 .contact:hover{
-  border-bottom: 1px solid red;
+  border-bottom: 4px solid red;
 }
 .servicecard{
   display: flex;
@@ -86,8 +86,18 @@
   height: 100%;
   width: 375px;
 }
+.servicecard:hover{
+  
+}
 .service-image{
   object-fit: cover;
   width: 100%;
   height: 300px;
+}
+
+/* responsive design */
+@media (max-width: 450px) and (min-width: 200px) {
+  .message-form {
+    height: fit-content;
+  }
 }
