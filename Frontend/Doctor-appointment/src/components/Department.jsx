@@ -11,6 +11,9 @@ import Oncology from '../assets/onco.jpg';
 import Therapy from '../assets/therapy.jpg';
 import Dermatology from '../assets/derma.jpg';
 import '../App.css';
+import doctor from '../assets/appointment-doc-img.png';
+import Register from '../pages/Register';
+import { Container, Row, Col ,Button} from 'react-bootstrap';
 
 const Department = () => {
   const departmentData = [
@@ -42,15 +45,15 @@ const Department = () => {
       slidesToSlide: 1,
     },
     small: {
-      breakpoint: { max: 700, min: 0},
+      breakpoint: { max: 700, min: 0 },
       items: 1,
       slidesToSlide: 1,
     },
   };
 
   return (
-    <div className="container departments" style={{backgroundColor:"",maxWidth:"100%",maxHeight:"100%"}}>
-      <h2 style={{fontFamily:"initial",fontWeight:"700"}}>DEPARTMENTS</h2>
+    <div className="container departments" style={{ backgroundColor: "", maxWidth: "90%", maxHeight: "100%" }}>
+      <h2 style={{ fontFamily: "initial", fontWeight: "700" }}>DEPARTMENTS</h2>
       <Carousel
         responsive={responsive}
       >
@@ -61,6 +64,20 @@ const Department = () => {
           </div>
         ))}
       </Carousel>
+      <Container fluid style={{ width: "100%", height: "70%" }} className='d-flex justify-content-center align-items-center'>
+        <div className='box mt-5' style={{ height: "400px", width: "90%", borderRadius: "10px", backgroundColor: "rgba(95, 111, 255, 1)" }}>
+          <Row>
+           <Col sm={12} lg={6} md={6}>
+             <h1 className='text-center mt-5' style={{fontFamily:"initial"}}>Book Appointment 
+             With 100+ Trusted Doctors</h1>
+             <button className='bg-white d-flex justify-content-center align-items-center' style={{width:"230px",height:"65px",borderRadius:"50px",marginLeft:"120px",marginTop:"40px"}}><a href='/register' className='text-decoration-none text-dark'>Create account</a></button>
+           </Col>
+           <Col sm={12} lg={5} md={6} className='position-relative d-flex justify-content-center align-items-center'>
+            <img src={doctor} width={400} height={400} className='position-absolute' style={{marginTop:"130px"}}/>
+           </Col>
+          </Row>
+        </div>
+      </Container>
     </div>
   );
 };

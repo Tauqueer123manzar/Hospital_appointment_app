@@ -42,7 +42,7 @@ const Services = () => {
             </Button>
           </Col>
           <Col sm={12} lg={7} md={6} className='d-flex justify-content-center align-items-center position-relative'>
-            <img src={doctor} width={500} height={490} className='m-3' />
+            <img src={doctor} width={550} height={490} className='m-3' />
             <img src={image1} width={200} height={60} className='image position-absolute' style={{ top: "400px", right: "500px", zIndex: 1 }} />
           </Col>
         </Row>
@@ -52,7 +52,7 @@ const Services = () => {
           <p className='mt-3 text-center' >At Easycare Hospital, we believe in providing specialized, quality healthcare to ensure the well-being of our patients.</p>
           {
             servicedata.map(service => (
-              <Col key={service.id} sm={12} md={6} lg={4} className='p-2'>
+              <Col key={service.id} sm={12} md={6} lg={4} className='p-3'>
                 <Card className='servicecard'>
                   <Card.Img variant='top' src={service.image} className="service-image" />
                   <Card.Body>

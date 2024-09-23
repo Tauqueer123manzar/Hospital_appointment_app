@@ -85,16 +85,17 @@
   margin-left: 50px;
   height: 100%;
   width: 375px;
+  transition: transform 0.3s ease-in-out;
 }
 .servicecard:hover{
-  
+  transform: scale(1.05);
+  cursor: pointer;
 }
 .service-image{
   object-fit: cover;
   width: 100%;
   height: 300px;
 }
-
 /* responsive design */
 @media (max-width: 450px) and (min-width: 200px) {
   .message-form {
