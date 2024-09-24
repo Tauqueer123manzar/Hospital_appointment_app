@@ -96,6 +96,30 @@
   width: 100%;
   height: 300px;
 }
+.doctorcard{
+  display: flex;
+  flex-direction: column;
+  height: 385px;
+  width: 100%;
+  transition: transform 0.3s ease-in-out;
+}
+.image-wrapper {
+  height: 385px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.doctorimage {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}
+
+.doctorcard:hover {
+  transform: scale(1.05);
+  cursor: pointer;
+}
 /* responsive design */
 @media (max-width: 450px) and (min-width: 200px) {
   .message-form {

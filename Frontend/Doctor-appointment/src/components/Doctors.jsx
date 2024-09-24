@@ -1,11 +1,275 @@
-import React from 'react'
+// import React from 'react';
+// import { Container, Row, Col, Card } from 'react-bootstrap';
+// import doctor1 from '../assets/file (2) 1.jpg';
+// import doctor2 from '../assets/file (2) 2.jpg';
+// import doctor3 from '../assets/file (2) 3.png';
+// import doctor4 from '../assets/file (3) 1.jpg';
+// import doctor5 from '../assets/file (3) 3.png';
+// import doctor6 from '../assets/file (4) 1.jpg';
+// import doctor7 from '../assets/file (4) 2.jpg';
+// import doctor8 from '../assets/file (4) 4.png';
+// import doctor9 from '../assets/file (5) 1.jpg';
+// import doctor10 from '../assets/file (5) 2.png';
+// import doctor11 from '../assets/file (5) 3.png';
+// import doctor12 from '../assets/file (5) 4.png';
+// import { FaCircle } from "react-icons/fa6";
+// import '../App.css'
+// const Doctors = () => {
+//   const Doctorsdata = [
+//     {
+//       id: 1,
+//       image: doctor1,
+//       title: "Available",
+//       name: "Dr. Richard James",
+//       description: "General physician",
+//     },
+//     {
+//       id: 2,
+//       image: doctor2,
+//       title: "Available",
+//       name: "Dr. Richard James",
+//       description: "General physician",
+//     },
+//     {
+//       id: 3,
+//       image: doctor3,
+//       title: "Available",
+//       name: "Dr. Richard James",
+//       description: "General physician",
+//     },
+//     {
+//       id: 4,
+//       image: doctor4,
+//       title: "Available",
+//       name: "Dr. Richard James",
+//       description: "General physician",
+//     },
+//     {
+//       id: 5,
+//       image: doctor5,
+//       title: "Available",
+//       name: "Dr. Richard James",
+//       description: "General physician",
+//     },
+//     {
+//       id: 6,
+//       image: doctor6,
+//       title: "Available",
+//       name: "Dr. Richard James",
+//       description: "General physician",
+//     },
+//     {
+//       id: 7,
+//       image: doctor7,
+//       title: "Available",
+//       name: "Dr. Richard James",
+//       description: "General physician",
+//     },
+//     {
+//       id: 8,
+//       image: doctor8,
+//       title: "Available",
+//       name: "Dr. Richard James",
+//       description: "General physician",
+//     },
+//     {
+//       id: 9,
+//       image: doctor9,
+//       title: "Available",
+//       name: "Dr. Richard James",
+//       description: "General physician",
+//     },
+//     {
+//       id: 10,
+//       image: doctor10,
+//       title: "Available",
+//       name: "Dr. Richard James",
+//       description: "General physician",
+//     },
+//     {
+//       id: 11,
+//       image: doctor11,
+//       title: "Available",
+//       name: "Dr. Richard James",
+//       description: "General physician",
+//     },
+//     {
+//       id: 12,
+//       image: doctor12,
+//       title: "Available",
+//       name: "Dr. Richard James",
+//       description: "General physician",
+//     },
+//   ];
+
+//   return (
+//     <>
+//     <Container fluid>
+//       <h1 className="text-center mt-4" style={{ fontFamily: "initial", fontWeight: "bold" }}>
+//         All Doctors
+//       </h1>
+//       <Row>
+//         <p className="text-center" style={{ fontFamily: "initial" }}>
+//           Simply browse through our extensive list of trusted doctors.
+//         </p>
+//         {
+//           Doctorsdata.map((doctor) => (
+//             <Col sm={12} md={4} lg={3} className="p-3" key={doctor.id}>
+//               <Card className="doctorcard">
+//               <div className="image-wrapper">
+//                   <Card.Img variant="top" src={doctor.image} className="doctorimage" />
+//               </div>
+//                 <Card.Body>
+//                   <Card.Title style={{color:'lightgreen',padding:"5px"}}><FaCircle style={{fontSize:"10px"}}/>{doctor.title}</Card.Title>
+//                   <Card.Title>{doctor.description}</Card.Title>
+//                 </Card.Body>
+//               </Card>
+//             </Col>
+//           ))
+//         }
+//       </Row>
+//     </Container>
+//     </>
+//   );
+// };
+
+// export default Doctors;
+
+import React from 'react';
+import { Container, Row, Col, Card } from 'react-bootstrap';
+import doctor1 from '../assets/file (2) 1.jpg';
+import doctor2 from '../assets/file (2) 2.jpg';
+import doctor3 from '../assets/file (2) 3.png';
+import doctor4 from '../assets/file (3) 1.jpg';
+import doctor5 from '../assets/file (3) 3.png';
+import doctor6 from '../assets/file (4) 1.jpg';
+import doctor7 from '../assets/file (4) 2.jpg';
+import doctor8 from '../assets/file (4) 4.png';
+import doctor9 from '../assets/file (5) 1.jpg';
+import doctor10 from '../assets/file (5) 2.png';
+import doctor11 from '../assets/file (5) 3.png';
+import doctor12 from '../assets/file (5) 4.png';
+import { FaCircle } from "react-icons/fa6";
+import '../App.css';
 
 const Doctors = () => {
-  return (
-    <div>
-      <h1>Doctors</h1>
-    </div>
-  )
-}
+  const Doctorsdata = [
+    {
+      id: 1,
+      image: doctor1,
+      title: "Available",
+      name: "Dr. Richard James",
+      description: "Cardiology",
+    },
+    {
+      id: 2,
+      image: doctor2,
+      title: "Available",
+      name: "Dr. Richard James",
+      description: "ENT",
+    },
+    {
+      id: 3,
+      image: doctor3,
+      title: "Available",
+      name: "Dr. Richard James",
+      description: "Neurology",
+    },
+    {
+      id: 4,
+      image: doctor4,
+      title: "Available",
+      name: "Dr. Richard James",
+      description: "Orthopedics",
+    },
+    {
+      id: 5,
+      image: doctor5,
+      title: "Available",
+      name: "Dr. Richard James",
+      description: "Therapy",
+    },
+    {
+      id: 6,
+      image: doctor6,
+      title: "Available",
+      name: "Dr. Richard James",
+      description: "Dermatology",
+    },
+    {
+      id: 7,
+      image: doctor7,
+      title: "Available",
+      name: "Dr. Richard James",
+      description: "Pediatrics",
+    },
+    {
+      id: 8,
+      image: doctor8,
+      title: "Available",
+      name: "Dr. Richard James",
+      description: "General physician",
+    },
+    {
+      id: 9,
+      image: doctor9,
+      title: "Available",
+      name: "Dr. Richard James",
+      description: "Oncology",
+    },
+    {
+      id: 10,
+      image: doctor10,
+      title: "Available",
+      name: "Dr. Richard James",
+      description: "ENT",
+    },
+    {
+      id: 11,
+      image: doctor11,
+      title: "Available",
+      name: "Dr. Richard James",
+      description: "Neurology",
+    },
+    {
+      id: 12,
+      image: doctor12,
+      title: "Available",
+      name: "Dr. Richard James",
+      description: "Therapy",
+    },
+  ];
 
-export default Doctors
+  return (
+    <Container fluid>
+      <h1 className="text-center mt-4" style={{ fontFamily: "initial", fontWeight: "bold",color:"darkcyan"}}>
+        All Doctors
+      </h1>
+      <Row>
+        <p className="text-center" style={{ fontFamily: "initial" }}>
+          Simply browse through our extensive list of trusted doctors.
+        </p>
+        {
+          Doctorsdata.map((doctor) => (
+            <Col sm={12} md={4} lg={3} className="p-3" key={doctor.id}>
+              <Card className="doctorcard">
+                <div className="image-wrapper">
+                  <Card.Img variant="top" src={doctor.image} className="doctorimage" />
+                </div>
+                <Card.Body>
+                  <Card.Title style={{color:'lightgreen',padding:"5px"}}>
+                    <FaCircle style={{fontSize:"10px"}} /> {doctor.title}
+                  </Card.Title>
+                  <Card.Title>{doctor.description}</Card.Title>
+                </Card.Body>
+              </Card>
+            </Col>
+          ))
+        }
+      </Row>
+    </Container>
+  );
+};
+
+export default Doctors;
+
