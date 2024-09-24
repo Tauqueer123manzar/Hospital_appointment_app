@@ -96,30 +96,61 @@
   width: 100%;
   height: 300px;
 }
-.doctorcard{
+.doctorcard {
   display: flex;
   flex-direction: column;
-  height: 385px;
+  height: 400px;
   width: 100%;
   transition: transform 0.3s ease-in-out;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
+
 .image-wrapper {
-  height: 385px;
+  height: 250px;
+  background-color: rgba(0, 179, 255, 0.2);
   display: flex;
   justify-content: center;
   align-items: center;
+  border-bottom: 2px solid lightgray;
 }
 
 .doctorimage {
   height: 100%;
   width: 100%;
   object-fit: cover;
+  transition: transform 0.3s ease-in-out;
+  background-color: rgba(0, 179, 255, 0.1);
 }
 
 .doctorcard:hover {
-  transform: scale(1.05);
+  transform: scale(1.08);
   cursor: pointer;
 }
+
+.doctorcard:hover .doctorimage {
+  transform: scale(1.05); 
+}
+
+@media (max-width: 1200px) {
+  .doctorcard {
+    height: 380px;
+  }
+}
+
+@media (max-width: 992px) {
+  .doctorcard {
+    height: 360px;
+  }
+}
+
+@media (max-width: 768px) {
+  .doctorcard {
+    height: 400px;
+  }
+}
+
 /* responsive design */
 @media (max-width: 450px) and (min-width: 200px) {
   .message-form {
