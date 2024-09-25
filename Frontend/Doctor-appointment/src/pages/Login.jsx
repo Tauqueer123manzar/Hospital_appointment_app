@@ -17,17 +17,7 @@ const Login = () => {
             padding: '20px',
           }}
         >
-          <h2 className='text-center p-3' style={{ fontFamily: 'initial', fontWeight: 'bold' }}>
-            Sign In
-          </h2>
-          <p className='text-center p-3 text-dark' style={{ fontSize: '20px', fontFamily: 'initial' }}>
-            Please Sign In To Continue
-          </p>
-          <p className='text-center text-dark' style={{ fontFamily: 'initial' }}>
-            If you are registered, then please login.
-          </p>
-
-          <Form style={{ width: '100%', maxWidth: '600px' }}>
+          <Form style={{ width: '100%', maxWidth: '600px' }} className='mt-5'>
           <div className='shadow-lg p-5 bg-white rounded mt-3' style={{maxWidth:"800px",height:"100%"}}>
             <Row className='d-flex justify-content-center align-items-center'>
             <h2 className='text-center'>Login</h2>

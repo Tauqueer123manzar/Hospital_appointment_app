@@ -26,10 +26,7 @@ const Register = () => {
         backgroundRepeat: "no-repeat",
         width:"100%",
       }}>
-        <h2 className='text-center mt-4' sm={12} md={6} lg={4} style={{ fontFamily: "initial", fontWeight: "bold" }}>SignUp</h2>
-        <p  className='text-center mt-2 text-secondary' style={{ fontSize: "20px", fontFamily: "initial" }}>Please Sign Up To Continue</p>
-        <p  className='text-center text-secondary' style={{ fontFamily: "initial" }}>If you are not registered ,then please registered after register you can Signin</p>
-        <Form style={{ maxWidth: '99%'}} className='d-flex justify-content-center align-items-center p-4'>
+        <Form style={{ maxWidth: '99%'}} className='d-flex justify-content-center align-items-center p-4 mt-5'>
         <div className='shadow-lg p-5 bg-white rounded mt-3' style={{maxWidth:"800px",height:"100%"}}>
           <Row className='d-flex justify-content-center align-items-center'>
           <h2 className='text-center mt-4' sm={12} md={6} lg={4} style={{ fontFamily: "initial", fontWeight: "bold" }}>SignUp</h2>
