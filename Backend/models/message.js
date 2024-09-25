@@ -2,28 +2,28 @@ const mongoose = require('mongoose');
 const validator = require('validator');
 
 const MessageSchema = new mongoose.Schema({
-    Firstname: {
+    firstname: {
         type: String,
         required: true,
         minLength: [3, "Firstname must be at least 3 characters long"],
     },
-    Lastname: {
+    lastname: {
         type: String,
         required: true,
         minLength: [3, "Lastname must be at least 3 characters long"],
     },
-    Email: {
+    email: {
         type: String,
         required: true,
         validate: [validator.isEmail, "Please provide a valid email"],
     },
-    Phonenumber: {
+    phonenumber: {
         type: String,
         required: true,
         minLength: [10, "Phone number must be at least 10 characters long"],
         maxLength: [11, "Phone number can be at most 11 characters long"],
     },
-    Message: {
+    message: {
         type: String,
         required: true,
         minLength: [10, "Message must be at least 10 characters long"],

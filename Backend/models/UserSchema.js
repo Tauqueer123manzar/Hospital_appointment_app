@@ -4,45 +4,46 @@ const bcrypt = require('bcrypt');
 const JsonWebToken=require("jsonwebtoken");
 
 const UserSchema = new mongoose.Schema({
-    FirstName: {
+    firstName: {
         type: String,
         required: true,
         MinLength: [3, "FirstName must be contain at least 3 characters long"],
     },
 
-    LastName: {
+    lastName: {
         type: String,
         required: true,
         MinLength: [3, "LastName must be contain at least 3 characters long"]
     },
-    Email:{
+    email:{
         type:String,
         required:true,
         validate:[validator.isEmail,"Please Provide a Valid Email"],
     },
-    Phone:{
-        type:Number,
+    phone:{
+        type:String,
         required:true,
         MinLength:[10,"Minimum Length should be 10 charcaters"],
+        MaxLength:[11,"Maximum Length Should be 11 characters"],
     },
-    Pincode:{
+    pincode:{
         type:Number,
         required:true,
     },
-    Dob:{
+    dob:{
         type:Date,
         required:[true,"DOB is required"],
     },
-    Gender:{
+    gender:{
         type:String,
         required:true,
         enum:["Male","Female"],
     },
-    Password:{
+    password:{
         type:String,
         required:true,
         MinLength:[11,"Minimum Length should be 11 charcaters"],
-        Select:false,
+        select:false,
     },
     role:{
         type:String,
@@ -75,9 +76,10 @@ UserSchema.methods.comparePassword=async function(enteredpassword){
 
 UserSchema.methods.generateJsonWebToken=async function(){
   return JsonWebToken.sign({id:this._id},process.env.JWT_SECRET_KEY,{
-        expiresIn:process.env.JWT_EXPIRES
+        expiresIn:process.env.JWT_EXPIRES,
   });
-}
+};
+
 
 const User= mongoose.model("User",UserSchema);
 

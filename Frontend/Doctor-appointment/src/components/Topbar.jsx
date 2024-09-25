@@ -11,7 +11,7 @@ const Topbar = () => {
     <Navbar expand="lg" className="navbar shadow">
     <Container fluid>
       <Navbar.Brand>
-        <h2 style={{fontFamily:"initial",color:"blue",fontWeight:"bold",marginLeft:"10px"}}>EasyCare</h2>
+      <h1 style={{color:"darkred",fontWeight:"bold"}}><a href='/'/>EasyCare</h1>
       </Navbar.Brand>
       <Navbar.Toggle aria-controls="navbarScroll" />
       <Navbar.Collapse id="navbarScroll">

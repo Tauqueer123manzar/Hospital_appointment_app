@@ -1,4 +1,4 @@
-const User = require("../models/Usermessage");
+const User = require("../models/UserSchema");
 const catchAsyncErrors = require("../middlewares/catchAsyncErrors");
 const Errorhandler = require("../middlewares/Errormiddleware");
 const PatientReister = catchAsyncErrors(async (req, res, next) => {
