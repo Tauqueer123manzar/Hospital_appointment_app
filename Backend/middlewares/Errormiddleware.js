@@ -1,24 +1,19 @@
-class Errorhandler extends Error {
-    constructor(message, statuscode) {
-        super(message);
-        this.statuscode = statuscode
-    };
-};
+const Errorhandler = require("./Errorhandler");
 
 const Errormiddleware = (err, req, res, next) => {
     err.message = err.message || "Internal Server Error";
-    err.statuscode = err.statuscode || 500;
+    err.statusCode = err.statusCode || 500;
 
     if (err.code === 11000) {
         const message = `Duplicates ${Object.keys(err.keyValue)} Entered`;
         err = new Errorhandler(message, 400);
     }
     if (err.name === "JsonWebTokenError") {
-        const message = "Json Web Token is invalid,Try Again!";
+        const message = "Json Web Token is invalid, Try Again!";
         err = new Errorhandler(message, 400);
     }
     if (err.name === "TokenExpiredError") {
-        const message = "Json Web Token Expired,Try Again!";
+        const message = "Json Web Token Expired, Try Again!";
         err = new Errorhandler(message, 400);
     }
     if (err.name === "CastError") {
@@ -29,12 +24,12 @@ const Errormiddleware = (err, req, res, next) => {
     const errorMessage = err.errors ? Object.values(err.errors)
         .map((error) => error.message)
         .join(" ")
-        :err.message;
+        : err.message;
 
-    return res.status(err.statuscode).json({
+    return res.status(err.statusCode).json({
         success: false,
         message: errorMessage,
     });
 };
 
-module.exports = Errormiddleware
+module.exports = Errormiddleware;
