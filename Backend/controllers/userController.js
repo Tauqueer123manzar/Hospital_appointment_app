@@ -1,4 +1,3 @@
-// PatientRegister.js
 const User = require("../models/UserSchema");
 const catchAsyncErrors = require("../middlewares/catchAsyncErrors");
 const ErrorHandler = require("../middlewares/Errorhandler"); // Correct the import path here
