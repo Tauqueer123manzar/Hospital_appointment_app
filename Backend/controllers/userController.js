@@ -1,6 +1,7 @@
 const User = require("../models/UserSchema");
 const catchAsyncErrors = require("../middlewares/catchAsyncErrors");
 const ErrorHandler=require("../middlewares/Errorhandler");
+const { GenerateToken } = require("../utils/jwtToken");
 exports.PatientRegister = catchAsyncErrors(async (req, res, next) => {
     const {
         firstname,
@@ -44,11 +45,7 @@ exports.PatientRegister = catchAsyncErrors(async (req, res, next) => {
         password,
         role,
     });
-
-    res.status(200).json({
-        success: true,
-        message: "User Registered Successfully",
-    });
+    GenerateToken(user,"User Registered Successfully",200,res);
 });
 
 exports.loginRegister= catchAsyncErrors(async (req, res, next) => {
@@ -75,10 +72,6 @@ exports.loginRegister= catchAsyncErrors(async (req, res, next) => {
     if (role !== user.role) {
         return next(new ErrorHandler("User with this role not found!", 400));
     }
-
-    res.status(200).json({
-        success: true,
-        message: "User Logged In Successfully",
-    });
+    GenerateToken(user,"User Login Successfully",200,res)
 });
 
