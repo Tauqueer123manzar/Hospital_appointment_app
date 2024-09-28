@@ -1,6 +1,6 @@
 const Message=require("../models/message");
 const catchAsyncErrors=require("../middlewares/catchAsyncErrors");
-const Errorhandler=require("../middlewares/Errormiddleware");
+const Errorhandler=require("../middlewares/Errorhandler");
 const sendmessage=catchAsyncErrors(async(req,res,next)=>{
     const{firstname,lastname,email,phonenumber,message}=req.body;
     if(!firstname || !lastname ||!email || !phonenumber ||!message){
