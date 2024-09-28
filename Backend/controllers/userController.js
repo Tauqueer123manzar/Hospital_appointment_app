@@ -1,6 +1,6 @@
 const User = require("../models/UserSchema");
 const catchAsyncErrors = require("../middlewares/catchAsyncErrors");
-const ErrorHandler = require("../middlewares/Errorhandler"); // Correct the import path here
+const ErrorHandler = require("../middlewares/Errorhandler");
 
 const PatientRegister = catchAsyncErrors(async (req, res, next) => {
     const {
