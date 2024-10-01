@@ -8,7 +8,8 @@ const connectDb = require("./database/dbconnection");
 const Errormiddleware=require("./middlewares/Errormiddleware");
 const UserRouter= require("./router/UserRouter");
 dotenv.config({ path: "./config/.env" });
-
+const router=express.Router();
+const Appointment=require("./models/Appointment");
 const app = express();
 
 // Middleware setup
@@ -30,4 +31,16 @@ app.use(fileUpload({
 app.use("/api/v1/message", MessageRouter);
 app.use("/api/v1/user",UserRouter);
 app.use(Errormiddleware);
+
+// Get appointments for a specific user
+router.get('/appointments', async (req, res) => {
+    try {
+      const userId = req.user.id; // Assuming you have user authentication
+      const appointments = await Appointment.find({ user: userId }).populate('doctor');
+      res.json(appointments);
+    } catch (error) {
+      res.status(500).json({ error: 'Server error' });
+    }
+  });
+  
 module.exports = app;
