@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Form, Card, ListGroup, Col, Row, Image } from 'react-bootstrap';
+import { Form, Card, ListGroup, Col, Row, Image,Container } from 'react-bootstrap';
 import image from '../assets/Tauqueer Image.jpg';
 import Topbar from '../components/Topbar';
 const MyProfile = () => {
@@ -29,8 +29,10 @@ const MyProfile = () => {
   };
 
   return (
-    <div className="container mt-5">
+    <>
     <Topbar/>
+    <Container fluid>
+    <div className="container mt-5">
       {/* Profile Section */}
       <Card className="mb-4">
         <Card.Header>My Profile</Card.Header>
@@ -89,6 +91,8 @@ const MyProfile = () => {
         </Card.Body>
       </Card>
     </div>
+    </Container>
+    </>
   );
 };
 

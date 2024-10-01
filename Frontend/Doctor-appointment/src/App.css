@@ -133,6 +133,28 @@
   transform: scale(1.05); 
 }
 
+.card {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.card-img-top {
+  border-radius: 10px 10px 0 0;
+}
+
+.card-title {
+  font-size: 1.4rem;
+  font-weight: bold;
+}
+
+.card-subtitle {
+  font-size: 1.1rem;
+  color: #6c757d;
+}
+
+.card-text {
+  font-size: 0.95rem;
+}
+
 @media (max-width: 1200px) {
   .doctorcard {
     height: 380px;

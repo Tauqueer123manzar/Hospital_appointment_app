@@ -8,9 +8,9 @@ import Services from './pages/Services'
 import Contactus from './pages/Contactus'
 import { ToastContainer} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import './App.css'
 import MyProfile from './pages/MyProfile'
-import MyAppointment from './pages/MyAppointment'
+import MyAppointment from '../src/pages/MyAppointments'
+import './App.css'
 function App() {
   
   return (
