@@ -11,6 +11,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import MyProfile from './pages/MyProfile'
 import MyAppointment from '../src/pages/MyAppointments'
 import './App.css'
+import Doctorprofile from './components/Doctorprofile'
 function App() {
   
   return (
@@ -24,6 +25,7 @@ function App() {
         <Route path='/contact' element={<Contactus/>}/>
         <Route path='/myprofile' element={<MyProfile/>}/>
         <Route path='/myappointment' element={<MyAppointment/>}/>
+        <Route path='/doctor/:id' element={<Doctorprofile/>}/>
         <Route path='/register' element={<Register/>}/>
         <Route path='/login' element={<Login/>}/> 
       </Routes>
