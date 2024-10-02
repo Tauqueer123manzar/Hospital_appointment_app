@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import Container from 'react-bootstrap/Container';
@@ -7,6 +7,19 @@ import Image from 'react-bootstrap/Image';
 import Tauqueer from '../assets/Tauqueer Image.jpg'
 import '../App.css'
 const Topbar = () => {
+  const[isLoggedIn,setIsLoggedIn]=useState(true);
+  const[profile,setProfile]=useState({
+    name:"Md Tauqueer Manzar",
+    profilePicture:Tauqueer
+  });
+
+  const handlelogout=()=>{
+    setIsLoggedIn(false);
+  }
+
+  const handlelogin=()=>{
+    setIsLoggedIn(true);
+  }
   return (
     <Navbar expand="lg" className="navbar shadow">
     <Container fluid>
