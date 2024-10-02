@@ -14,7 +14,6 @@ import doctor11 from '../assets/file (5) 3.png';
 import doctor12 from '../assets/file (5) 4.png';
 import { FaCircle } from "react-icons/fa6";
 import {useNavigate} from 'react-router-dom'
-import doctorprofile from '../components/Doctorprofile'
 import '../App.css';
 
 const Doctors = () => {

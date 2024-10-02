@@ -9,7 +9,6 @@ const Errormiddleware=require("./middlewares/Errormiddleware");
 const UserRouter= require("./router/UserRouter");
 dotenv.config({ path: "./config/.env" });
 const router=express.Router();
-const Appointment=require("./models/Appointment");
 const app = express();
 
 // Middleware setup

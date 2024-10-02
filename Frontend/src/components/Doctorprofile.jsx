@@ -173,19 +173,18 @@ const DoctorProfile = () => {
     return (
         <>
             <Topbar />
-            <div className='doctorpage' style={{backgroundImage:"lightblue"}}>
-            <Container className="mt-2">
-                <h1 className="text-center text-primary mb-4">Doctor Profile</h1>
+            <div className='doctorpage' style={{backgroundColor:"lightgrey"}}>
+            <Container>
                 <Row className="justify-content-center">
                     <Col md={6}>
-                        <Card className='mb-4'>
-                            <Card.Img variant="top" src={doctor.image} alt={doctor.name} height={350}/>
+                        <Card className='mb-5 mt-4'>
+                            <Card.Img variant="top" src={doctor.image} alt={doctor.name} height={370}/>
                             <Card.Body>
                                 <Card.Title>{doctor.name}</Card.Title>
                                 <Card.Subtitle className="mb-2 text-muted">
                                     {doctor.specialization}
                                 </Card.Subtitle>
-                                <Card.Text>{doctor.description}</Card.Text>
+                                <Card.Text style={{fontWeight:"650"}}>{doctor.description}</Card.Text>
                             </Card.Body>
                             <ListGroup className="list-group-flush">
                                 <ListGroup.Item><strong>Experience:</strong> {doctor.experience}</ListGroup.Item>
