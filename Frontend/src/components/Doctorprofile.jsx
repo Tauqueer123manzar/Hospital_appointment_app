@@ -178,7 +178,7 @@ const DoctorProfile = () => {
                 <Row className="justify-content-center">
                     <Col md={6}>
                         <Card className='mb-5 mt-4'>
-                            <Card.Img variant="top" src={doctor.image} alt={doctor.name} height={370}/>
+                            <Card.Img variant="top" src={doctor.image} alt={doctor.name} height={350}/>
                             <Card.Body>
                                 <Card.Title>{doctor.name}</Card.Title>
                                 <Card.Subtitle className="mb-2 text-muted">
