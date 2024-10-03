@@ -26,7 +26,8 @@ const Register = () => {
         backgroundRepeat: "no-repeat",
         width:"100%",
       }}>
-        <Form style={{ maxWidth: '99%'}} className='d-flex justify-content-center align-items-center p-4 mt-5'>
+      <h2 className='text-center mt-3' style={{fontWeight:"bold",fontFamily:"initial"}}>User Signup</h2>
+        <Form style={{ maxWidth: '99%'}} className='d-flex justify-content-center align-items-center p-4 mt-2'>
         <div className='shadow-lg p-5 bg-white rounded mt-3' style={{maxWidth:"800px",height:"100%"}}>
           <Row className='d-flex justify-content-center align-items-center'>
           <h2 className='text-center mt-4' sm={12} md={6} lg={4} style={{ fontFamily: "initial", fontWeight: "bold" }}>SignUp</h2>
