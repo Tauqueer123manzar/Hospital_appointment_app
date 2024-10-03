@@ -112,7 +112,7 @@ const Doctors = () => {
   return (
     <Container fluid>
       <h1 className="text-center mt-4" style={{ fontFamily: "initial", fontWeight: "bold", color: "darkcyan" }}>
-        All Doctors
+      Top Doctors to Book
       </h1>
       <Row>
         <p className="text-center" style={{ fontFamily: "initial" }}>

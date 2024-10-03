@@ -145,6 +145,7 @@ const Appointment = () => {
                 required
                 type='Date'
                 name='appointmentDate'
+                placeholder='Appointment Date'
                 value={formData.appointmentDate}
                 onChange={handlechange}
                 style={{ padding: "12px", maxWidth: "auto" }}

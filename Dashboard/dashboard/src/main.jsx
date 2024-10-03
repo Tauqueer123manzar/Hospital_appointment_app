@@ -1,6 +1,6 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
-import React,{createContext,useState} from 'react';
+import React from 'react';
 import App from './App.jsx'
 
 export const context=createContext({isAuthenticated:false});
@@ -10,13 +10,12 @@ const Appwrapper=()=>{
   const[user,setUser]=useState(false);
   return(
   <context.Provider value={{isAuthenticated,setIsAuthenticated,user,setUser}}>
-      <App />
   </context.Provider>
   );
 }
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-   <Appwrapper/>
+    <App />
   </StrictMode>,
 )
