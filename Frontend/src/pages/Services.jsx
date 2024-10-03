@@ -89,7 +89,7 @@ const Services = () => {
             <Card style={{ width: '25rem', height: "250px",border:"dotted",borderColor:"goldenrod"}}>
               <Card.Body>
                 <MdStarRate color='	rgb(204,204,0)' /><MdStarRate color='	rgb(204,204,0)' /><MdStarRate color='	rgb(204,204,0)' /><MdStarRate color='	rgb(204,204,0)' /><MdStarRate />
-                <Card.Title>Abhisek Kumar</Card.Title>
+                <Card.Title>Janishar Alamr</Card.Title>
                 <Card.Subtitle className="mb-2 text-muted">Software Engineer</Card.Subtitle>
                 <Card.Text>
                   The hospital is equipped with the latest technology, and it shows in the quality of care.
@@ -103,7 +103,7 @@ const Services = () => {
             <Card style={{ width: '25rem', height: "250px",border:"dotted",borderColor:"goldenrod"}}>
               <Card.Body>
                 <MdStarRate color='	rgb(204,204,0)' /><MdStarRate color='	rgb(204,204,0)' /><MdStarRate color='	rgb(204,204,0)' /><MdStarRate color='	rgb(204,204,0)' /><MdStarRate />
-                <Card.Title>Sweta Mishra</Card.Title>
+                <Card.Title>Md Anwar Alam</Card.Title>
                 <Card.Subtitle className="mb-2 text-muted">Software Enginner</Card.Subtitle>
                 <Card.Text>
                   I’ve been visiting this hospital for regular checkups, and I always feel confident in the care I receive.

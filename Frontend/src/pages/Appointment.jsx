@@ -6,8 +6,16 @@ import Footer from '../components/Footer';
 import '../App.css'
 const Appointment = () => {
 
-  const [dob, setDob] = useState('');
-  const [appointment, setAppointment] = useState('');
+  const [formData, setFormData] = useState({
+    firstname:"",
+    lastname:"",
+    email:"",
+    mobile:"",
+    gender:"",
+    appointmentDate:"",
+    department:"",
+    doctor:""
+  });
 
   const departmentsArray = [
     "Pediatrics",
@@ -16,104 +24,113 @@ const Appointment = () => {
     "Neurology",
     "Oncology",
     "Radiology",
-    "Physical Therapy",
+    "Physical_Therapy",
     "Dermatology",
     "ENT",
   ];
+
+  const doctorsArray={
+    Pediatrics:["Dr. A Sharma", "Dr. S Verma"],
+    Orthopedics:["Dr. K Rahman", "Dr. M patil"],
+    Cardiology:["Dr. P Kumar", "Dr. S Singh"],
+    Neurology:["Dr. R Gupta", "Dr. A Khan"],
+    Oncology:["Dr. N Bose","Dr. A Khan"],
+    Radiology:["Dr. S Shukla","Dr . K Raees"],
+    Physical_Therapy:["Dr. S srivastav","Dr .K Patel"],
+    Dermatology:["Dr. N Kumar","Dr . Kaleem"],
+    ENT:["Dr. T Mehta","Dr. H Iyer"]
+  };
+
+  const handlechange=(e)=>{
+    const{name,value}=e.target;
+    setFormData({...formData,[name]:value});
+  }
+
+  const handlesubmit=(e)=>{
+    e.preventDefault();
+    console.log("Form Submitted",formData);
+  }
+
   return (
     <>
     <Topbar/>
-    <Container fluid style={{maxWidth:"100%",maxHeight:"100vh",padding:0,margin:0}}>
+    <Container fluid style={{maxWidth:"100%",maxHeight:"100vh",padding:0}}>
       <div className='box-1' style={{width:"100%"}}>
-        <Row >
-          <Col xs={12} lg={4} md={6} className=''>
+        <Row>
+          <Col xs={12} lg={4} md={6} className='mt-2'>
             <h1 style={{ fontFamily: "inherit", fontWeight: "700" }} className='mt-5 p-4 animate__animated animate__fadeInLeft'>Schedule Your Appointment | EasyCare clinic consult</h1>
             <p className='p-4'>EasyCare clinic, founded in 1985, has been a cornerstone of medical excellence and compassionate care in our community for nearly four decades. Nestled in the heart of downtown, our state-of-the-art facility is renowned for its commitment to delivering top-tier healthcare services to patients from all walks of life.</p>
           </Col>
 
-          <Col xs={12} lg={8} md={6} className='d-flex justify-content-center align-items-center animate__animated animate__fadeInRight'>
-            <img src={image} width={550} height={450} />
+          <Col xs={12} lg={8} md={6} className='d-flex justify-content-center animate__animated animate__fadeInRight mt-2'>
+            <img src={image} width={550} height={450} alt='Appointment banner'/>
           </Col>
         </Row>
 
-        <Row className='d-flex justify-content-center align-items-center'>
-          <h1 className='p-5' style={{ fontWeight: "bold" }}>Appointemnts</h1>
-          <Col xs={12} md={6} lg={5}>
-            <Form.Group className='mb-3 p-2' controlId='firstname'>
+        <Row className='d-flex justify-content-center align-items-center mb-4 mt-4' style={{maxHeight:"800px",maxWidth:"100%"}}>
+          <Col xs={12} md={8} lg={6}>
+          <h1 className='text-center' style={{ fontWeight: "bold" }}>Appointement Booking</h1>
+          <Form className='shadow-lg p-5 m-3 bg-white rounded mt-3' onSubmit={handlesubmit}>
+            <Form.Group className='mb-2 p-1 ' controlId='firstname'>
               <Form.Control
                 required
                 type='text'
+                name="firstname"
                 placeholder='First Name'
+                value={formData.firstname}
+                onChange={handlechange}
                 style={{ padding: "12px", maxWidth: "auto" }}
               >
               </Form.Control>
             </Form.Group>
-          </Col>
 
-          <Col xs={12} md={6} lg={5}>
-            <Form.Group className='mb-3 p-2' controlId='lastname'>
+
+            <Form.Group className='mb-2 p-1' controlId='lastname'>
               <Form.Control
                 required
                 type='text'
+                name="lastname"
                 placeholder='Last Name'
+                value={formData.lastname}
+                onChange={handlechange}
                 style={{ padding: "12px", maxWidth: "auto" }}
               >
               </Form.Control>
             </Form.Group>
-          </Col>
 
-          <Col xs={12} md={6} lg={5}>
-            <Form.Group className='mb-3 p-2' controlId='email'>
+
+            <Form.Group className='mb-2 p-1' controlId='email'>
               <Form.Control
                 required
                 type='email'
+                name='email'
                 placeholder='Email'
+                value={formData.email}
+                onChange={handlechange}
                 style={{ padding: "12px", maxWidth: "auto" }}
               >
               </Form.Control>
             </Form.Group>
-          </Col>
 
-          <Col xs={12} md={6} lg={5}>
-            <Form.Group className='mb-3 p-2' controlId='mobile'>
+            <Form.Group className='mb-2 p-1' controlId='mobile'>
               <Form.Control
                 required
                 type='Number'
+                name='mobile'
                 placeholder='Mobile Number'
+                value={formData.mobile}
+                onChange={handlechange}
                 style={{ padding: "12px", maxWidth: "auto" }}
               >
               </Form.Control>
             </Form.Group>
-          </Col>
 
-          <Col xs={12} md={6} lg={5}>
-            <Form.Group className='mb-3 p-2' controlId='pincode'>
-              <Form.Control
-                required
-                type='Number'
-                placeholder='Pin code'
-                style={{ padding: "12px", maxWidth: "auto" }}
-              >
-              </Form.Control>
-            </Form.Group>
-          </Col>
-
-          <Col xs={12} md={6} lg={5}>
-            <Form.Group className='mb-3 p-2' controlId='dob'>
-              <Form.Control
-                required
-                type='date - Date of Birth'
-                placeholder='Date of Birth'
-                style={{ padding: "12px", maxWidth: "auto" }}
-              >
-              </Form.Control>
-            </Form.Group>
-          </Col>
-
-          <Col xs={12} md={6} lg={5}>
-            <Form.Group className='mb-3 p-2' controlId='gender'>
+            <Form.Group className='mb-2 p-1' controlId='gender'>
               <Form.Select
                 required
+                name='gender'
+                value={formData.gender}
+                onChange={handlechange}
                 style={{ padding: "12px", maxWidth: "auto" }}
               >
                 <option value="">Select Gender</option>
@@ -122,67 +139,59 @@ const Appointment = () => {
                 <option value="Others">Others</option>
               </Form.Select>
             </Form.Group>
-          </Col>
 
-          <Col xs={12} md={6} lg={5}>
-            <Form.Group className='mb-3 p-2' controlId='date'>
+            <Form.Group className='mb-2 p-1' controlId='appointmentdate'>
               <Form.Control
                 required
                 type='Date'
-                placeholder='Appointment Date'
+                name='appointmentDate'
+                value={formData.appointmentDate}
+                onChange={handlechange}
                 style={{ padding: "12px", maxWidth: "auto" }}
               >
               </Form.Control>
             </Form.Group>
-          </Col>
 
-          <Col xs={12} md={6} lg={5}>
-            <Form.Group className='mb-3 p-2' controlId='date'>
+
+            <Form.Group className='mb-2 p-1' controlId='department'>
               <Form.Select
                 required
+                name='department'
+                value={formData.department}
+                onChange={handlechange}
                 style={{ padding: "12px", maxWidth: "auto" }}
               >
                 <option value="">Select Department</option>
-                <option value="Pediatrics">Pediatrics</option>
-                <option value="Orthopedics">Orthopedics</option>
-                <option value="Cardiology">Cardiology</option>
-                <option value="Neurology">Neurology</option>
-                <option value="Oncology">Oncology</option>
-                <option value="ENT">ENT</option>
+               {departmentsArray.map((department)=>{
+                 return <option key={department} value={department}>{department}</option>
+               })}
               </Form.Select>
             </Form.Group>
-          </Col>
 
-          <Col xs={12} md={6} lg={5}>
-            <Form.Group className='mb-3 p-2' controlId='date'>
+            <Form.Group className='mb-2 p-1' controlId='doctor'>
               <Form.Select
                 required
+                name='doctor'
+                value={formData.doctor}
+                onChange={handlechange}
                 style={{ padding: "12px", maxWidth: "auto" }}
               >
                 <option value="">Select Doctor</option>
-                <option value="Mahes">Dr Mahesh</option>
-                <option value="Rahman">Dr K.Rahman</option>
+               {
+                doctorsArray[formData.department]?.map((doctor)=>{
+                  return <option key={doctor} value={doctor}>{doctor}</option>
+                })
+               }
               </Form.Select>
             </Form.Group>
-          </Col>
-
-
-          <Col xs={12} md={6} lg={10}>
-            <Form.Group className='mb-3 p-2' controlId='address'>
-              <Form.Control
-                as="textarea"
-                rows={10}
-                placeholder='Address'
-              >
-              </Form.Control>
-            </Form.Group>
-          </Col>
 
           <div className='d-flex justify-content-center align-items-center mb-3 p-2 w-100'>
-            <Button variant='primary'>
+            <Button variant='primary' type='submit' className='w-100'>
               GET APPOINTMENT
             </Button>
           </div>
+          </Form>
+          </Col>
         </Row>
         <hr style={{ margin: 0, border: "1px solid black" }} />
       </div>
