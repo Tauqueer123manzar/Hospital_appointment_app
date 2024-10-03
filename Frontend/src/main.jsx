@@ -13,6 +13,9 @@ const Appwrapper=()=>{
     </context.Provider>
   )
 }
+
+export default Appwrapper;
+
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <Appwrapper/>
