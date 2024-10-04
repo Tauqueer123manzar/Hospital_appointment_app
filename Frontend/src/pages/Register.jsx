@@ -27,7 +27,7 @@ const Register = () => {
     console.log('Form submitted', firstname, lastname, email, phone, pincode, dob, gender, password);
     try {
       await axios.post("http://localhost:8080/api/v1/user/patient/register",
-        { firstname, lastname, email, phone, pincode, dob, gender, password },
+        { firstname, lastname, email, phone, pincode, dob, gender, password,role:"Patient" },
         {
           withCredentials: true,
           headers: {
@@ -45,7 +45,6 @@ const Register = () => {
         setGender("");
         setPassword("");
         setIsAuthenticated(true);
-        navigateTo("/");
       })
     } catch (error) {
       toast.error(error.response.data.message);
