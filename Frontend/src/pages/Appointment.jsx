@@ -316,7 +316,7 @@ const AppointmentForm = () => {
             src={appointment}
             style={{
               width: "100%",
-              height:"130vh",
+              height:"135vh",
               objectFit: "cover",
               position: "absolute",
               top: "0",
