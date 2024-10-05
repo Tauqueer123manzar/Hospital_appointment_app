@@ -9,7 +9,8 @@ const AppointmentForm = () => {
   const [formData, setFormData] = useState({
     patientname: "",
     specialization: "",
-    doctorname: ""
+    doctorname: "",
+    appointmentdate:""
   });
 
   const handleChange = (e) => {
@@ -22,6 +23,7 @@ const AppointmentForm = () => {
   const [selectedDoctor, setSelectedDoctor] = useState(null);
   const [timeSlot, setTimeSlot] = useState('');
   const [selectedDay, setSelectedDay] = useState(''); 
+  const [appointmentdate,setAppointmentdate]=useState('');
 
   const specializationData = [
     "Pediatrics",
@@ -333,10 +335,10 @@ const AppointmentForm = () => {
             <Card className='shadow-lg p-5 bg-white rounded' style={{width:"750px"}}>
               <Form>
                 <Row className="mb-0">
-                <h3 className='text-center'>Appointment Book</h3>
+                <h3 className='text-center' style={{fontFamily:"initial",fontWeight:"600"}}>Appointment Booking</h3>
                   <Col className='mt-3'>
                     <Form.Group controlId="patientName">
-                      <Form.Label>Patient Name</Form.Label>
+                      <Form.Label style={{fontWeight:"700",fontFamily:"inherit"}}>Patient Name</Form.Label>
                       <Form.Control
                         type="text"
                         placeholder="Enter your name"
@@ -348,7 +350,7 @@ const AppointmentForm = () => {
                   </Col>
                   <Col className='mt-3'>
                     <Form.Group controlId="specialization">
-                      <Form.Label>Specialization</Form.Label>
+                      <Form.Label style={{fontWeight:"700",fontFamily:"inherit"}}>Specialization</Form.Label>
                       <Form.Control
                         as="select"
                         name="specialization"
@@ -366,8 +368,20 @@ const AppointmentForm = () => {
                   </Col>
                 </Row>
 
+                <Col className='mt-2'>
+                   <Form.Group controlId='appointmentdate'>
+                    <Form.Label style={{fontWeight:"700",fontFamily:"inherit"}}>Appointment Date</Form.Label>
+                    <Form.Control
+                     type='date'
+                     name='appointmentdate'
+                     value={formData.appointmentdate}
+                     onChange={handleChange}
+                     >
+                    </Form.Control>
+                   </Form.Group>
+                </Col>
                 <Form.Group controlId="doctorName" className='mb-3 mt-3'>
-                  <Form.Label>Doctor Name</Form.Label>
+                  <Form.Label style={{fontWeight:"700",fontFamily:"inherit"}}>Doctor Name</Form.Label>
                   <Form.Control
                     as="select"
                     name='doctorname'
@@ -386,7 +400,7 @@ const AppointmentForm = () => {
                 </Form.Group>
 
                 <Form.Group controlId="selectDay" className='mb-3'>
-                  <Form.Label>Select Day</Form.Label>
+                  <Form.Label style={{fontWeight:"700",fontFamily:"inherit"}}>Select Day</Form.Label>
                   <Form.Control
                     as="select"
                     value={selectedDay}
@@ -402,7 +416,7 @@ const AppointmentForm = () => {
 
                 {/* Time Slot */}
                 <Form.Group controlId="timeSlot" className='mb-3'>
-                  <Form.Label>Select Time Slot</Form.Label>
+                  <Form.Label style={{fontWeight:"700",fontFamily:"inherit"}}>Select Time Slot</Form.Label>
                   <Form.Control
                     as="select"
                     value={timeSlot}
@@ -425,7 +439,8 @@ const AppointmentForm = () => {
                         Specialization: {formData.specialization} <br />
                         Consultation Charge: ₹{selectedDoctor.charge} <br />
                         Selected Day: {selectedDay} <br />
-                        Selected Time Slot: {timeSlot}
+                        Selected Time Slot: {timeSlot}<br/>
+                        appointmentdate:{formData.appointmentdate}
                       </Card.Text>
                     </Card.Body>
                   </Card>
