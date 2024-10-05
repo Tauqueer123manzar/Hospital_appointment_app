@@ -289,7 +289,8 @@ const AppointmentForm = () => {
     setFormData({ ...formData, specialization: selectedSpecialization, doctorname: '' });
     setSelectedDoctor(null); // Reset doctor when specialization changes
     setSelectedDay(''); // Reset day when specialization changes
-    setTimeSlot(''); // Reset time slot
+    setTimeSlot('');// Reset time slot
+    setAppointmentdate('') // Reset appointment date
   };
 
   const handleDoctorChange = (e) => {
@@ -318,7 +319,7 @@ const AppointmentForm = () => {
             src={appointment}
             style={{
               width: "100%",
-              height:"135vh",
+              height:"145vh",
               objectFit: "cover",
               position: "absolute",
               top: "0",
