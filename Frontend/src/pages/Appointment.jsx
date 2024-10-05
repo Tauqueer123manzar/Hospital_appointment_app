@@ -20,7 +20,6 @@ const AppointmentForm = () => {
   };
 
   const [selectedDoctor, setSelectedDoctor] = useState(null);
-  const [appointmentDate, setAppointmentDate] = useState('');
   const [timeSlot, setTimeSlot] = useState('');
   const [selectedDay, setSelectedDay] = useState(''); 
 
@@ -311,29 +310,31 @@ const AppointmentForm = () => {
   return (
     <>
       <Topbar />
-      <Container fluid style={{ maxWidth: "100%", padding: 0 }}>
+      <Container fluid style={{ maxWidth: "100%", padding: 0}}>
         <div style={{ width: "100%", position: "relative" }}>
           <img
             src={appointment}
             style={{
               width: "100%",
-              height: "120vh",
+              height:"120vh",
               objectFit: "cover",
               position: "absolute",
               top: "0",
               left: "0",
+              bottom:"0",
               zIndex: "-1",
             }}
             alt="Appointment Banner"
           />
-          <h1 className='p-5' style={{ fontWeight: "bold", color: "white", fontFamily: "initial" }}>
+          <h1 className='p-5' style={{ fontWeight: "bold", color: "white", fontFamily: "initial"}}>
             Book an Appointment
           </h1>
-          <Col xs={12} lg={12} md={6} className='d-flex justify-content-center align-items-center p-5'>
-            <Card className='shadow-lg p-5 bg-white rounded' style={{width:"750px",maxHeight:"1400px"}}>
+          <Col xs={12} lg={12} md={12} className='d-flex justify-content-center align-items-center p-5'>
+            <Card className='shadow-lg p-5 bg-white rounded' style={{width:"750px"}}>
               <Form>
-                <Row className="mb-3">
-                  <Col>
+                <Row className="mb-0">
+                <h3 className='text-center'>Appointment Book</h3>
+                  <Col className='mt-3'>
                     <Form.Group controlId="patientName">
                       <Form.Label>Patient Name</Form.Label>
                       <Form.Control
@@ -345,7 +346,7 @@ const AppointmentForm = () => {
                       />
                     </Form.Group>
                   </Col>
-                  <Col>
+                  <Col className='mt-3'>
                     <Form.Group controlId="specialization">
                       <Form.Label>Specialization</Form.Label>
                       <Form.Control
@@ -365,7 +366,7 @@ const AppointmentForm = () => {
                   </Col>
                 </Row>
 
-                <Form.Group controlId="doctorName" className='mb-3'>
+                <Form.Group controlId="doctorName" className='mb-3 mt-3'>
                   <Form.Label>Doctor Name</Form.Label>
                   <Form.Control
                     as="select"
@@ -440,7 +441,7 @@ const AppointmentForm = () => {
             </Card>
           </Col>
         </div>
-        <Footer />
+        <Footer/>
       </Container>
     </>
   );
