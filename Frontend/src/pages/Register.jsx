@@ -20,7 +20,6 @@ const Register = () => {
   const [dob, setDob] = useState("");
   const [gender, setGender] = useState("");
   const [password, setPassword] = useState("");
-
   // const navigateTo=useNavigate();
   const handleRegister = async (e) => {
     e.preventDefault();

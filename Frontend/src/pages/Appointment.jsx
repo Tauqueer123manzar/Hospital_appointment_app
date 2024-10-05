@@ -1,205 +1,449 @@
-import React, { useState } from 'react'
-import { Container, Row, Col, Form, Button } from 'react-bootstrap';
-import Topbar from '../components/Topbar';
-import image from '../assets/signupheader (1).png';
+import React, { useState } from 'react';
+import { Form, Button, Row, Col, Card, Container } from 'react-bootstrap';
+// import RazorpayPayment from './Paymentgateway';
 import Footer from '../components/Footer';
-import '../App.css'
-const Appointment = () => {
+import Topbar from '../components/Topbar';
+import appointment from '../assets/appointment page.png';
 
+const AppointmentForm = () => {
   const [formData, setFormData] = useState({
-    firstname:"",
-    lastname:"",
-    email:"",
-    mobile:"",
-    gender:"",
-    appointmentDate:"",
-    department:"",
-    doctor:""
+    patientname: "",
+    specialization: "",
+    doctorname: ""
   });
 
-  const departmentsArray = [
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value
+    });
+  };
+
+  const [selectedDoctor, setSelectedDoctor] = useState(null);
+  const [appointmentDate, setAppointmentDate] = useState('');
+  const [timeSlot, setTimeSlot] = useState('');
+  const [selectedDay, setSelectedDay] = useState(''); 
+
+  const specializationData = [
     "Pediatrics",
     "Orthopedics",
     "Cardiology",
     "Neurology",
     "Oncology",
     "Radiology",
-    "Physical_Therapy",
+    "Physical Therapy",
     "Dermatology",
     "ENT",
   ];
 
-  const doctorsArray={
-    Pediatrics:["Dr. A Sharma", "Dr. S Verma"],
-    Orthopedics:["Dr. K Rahman", "Dr. M patil"],
-    Cardiology:["Dr. P Kumar", "Dr. S Singh"],
-    Neurology:["Dr. R Gupta", "Dr. A Khan"],
-    Oncology:["Dr. N Bose","Dr. A Khan"],
-    Radiology:["Dr. S Shukla","Dr . K Raees"],
-    Physical_Therapy:["Dr. S srivastav","Dr .K Patel"],
-    Dermatology:["Dr. N Kumar","Dr . Kaleem"],
-    ENT:["Dr. T Mehta","Dr. H Iyer"]
+  const doctorsData = [
+    {
+      specialization: "Pediatrics",
+      doctors: [
+        {
+          name: "Dr. A Sharma",
+          availableTimings: {
+            Monday: ["10:00 AM", "10:30 AM", "11:00 AM", "11:30 AM"],
+            Tuesday: ["10:00 AM", "10:30 AM", "11:00 AM", "11:30 AM"],
+            Wednesday: ["10:00 AM", "10:30 AM", "11:00 AM", "11:30 AM"],
+            Thursday: ["10:00 AM", "10:30 AM", "11:00 AM", "11:30 AM"],
+            Friday: ["10:00 AM", "10:30 AM", "11:00 AM", "11:30 AM"],
+          },
+          charge: 300,
+        },
+        {
+          name: "Dr. S Verma",
+          availableTimings: {
+            Monday: ["10:00 AM", "10:30 AM", "11:00 AM", "11:30 AM"],
+            Tuesday: ["10:00 AM", "10:30 AM", "11:00 AM", "11:30 AM"],
+            Wednesday: ["10:00 AM", "10:30 AM", "11:00 AM", "11:30 AM"],
+            Thursday: ["10:00 AM", "10:30 AM", "11:00 AM", "11:30 AM"],
+            Friday: ["10:00 AM", "10:30 AM", "11:00 AM", "11:30 AM"],
+          },
+          charge: 350,
+        }
+      ]
+    },
+    {
+      specialization: "Orthopedics",
+      doctors: [
+        {
+          name: "Dr. K Rahman",
+          availableTimings: {
+            Monday: ["10:00 AM", "10:30 AM", "11:00 AM", "11:30 AM"],
+            Tuesday: ["10:00 AM", "10:30 AM", "11:00 AM", "11:30 AM"],
+            Wednesday: ["10:00 AM", "10:30 AM", "11:00 AM", "11:30 AM"],
+            Thursday: ["10:00 AM", "10:30 AM", "11:00 AM", "11:30 AM"],
+            Friday: ["10:00 AM", "10:30 AM", "11:00 AM", "11:30 AM"],
+          },
+          charge: 500,
+        },
+        {
+          name: "Dr. M Patil",
+          availableTimings: {
+            Monday: ["10:00 AM", "10:30 AM", "11:00 AM", "11:30 AM"],
+            Tuesday: ["10:00 AM", "10:30 AM", "11:00 AM", "11:30 AM"],
+            Wednesday: ["10:00 AM", "10:30 AM", "11:00 AM", "11:30 AM"],
+            Thursday: ["10:00 AM", "10:30 AM", "11:00 AM", "11:30 AM"],
+            Friday: ["10:00 AM", "10:30 AM", "11:00 AM", "11:30 AM"],
+          },
+          charge: 550,
+        }
+      ]
+    },
+    {
+      specialization: "Cardiology",
+      doctors: [
+        {
+          name: "Dr. P Kumar",
+          availableTimings: {
+            Monday: ["10:00 AM", "10:30 AM", "11:00 AM", "11:30 AM"],
+            Tuesday: ["10:00 AM", "10:30 AM", "11:00 AM", "11:30 AM"],
+            Wednesday: ["10:00 AM", "10:30 AM", "11:00 AM", "11:30 AM"],
+            Thursday: ["10:00 AM", "10:30 AM", "11:00 AM", "11:30 AM"],
+            Friday: ["10:00 AM", "10:30 AM", "11:00 AM", "11:30 AM"],
+          },
+          charge: 800,
+        },
+        {
+          name: "Dr. S Singh",
+          availableTimings: {
+            Monday: ["10:00 AM", "10:30 AM", "11:00 AM", "11:30 AM"],
+            Tuesday: ["10:00 AM", "10:30 AM", "11:00 AM", "11:30 AM"],
+            Wednesday: ["10:00 AM", "10:30 AM", "11:00 AM", "11:30 AM"],
+            Thursday: ["10:00 AM", "10:30 AM", "11:00 AM", "11:30 AM"],
+            Friday: ["10:00 AM", "10:30 AM", "11:00 AM", "11:30 AM"],
+          },
+          charge: 900,
+        }
+      ]
+    },
+    {
+      specialization: "Neurology",
+      doctors: [
+        {
+          name: "Dr. R Gupta",
+          availableTimings: {
+            Monday: ["10:00 AM", "10:30 AM", "11:00 AM", "11:30 AM"],
+            Tuesday: ["10:00 AM", "10:30 AM", "11:00 AM", "11:30 AM"],
+            Wednesday: ["10:00 AM", "10:30 AM", "11:00 AM", "11:30 AM"],
+            Thursday: ["10:00 AM", "10:30 AM", "11:00 AM", "11:30 AM"],
+            Friday: ["10:00 AM", "10:30 AM", "11:00 AM", "11:30 AM"],
+          },
+          charge: 1000,
+        },
+        {
+          name: "Dr. A Khan",
+          availableTimings: {
+            Monday: ["10:00 AM", "10:30 AM", "11:00 AM", "11:30 AM"],
+            Tuesday: ["10:00 AM", "10:30 AM", "11:00 AM", "11:30 AM"],
+            Wednesday: ["10:00 AM", "10:30 AM", "11:00 AM", "11:30 AM"],
+            Thursday: ["10:00 AM", "10:30 AM", "11:00 AM", "11:30 AM"],
+            Friday: ["10:00 AM", "10:30 AM", "11:00 AM", "11:30 AM"],
+          },
+          charge: 1100,
+        }
+      ]
+    },
+    {
+      specialization: "Oncology",
+      doctors: [
+        {
+          name: "Dr. N Bose",
+          availableTimings: {
+            Monday: ["10:00 AM", "10:30 AM", "11:00 AM", "11:30 AM"],
+            Tuesday: ["10:00 AM", "10:30 AM", "11:00 AM", "11:30 AM"],
+            Wednesday: ["10:00 AM", "10:30 AM", "11:00 AM", "11:30 AM"],
+            Thursday: ["10:00 AM", "10:30 AM", "11:00 AM", "11:30 AM"],
+            Friday: ["10:00 AM", "10:30 AM", "11:00 AM", "11:30 AM"],
+          },
+          charge: 1200,
+        },
+        {
+          name: "Dr. A Khan",
+          availableTimings: {
+            Monday: ["10:00 AM", "10:30 AM", "11:00 AM", "11:30 AM"],
+            Tuesday: ["10:00 AM", "10:30 AM", "11:00 AM", "11:30 AM"],
+            Wednesday: ["10:00 AM", "10:30 AM", "11:00 AM", "11:30 AM"],
+            Thursday: ["10:00 AM", "10:30 AM", "11:00 AM", "11:30 AM"],
+            Friday: ["10:00 AM", "10:30 AM", "11:00 AM", "11:30 AM"],
+          },
+          charge: 1300,
+        }
+      ]
+    },
+    {
+      specialization: "Radiology",
+      doctors: [
+        {
+          name: "Dr. S Shukla",
+          availableTimings: {
+            Monday: ["10:00 AM", "10:30 AM", "11:00 AM", "11:30 AM"],
+            Tuesday: ["10:00 AM", "10:30 AM", "11:00 AM", "11:30 AM"],
+            Wednesday: ["10:00 AM", "10:30 AM", "11:00 AM", "11:30 AM"],
+            Thursday: ["10:00 AM", "10:30 AM", "11:00 AM", "11:30 AM"],
+            Friday: ["10:00 AM", "10:30 AM", "11:00 AM", "11:30 AM"],
+          },
+          charge: 600,
+        },
+        {
+          name: "Dr. K Raees",
+          availableTimings: {
+            Monday: ["10:00 AM", "10:30 AM", "11:00 AM", "11:30 AM"],
+            Tuesday: ["10:00 AM", "10:30 AM", "11:00 AM", "11:30 AM"],
+            Wednesday: ["10:00 AM", "10:30 AM", "11:00 AM", "11:30 AM"],
+            Thursday: ["10:00 AM", "10:30 AM", "11:00 AM", "11:30 AM"],
+            Friday: ["10:00 AM", "10:30 AM", "11:00 AM", "11:30 AM"],
+          },
+          charge: 650,
+        }
+      ]
+    },
+    {
+      specialization: "Physical Therapy",
+      doctors: [
+        {
+          name: "Dr. S Srivastav",
+          availableTimings: {
+            Monday: ["10:00 AM", "10:30 AM", "11:00 AM", "11:30 AM"],
+            Tuesday: ["10:00 AM", "10:30 AM", "11:00 AM", "11:30 AM"],
+            Wednesday: ["10:00 AM", "10:30 AM", "11:00 AM", "11:30 AM"],
+            Thursday: ["10:00 AM", "10:30 AM", "11:00 AM", "11:30 AM"],
+            Friday: ["10:00 AM", "10:30 AM", "11:00 AM", "11:30 AM"],
+          },
+          charge: 400,
+        },
+        {
+          name: "Dr. K Patel",
+          availableTimings: {
+            Monday: ["10:00 AM", "10:30 AM", "11:00 AM", "11:30 AM"],
+            Tuesday: ["10:00 AM", "10:30 AM", "11:00 AM", "11:30 AM"],
+            Wednesday: ["10:00 AM", "10:30 AM", "11:00 AM", "11:30 AM"],
+            Thursday: ["10:00 AM", "10:30 AM", "11:00 AM", "11:30 AM"],
+            Friday: ["10:00 AM", "10:30 AM", "11:00 AM", "11:30 AM"],
+          },
+        }
+      ]
+    },
+    {
+      specialization: "Dermatology",
+      doctors: [
+        {
+          name: "Dr. N Kumar",
+          availableTimings: {
+            Monday: ["10:00 AM", "10:30 AM", "11:00 AM", "11:30 AM"],
+            Tuesday: ["10:00 AM", "10:30 AM", "11:00 AM", "11:30 AM"],
+            Wednesday: ["10:00 AM", "10:30 AM", "11:00 AM", "11:30 AM"],
+            Thursday: ["10:00 AM", "10:30 AM", "11:00 AM", "11:30 AM"],
+            Friday: ["10:00 AM", "10:30 AM", "11:00 AM", "11:30 AM"],
+          },
+          charge: 500,
+        },
+        {
+          name: "Dr. Kaleem",
+          availableTimings: {
+            Monday: ["10:00 AM", "10:30 AM", "11:00 AM", "11:30 AM"],
+            Tuesday: ["10:00 AM", "10:30 AM", "11:00 AM", "11:30 AM"],
+            Wednesday: ["10:00 AM", "10:30 AM", "11:00 AM", "11:30 AM"],
+            Thursday: ["10:00 AM", "10:30 AM", "11:00 AM", "11:30 AM"],
+            Friday: ["10:00 AM", "10:30 AM", "11:00 AM", "11:30 AM"],
+          },
+          charge: 550,
+        }
+      ]
+    },
+    {
+      specialization: "ENT",
+      doctors: [
+        {
+          name: "Dr. T Mehta",
+          availableTimings: {
+            Monday: ["10:00 AM", "10:30 AM", "11:00 AM", "11:30 AM"],
+            Tuesday: ["10:00 AM", "10:30 AM", "11:00 AM", "11:30 AM"],
+            Wednesday: ["10:00 AM", "10:30 AM", "11:00 AM", "11:30 AM"],
+            Thursday: ["10:00 AM", "10:30 AM", "11:00 AM", "11:30 AM"],
+            Friday: ["10:00 AM", "10:30 AM", "11:00 AM", "11:30 AM"],
+          },
+          charge: 600,
+        },
+        {
+          name: "Dr. H Iyer",
+          availableTimings: {
+            Monday: ["10:00 AM", "10:30 AM", "11:00 AM", "11:30 AM","4:00 PM"],
+            Tuesday: ["10:00 AM", "10:30 AM", "11:00 AM", "11:30 AM"],
+            Wednesday: ["10:00 AM", "10:30 AM", "11:00 AM", "11:30 AM"],
+            Thursday: ["10:00 AM", "10:30 AM", "11:00 AM", "11:30 AM"],
+            Friday: ["10:00 AM", "10:30 AM", "11:00 AM", "11:30 AM"],
+          },
+          charge: 650,
+        }
+      ]
+    }
+  ];
+
+  const daysOfWeek = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"];
+
+  const handleSpecializationChange = (e) => {
+    const selectedSpecialization = e.target.value;
+    setFormData({ ...formData, specialization: selectedSpecialization, doctorname: '' });
+    setSelectedDoctor(null); // Reset doctor when specialization changes
+    setSelectedDay(''); // Reset day when specialization changes
+    setTimeSlot(''); // Reset time slot
   };
 
-  const handlechange=(e)=>{
-    const{name,value}=e.target;
-    setFormData({...formData,[name]:value});
-  }
+  const handleDoctorChange = (e) => {
+    const selectedDoctorName = e.target.value;
+    const doctor = doctorsData
+      .find(data => data.specialization === formData.specialization)
+      ?.doctors.find(doc => doc.name === selectedDoctorName);
 
-  const handlesubmit=(e)=>{
-    e.preventDefault();
-    console.log("Form Submitted",formData);
-  }
+    setFormData({ ...formData, doctorname: selectedDoctorName });
+    setSelectedDoctor(doctor);
+    setSelectedDay(''); // Reset day when doctor changes
+    setTimeSlot(''); // Reset time slot
+  };
+
+  const handleDayChange = (e) => {
+    setSelectedDay(e.target.value);
+    setTimeSlot(''); // Reset time slot when day changes
+  };
 
   return (
     <>
-    <Topbar/>
-    <Container fluid style={{maxWidth:"100%",maxHeight:"100vh",padding:0}}>
-      <div className='box-1' style={{width:"100%"}}>
-        <Row>
-          <Col xs={12} lg={4} md={6} className='mt-2'>
-            <h1 style={{ fontFamily: "inherit", fontWeight: "700" }} className='mt-5 p-4 animate__animated animate__fadeInLeft'>Schedule Your Appointment | EasyCare clinic consult</h1>
-            <p className='p-4'>EasyCare clinic, founded in 1985, has been a cornerstone of medical excellence and compassionate care in our community for nearly four decades. Nestled in the heart of downtown, our state-of-the-art facility is renowned for its commitment to delivering top-tier healthcare services to patients from all walks of life.</p>
+      <Topbar />
+      <Container fluid style={{ maxWidth: "100%", padding: 0 }}>
+        <div style={{ width: "100%", position: "relative" }}>
+          <img
+            src={appointment}
+            style={{
+              width: "100%",
+              height: "120vh",
+              objectFit: "cover",
+              position: "absolute",
+              top: "0",
+              left: "0",
+              zIndex: "-1",
+            }}
+            alt="Appointment Banner"
+          />
+          <h1 className='p-5' style={{ fontWeight: "bold", color: "white", fontFamily: "initial" }}>
+            Book an Appointment
+          </h1>
+          <Col xs={12} lg={12} md={6} className='d-flex justify-content-center align-items-center p-5'>
+            <Card className='shadow-lg p-5 bg-white rounded' style={{width:"750px",maxHeight:"1400px"}}>
+              <Form>
+                <Row className="mb-3">
+                  <Col>
+                    <Form.Group controlId="patientName">
+                      <Form.Label>Patient Name</Form.Label>
+                      <Form.Control
+                        type="text"
+                        placeholder="Enter your name"
+                        name='patientname'
+                        value={formData.patientname}
+                        onChange={handleChange}
+                      />
+                    </Form.Group>
+                  </Col>
+                  <Col>
+                    <Form.Group controlId="specialization">
+                      <Form.Label>Specialization</Form.Label>
+                      <Form.Control
+                        as="select"
+                        name="specialization"
+                        value={formData.specialization}
+                        onChange={handleSpecializationChange}
+                      >
+                        <option>Select Specialization</option>
+                        {specializationData.map((specialization, index) => (
+                          <option key={index} value={specialization}>
+                            {specialization}
+                          </option>
+                        ))}
+                      </Form.Control>
+                    </Form.Group>
+                  </Col>
+                </Row>
+
+                <Form.Group controlId="doctorName" className='mb-3'>
+                  <Form.Label>Doctor Name</Form.Label>
+                  <Form.Control
+                    as="select"
+                    name='doctorname'
+                    value={formData.doctorname}
+                    onChange={handleDoctorChange}
+                    disabled={!formData.specialization}
+                  >
+                    <option>Select Doctor</option>
+                    {doctorsData
+                      .filter(data => data.specialization === formData.specialization)
+                      .flatMap(data => data.doctors)
+                      .map((doctor, index) => (
+                        <option key={index} value={doctor.name}>{doctor.name}</option>
+                      ))}
+                  </Form.Control>
+                </Form.Group>
+
+                <Form.Group controlId="selectDay" className='mb-3'>
+                  <Form.Label>Select Day</Form.Label>
+                  <Form.Control
+                    as="select"
+                    value={selectedDay}
+                    onChange={handleDayChange}
+                    disabled={!selectedDoctor}
+                  >
+                    <option>Select Day</option>
+                    {selectedDoctor && Object.keys(selectedDoctor.availableTimings).map((day, index) => (
+                      <option key={index} value={day}>{day}</option>
+                    ))}
+                  </Form.Control>
+                </Form.Group>
+
+                {/* Time Slot */}
+                <Form.Group controlId="timeSlot" className='mb-3'>
+                  <Form.Label>Select Time Slot</Form.Label>
+                  <Form.Control
+                    as="select"
+                    value={timeSlot}
+                    onChange={(e) => setTimeSlot(e.target.value)}
+                    disabled={!selectedDay}
+                  >
+                    <option>Select Time Slot</option>
+                    {selectedDoctor && selectedDay && selectedDoctor.availableTimings[selectedDay]?.map((time, index) => (
+                      <option key={index} value={time}>{time}</option>
+                    ))}
+                  </Form.Control>
+                </Form.Group>
+
+                {/* Display Selected Doctor Details and Time Slot */}
+                {selectedDoctor && (
+                  <Card className="my-4">
+                    <Card.Body>
+                      <Card.Title>{selectedDoctor.name}</Card.Title>
+                      <Card.Text>
+                        Specialization: {formData.specialization} <br />
+                        Consultation Charge: ₹{selectedDoctor.charge} <br />
+                        Selected Day: {selectedDay} <br />
+                        Selected Time Slot: {timeSlot}
+                      </Card.Text>
+                    </Card.Body>
+                  </Card>
+                )}
+
+                {/* Razorpay Payment Button */}
+                {selectedDoctor && timeSlot && (
+                  <Button className="btn btn-primary mt-4">
+                    Pay ₹{selectedDoctor.charge} and Confirm
+                  </Button>
+                )}
+              </Form>
+            </Card>
           </Col>
-
-          <Col xs={12} lg={8} md={6} className='d-flex justify-content-center animate__animated animate__fadeInRight mt-2'>
-            <img src={image} width={550} height={450} alt='Appointment banner'/>
-          </Col>
-        </Row>
-
-        <Row className='d-flex justify-content-center align-items-center mb-4 mt-4' style={{maxHeight:"800px",maxWidth:"100%"}}>
-          <Col xs={12} md={8} lg={6}>
-          <h1 className='text-center' style={{ fontWeight: "bold" }}>Appointement Booking</h1>
-          <Form className='shadow-lg p-5 m-3 bg-white rounded mt-3' onSubmit={handlesubmit}>
-            <Form.Group className='mb-2 p-1 ' controlId='firstname'>
-              <Form.Control
-                required
-                type='text'
-                name="firstname"
-                placeholder='First Name'
-                value={formData.firstname}
-                onChange={handlechange}
-                style={{ padding: "12px", maxWidth: "auto" }}
-              >
-              </Form.Control>
-            </Form.Group>
-
-
-            <Form.Group className='mb-2 p-1' controlId='lastname'>
-              <Form.Control
-                required
-                type='text'
-                name="lastname"
-                placeholder='Last Name'
-                value={formData.lastname}
-                onChange={handlechange}
-                style={{ padding: "12px", maxWidth: "auto" }}
-              >
-              </Form.Control>
-            </Form.Group>
-
-
-            <Form.Group className='mb-2 p-1' controlId='email'>
-              <Form.Control
-                required
-                type='email'
-                name='email'
-                placeholder='Email'
-                value={formData.email}
-                onChange={handlechange}
-                style={{ padding: "12px", maxWidth: "auto" }}
-              >
-              </Form.Control>
-            </Form.Group>
-
-            <Form.Group className='mb-2 p-1' controlId='mobile'>
-              <Form.Control
-                required
-                type='Number'
-                name='mobile'
-                placeholder='Mobile Number'
-                value={formData.mobile}
-                onChange={handlechange}
-                style={{ padding: "12px", maxWidth: "auto" }}
-              >
-              </Form.Control>
-            </Form.Group>
-
-            <Form.Group className='mb-2 p-1' controlId='gender'>
-              <Form.Select
-                required
-                name='gender'
-                value={formData.gender}
-                onChange={handlechange}
-                style={{ padding: "12px", maxWidth: "auto" }}
-              >
-                <option value="">Select Gender</option>
-                <option value="Male">Male</option>
-                <option value="Female">Female</option>
-                <option value="Others">Others</option>
-              </Form.Select>
-            </Form.Group>
-
-            <Form.Group className='mb-2 p-1' controlId='appointmentdate'>
-              <Form.Control
-                required
-                type='Date'
-                name='appointmentDate'
-                placeholder='Appointment Date'
-                value={formData.appointmentDate}
-                onChange={handlechange}
-                style={{ padding: "12px", maxWidth: "auto" }}
-              >
-              </Form.Control>
-            </Form.Group>
-
-
-            <Form.Group className='mb-2 p-1' controlId='department'>
-              <Form.Select
-                required
-                name='department'
-                value={formData.department}
-                onChange={handlechange}
-                style={{ padding: "12px", maxWidth: "auto" }}
-              >
-                <option value="">Select Department</option>
-               {departmentsArray.map((department)=>{
-                 return <option key={department} value={department}>{department}</option>
-               })}
-              </Form.Select>
-            </Form.Group>
-
-            <Form.Group className='mb-2 p-1' controlId='doctor'>
-              <Form.Select
-                required
-                name='doctor'
-                value={formData.doctor}
-                onChange={handlechange}
-                style={{ padding: "12px", maxWidth: "auto" }}
-              >
-                <option value="">Select Doctor</option>
-               {
-                doctorsArray[formData.department]?.map((doctor)=>{
-                  return <option key={doctor} value={doctor}>{doctor}</option>
-                })
-               }
-              </Form.Select>
-            </Form.Group>
-
-          <div className='d-flex justify-content-center align-items-center mb-3 p-2 w-100'>
-            <Button variant='primary' type='submit' className='w-100'>
-              GET APPOINTMENT
-            </Button>
-          </div>
-          </Form>
-          </Col>
-        </Row>
-        <hr style={{ margin: 0, border: "1px solid black" }} />
-      </div>
-      <Footer />
-    </Container>
+        </div>
+        <Footer />
+      </Container>
     </>
-  )
-}
+  );
+};
 
-export default Appointment
+export default AppointmentForm;
