@@ -34,12 +34,12 @@ const MessageForm = () => {
    }
   }
   return (
-    <Container fluid className='d-flex justify-content-center align-items-center' style={{height:'70vh'}}>
+    <Container fluid className='d-flex justify-content-center align-items-center' style={{height:'80vh'}}>
       <div className="shadow-lg p-5 bg-white rounded mt-5 message-form" style={{ maxWidth: '800px', width: '100%',height:"90%",marginBottom:"60px"}}>
         <h2 className='text-center fw-1' style={{ fontSize: "30px", fontWeight: "bold",color:"rgba(0, 126, 133, 1)"}}>Send Us A Message</h2>
         <Form onSubmit={handleMessage}>
           <Row className="m-2">
-            <Col lg={6} md={4} sm={12} className='p-2'>
+            <Col lg={6} md={4} sm={12} className='p-3'>
               <Form.Group as={Col} controlId="formfname">
                 <Form.Control type="text"
                   value={firstname}
@@ -49,7 +49,7 @@ const MessageForm = () => {
               </Form.Group>
             </Col>
 
-            <Col lg={6} md={4} sm={12} className='p-2'>
+            <Col lg={6} md={4} sm={12} className='p-3'>
               <Form.Group as={Col} controlId="formlname">
                 <Form.Control type="text"
                   value={lastname}
@@ -61,7 +61,7 @@ const MessageForm = () => {
           </Row>
 
           <Row className="m-2">
-            <Col lg={6} md={4} sm={12} className='p-2'>
+            <Col lg={6} md={4} sm={12} className='p-3'>
               <Form.Group as={Col} controlId="formemail">
                 <Form.Control type='text'
                   value={email}
@@ -71,7 +71,7 @@ const MessageForm = () => {
               </Form.Group>
             </Col>
 
-            <Col lg={6} md={4} sm={12} className='p-2'>
+            <Col lg={6} md={4} sm={12} className='p-3'>
               <Form.Group as={Col} controlId="formnumber">
                 <Form.Control type='number'
                   value={phonenumber}
@@ -96,7 +96,7 @@ const MessageForm = () => {
             </Col>
           </Row>
 
-          <Row className='d-flex justify-content-center p-2'>
+          <Row className='d-flex justify-content-center p-3'>
             <Col xs='auto'>
               <Button variant='primary' type='submit' style={{ width: "150px" }}>
                 Send
