@@ -34,11 +34,11 @@ const MessageForm = () => {
    }
   }
   return (
-    <Container fluid className='d-flex justify-content-center align-items-center' style={{height:'100vh'}}>
-      <div className="shadow-lg p-5 bg-white rounded mt-5 message-form" style={{ maxWidth: '800px', width: '100%',height:"90%",marginBottom:"45px"}}>
+    <Container fluid className='d-flex justify-content-center align-items-center' style={{height:'70vh'}}>
+      <div className="shadow-lg p-5 bg-white rounded mt-5 message-form" style={{ maxWidth: '800px', width: '100%',height:"90%",marginBottom:"60px"}}>
         <h2 className='text-center fw-1' style={{ fontSize: "30px", fontWeight: "bold",color:"rgba(0, 126, 133, 1)"}}>Send Us A Message</h2>
         <Form onSubmit={handleMessage}>
-          <Row className="m-5">
+          <Row className="m-2">
             <Col lg={6} md={4} sm={12} className='p-2'>
               <Form.Group as={Col} controlId="formfname">
                 <Form.Control type="text"
@@ -60,7 +60,7 @@ const MessageForm = () => {
             </Col>
           </Row>
 
-          <Row className="m-5">
+          <Row className="m-2">
             <Col lg={6} md={4} sm={12} className='p-2'>
               <Form.Group as={Col} controlId="formemail">
                 <Form.Control type='text'
@@ -82,7 +82,7 @@ const MessageForm = () => {
             </Col>
           </Row>
 
-          <Row className='m-5'>
+          <Row className='m-2'>
             <Col lg={12} md={12} sm={12}>
               <Form.Group controlId="textarea">
                 <Form.Control
