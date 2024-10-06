@@ -319,7 +319,7 @@ const AppointmentForm = () => {
             src={appointment}
             style={{
               width: "100%",
-              height:"130vh",
+              height:"135vh",
               objectFit: "cover",
               position: "absolute",
               top: "0",
@@ -329,7 +329,7 @@ const AppointmentForm = () => {
             }}
             alt="Appointment Banner"
           />
-          <h1 className='p-4' style={{ fontWeight: "bold", color: "white", fontFamily: "initial"}}>
+          <h1 className='p-5 mt-5' style={{ fontWeight: "bold", color: "white", fontFamily: "initial"}}>
             Book an Appointment
           </h1>
           <Col xs={12} lg={12} md={12} className='d-flex justify-content-center align-items-center'>

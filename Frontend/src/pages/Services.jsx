@@ -33,7 +33,7 @@ const Services = () => {
       <Container fluid style={{ maxWidth: "100%", maxHeight: "100%" }}>
         <Row>
           <Col sm={12} lg={5} md={6}>
-            <h1 className='m-5' style={{ fontSize: "45px", fontWeight: "bold", fontFamily: "initial" }}>Providing Quality Easycare for a Brighter and Healthy Future</h1>
+            <h1 className='' style={{ fontSize: "45px", fontWeight: "bold", fontFamily: "initial",marginTop:"120px",marginLeft:"48px"}}>Providing Quality Easycare for a Brighter and Healthy Future</h1>
             <p className='m-5'>At our hospital, we are dedicated to providing exceptional medical care to our patients and their families. Our experienced team of medical professionals, cutting-edge technology, and compassionate approach make us a leader in the healthcare industry</p>
             <Button variant='primary' style={{ width: '250px', height: '45px', marginLeft: "45px" }} className='mt-1'>
               <a href='/appointment' style={{ color: 'white', textDecoration: 'none' }}>
@@ -42,7 +42,7 @@ const Services = () => {
             </Button>
           </Col>
           <Col sm={12} lg={7} md={6} className='d-flex justify-content-center align-items-center position-relative'>
-            <img src={doctor} width={550} height={490} className='m-3' style={{marginLeft:"900"}}/>
+            <img src={doctor} width={550} height={490} className='' style={{marginLeft:"950",marginTop:"100px"}}/>
             <img src={image1} width={200} height={60} className='image position-absolute' style={{ top: "400px", right: "500px", zIndex: 1 }} />
           </Col>
         </Row>
