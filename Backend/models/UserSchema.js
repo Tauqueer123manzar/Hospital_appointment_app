@@ -25,14 +25,6 @@ const UserSchema = new mongoose.Schema({
         minlength: [10, "Minimum Length should be 10 characters"],
         maxlength: [11, "Maximum Length should be 11 characters"],
     },
-    pincode: {
-        type: Number,
-        required: true,
-    },
-    dob: {
-        type: Date,
-        required: [true, "DOB is required"],
-    },
     gender: {
         type: String,
         required: true,

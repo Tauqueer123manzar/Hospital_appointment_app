@@ -16,8 +16,6 @@ const Register = () => {
   const [lastname, setLastname] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
-  const [pincode, setPincode] = useState("");
-  const [dob, setDob] = useState("");
   const [gender, setGender] = useState("");
   const [password, setPassword] = useState("");
   // const navigateTo=useNavigate();
@@ -26,7 +24,7 @@ const Register = () => {
     console.log('Form submitted', firstname, lastname, email, phone, pincode, dob, gender, password);
     try {
       await axios.post("http://localhost:8080/api/v1/user/patient/register",
-        { firstname, lastname, email, phone, pincode, dob, gender, password,role:"Patient" },
+        { firstname, lastname, email, phone, pincode:"", dob:"", gender, password,role:"Patient" },
         {
           withCredentials: true,
           headers: {
@@ -39,8 +37,6 @@ const Register = () => {
         setLastname("");
         setEmail("");
         setPhone("");
-        setPincode("");
-        setDob("");
         setGender("");
         setPassword("");
         setIsAuthenticated(true);
@@ -116,32 +112,6 @@ const Register = () => {
                       value={phone}
                       onChange={(e) => setPhone(e.target.value)}
                       placeholder='Mobile Number'
-                      style={{ padding: "12px", maxWidth: "auto" }}
-                    />
-                  </Form.Group>
-                </Col>
-
-                <Col xs={12} md={6} lg={5}>
-                  <Form.Group className="mb-3 p-2" controlId='pincode'>
-                    <Form.Control
-                      required
-                      type='Number'
-                      value={pincode}
-                      onChange={(e) => setPincode(e.target.value)}
-                      placeholder='Pincode'
-                      style={{ padding: "12px", maxWidth: "auto" }}
-                    />
-                  </Form.Group>
-                </Col>
-
-                <Col xs={12} md={6} lg={5}>
-                  <Form.Group className="mb-3 p-2" controlId='dob'>
-                    <Form.Control
-                      required
-                      type='date'
-                      value={dob}
-                      onChange={(e) => setDob(e.target.value)}
-                      placeholder='Date of Birth'
                       style={{ padding: "12px", maxWidth: "auto" }}
                     />
                   </Form.Group>
