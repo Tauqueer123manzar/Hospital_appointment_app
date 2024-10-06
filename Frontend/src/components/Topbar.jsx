@@ -43,12 +43,11 @@ const Topbar = () => {
           </Nav>
           <div className='button'>
           <Dropdown>
-              <Dropdown.Toggle id="dropdown-basic" style={{backgroundColor:"white",borderRadius:"50%",width:"75px",height:"60px",padding:0,display:"flex",justifyContent:"center",alignItems:"center",border:"none"}}>
-                <Image src={Tauqueer} roundedCircle style={{ width: '100%', height: '100%', objectFit:"cover"}} />
-              </Dropdown.Toggle>
+          <Dropdown.Toggle id="dropdown-basic" style={{ borderRadius: "50px",width: "150px", height: "45px", padding: 0,}}>
+       <a href='/register' style={{color:"white",textDecoration:"none",listStyle:"none"}}> Create Account</a>
+      </Dropdown.Toggle>
 
               <Dropdown.Menu align="end" className='bg-gray'>
-                <Dropdown.Item href="/login">Login</Dropdown.Item>
                 <Dropdown.Item href="/myappointment">My Appointments</Dropdown.Item>
                 <Dropdown.Item href="/myprofile">My Profile</Dropdown.Item>
                 <Dropdown.Item href="/logout">Logout</Dropdown.Item>

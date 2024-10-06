@@ -11,8 +11,6 @@ exports.PatientRegister = catchAsyncErrors(async (req, res, next) => {
         lastname,
         email,
         phone,
-        pincode,
-        dob,
         gender,
         password,
         role,
@@ -23,8 +21,6 @@ exports.PatientRegister = catchAsyncErrors(async (req, res, next) => {
         !lastname ||
         !email ||
         !phone ||
-        !pincode ||
-        !dob ||
         !gender ||
         !password ||
         !role
@@ -42,8 +38,6 @@ exports.PatientRegister = catchAsyncErrors(async (req, res, next) => {
         lastname,
         email,
         phone,
-        pincode,
-        dob,
         gender,
         password,
         role,
