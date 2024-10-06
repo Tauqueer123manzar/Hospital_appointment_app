@@ -21,7 +21,7 @@ const Topbar = () => {
     setIsLoggedIn(true);
   }
   return (
-    <Navbar expand="lg" className="navbar shadow">
+    <Navbar expand="lg" className="navbar shadow fixed-top navbar-light bg-light">
     <Container fluid>
       <Navbar.Brand>
       <h1 style={{color:"darkred",fontWeight:"bold"}}><a href='/'/>EasyCare</h1>
