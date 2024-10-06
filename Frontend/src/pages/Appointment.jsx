@@ -313,13 +313,13 @@ const AppointmentForm = () => {
   return (
     <>
       <Topbar />
-      <Container fluid style={{ maxWidth: "100%", padding: 0}}>
+      <Container fluid style={{ maxWidth: "200%", padding: 0}}>
         <div style={{ width: "100%", position: "relative" }}>
           <img
             src={appointment}
             style={{
               width: "100%",
-              height:"100vh",
+              height:"130vh",
               objectFit: "cover",
               position: "absolute",
               top: "0",
@@ -333,7 +333,7 @@ const AppointmentForm = () => {
             Book an Appointment
           </h1>
           <Col xs={12} lg={12} md={12} className='d-flex justify-content-center align-items-center'>
-            <Card className='shadow-lg p-5 bg-white rounded mb-5' style={{width:"750px",height:"100%"}}>
+            <Card className='shadow-lg p-5 bg-white rounded mb-5' style={{width:"750px"}}>
               <Form>
                 <Row className="mb-0">
                 <h3 className='text-center' style={{fontFamily:"initial",fontWeight:"600"}}>Appointment Booking</h3>
