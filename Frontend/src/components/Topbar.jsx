@@ -3,7 +3,6 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import Container from 'react-bootstrap/Container';
 import Dropdown from 'react-bootstrap/Dropdown';
-import Image from 'react-bootstrap/Image';
 import Tauqueer from '../assets/Tauqueer Image.jpg'
 import '../App.css'
 const Topbar = () => {
@@ -21,7 +20,7 @@ const Topbar = () => {
     setIsLoggedIn(true);
   }
   return (
-    <Navbar expand="lg" className="navbar shadow fixed-top navbar-light bg-light">
+    <Navbar expand="lg" className="navbar shadow fixed-top bg-light">
     <Container fluid>
       <Navbar.Brand>
       <h1 style={{color:"darkred",fontWeight:"bold"}}><a href='/'/>EasyCare</h1>
