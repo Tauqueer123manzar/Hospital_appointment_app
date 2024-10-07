@@ -80,8 +80,6 @@ exports.addnewadmin = catchAsyncErrors(async (req, res, next) => {
         !lastname ||
         !email ||
         !phone ||
-        !pincode ||
-        !dob ||
         !gender ||
         !password
         ) {
@@ -98,8 +96,6 @@ exports.addnewadmin = catchAsyncErrors(async (req, res, next) => {
         lastname,
         email,
         phone,
-        pincode,
-        dob,
         gender,
         password,
         role:"Admin"

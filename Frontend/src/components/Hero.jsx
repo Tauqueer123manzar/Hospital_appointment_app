@@ -7,14 +7,15 @@ import 'animate.css'
 const Hero = ({ title, imageurl }) => {
   return (
     <Container fluid>
-      <div className='hero_section' style={{ maxWidth: "100%", maxHeight: "100%" }}>
+      <div className='hero_section' style={{ width: "100%", maxHeight: "100%" }}>
         <Row
           style={{
             backgroundImage: `url(${background})`,
             backgroundSize: 'cover',
             backgroundPosition: 'center',
             height: "100%", // Adjust height as needed
-            marginTop: '0', // Removed margin to avoid spacing issues
+            marginTop: '0',
+            width:"100%" // Removed margin to avoid spacing issues
           }}>
           <Col lg={6} md={6} sm={12}>
             <p style={{ marginTop: "120px", fontWeight: "700", fontSize: "40px", marginLeft: "24px", maxWidth: "600px", lineHeight: "1.2" }}>{title}</p>
@@ -29,7 +30,7 @@ const Hero = ({ title, imageurl }) => {
             justifyContent: 'center',
             alignItems: 'center',
           }}>
-            <img src={imageurl} alt='missing image' style={{ position: 'relative', zIndex: 1 }} />
+            <img src={imageurl} alt='missing image' style={{ position: 'relative', zIndex: 1 ,marginTop: "75px"}} />
           </Col>
         </Row>
       </div>

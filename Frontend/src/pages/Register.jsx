@@ -21,10 +21,10 @@ const Register = () => {
   // const navigateTo=useNavigate();
   const handleRegister = async (e) => {
     e.preventDefault();
-    console.log('Form submitted', firstname, lastname, email, phone, pincode, dob, gender, password);
+    console.log('Form submitted', firstname, lastname, email, phone, gender, password);
     try {
       await axios.post("http://localhost:8080/api/v1/user/patient/register",
-        { firstname, lastname, email, phone, pincode:"", dob:"", gender, password,role:"Patient" },
+        { firstname, lastname, email, phone, gender, password,role:"Patient" },
         {
           withCredentials: true,
           headers: {
