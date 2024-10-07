@@ -12,6 +12,7 @@ import MyProfile from './pages/MyProfile'
 import MyAppointment from '../src/pages/MyAppointments'
 import './App.css'
 import Doctorprofile from './components/Doctorprofile'
+import Alldoctor from './pages/Alldoctor'
 function App() {
   
   return (
@@ -26,6 +27,7 @@ function App() {
         <Route path='/myprofile' element={<MyProfile/>}/>
         <Route path='/myappointment' element={<MyAppointment/>}/>
         <Route path='/doctor/:id' element={<Doctorprofile/>}/>
+        <Route path='/alldoctors' element={<Alldoctor/>}/>
         <Route path='/register' element={<Register/>}/>
         <Route path='/login' element={<Login/>}/> 
       </Routes>
