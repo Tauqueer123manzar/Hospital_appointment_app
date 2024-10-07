@@ -65,19 +65,22 @@
   background-color: rgb(205, 205, 205);
 }
 .home:hover{
-  border-bottom: 4px solid red;
+  border-bottom: 2px solid rgb(0, 34, 255);
 }
 .about:hover{
-  border-bottom: 4px solid red;
+  border-bottom: 2px solid rgb(0, 34, 255);
 }
 .appointment:hover{
-  border-bottom: 4px solid red;
+  border-bottom: 2px solid rgb(0, 34, 255);
 }
 .service:hover{
-  border-bottom: 4px solid red;
+   border-bottom: 2px solid rgb(0, 34, 255);
 }
 .contact:hover{
-  border-bottom: 4px solid red;
+   border-bottom: 2px solid rgb(0, 34, 255);
+}
+.alldoctor:hover{
+  border-bottom: 2px solid rgb(0, 34, 255);
 }
 .servicecard{
   display: flex;

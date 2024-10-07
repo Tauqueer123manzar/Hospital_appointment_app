@@ -33,6 +33,7 @@ const Topbar = () => {
           navbarScroll
         >
           <Nav.Link className='text-secondary home' style={{fontWeight:"bold"}} href="/">HOME</Nav.Link>
+          <Nav.Link className='text-secondary alldoctor' style={{fontWeight:"bold"}} href='/alldoctors'>ALL DOCTORS</Nav.Link>
           <Nav.Link className='text-secondary appointment' style={{fontWeight:"bold"}} href="/appointment">APPOINTMENT</Nav.Link>
           <Nav.Link className='text-secondary about' style={{fontWeight:"bold"}} href="/about">ABOUT US</Nav.Link>
           <Nav.Link className='text-secondary service' style={{fontWeight:"bold"}} href='/service'>SERVICE</Nav.Link>
