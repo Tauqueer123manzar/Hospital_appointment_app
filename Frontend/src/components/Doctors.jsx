@@ -15,6 +15,7 @@ import doctor12 from '../assets/file (5) 4.png';
 import { FaCircle } from "react-icons/fa6";
 import { useNavigate } from 'react-router-dom';
 import '../App.css';
+import { Prev } from 'react-bootstrap/esm/PageItem';
 
 const Doctors = () => {
   const navigate = useNavigate();
@@ -70,10 +71,10 @@ const Doctors = () => {
     },
     {
       id: 8,
-      image: doctor8,
+      image: doctor8 ,
       title: "Available",
       name: "Dr. Richard James",
-      description: "General physician",
+      description: "Physician",
     },
     {
       id: 9,
@@ -131,6 +132,13 @@ const Doctors = () => {
       name: "Dr. Richard James",
       description: "Therapy",
     },
+    {
+      id: 17,
+      image: doctor5,
+      title: "Available",
+      name: "Dr. Richard James",
+      description: "Therapy",
+    },
   ];
 
   const [visibleDoctors, setVisibleDoctors] = useState(12);
@@ -141,9 +149,9 @@ const Doctors = () => {
   };
 
   // Function to show more doctors.
-  const handleShowMore = () => {
-    setVisibleDoctors((prev) => prev + 4);
-  };
+  const handleShowMore=()=>{
+    setVisibleDoctors(Prev=> Prev+12)
+  }
 
   return (
     <Container fluid>
