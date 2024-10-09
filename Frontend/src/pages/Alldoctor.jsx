@@ -141,9 +141,11 @@ const Alldoctor = () => {
   ];
   const [selectedDepartment, setSelectedDepartment] = useState('All');
 
-  //Filter doctors based on selected department
-  const filteredDoctors = setSelectedDepartment === 'All'
-    ? doctorsData : doctorsData.filter((doctor) => doctor.department === setSelectedDepartment);
+  const filteredDoctors = selectedDepartment === 'All'
+    ? doctorsData
+    : doctorsData.filter((doctor) => doctor.description === selectedDepartment);
+
+
   return (
     <>
       <Topbar />
@@ -162,18 +164,21 @@ const Alldoctor = () => {
                 <Col xs={12} key={index} className='d-flex justify-content-center align-items-center mb-2'>
                   <Button
                     variant={selectedDepartment === dept ? 'primary' : 'outline-primary'}
-                    onClick={() => setSelectedDepartment(dept)}
-                    block
-                    style={{width:"250px"}}
+                    onClick={() => {
+                      console.log('Selected department:', dept);
+                      setSelectedDepartment(dept)
+                    }}
+                    style={{ width: "250px" }}
                   >
                     {dept}
                   </Button>
                 </Col>
               ))}
             </Row>
+
           </Col>
           <Col xs={12} md={6} lg={9} style={{ marginTop: "65px" }}>
-            <Doctors doctors={filteredDoctors} />
+            <Doctors doctor={filteredDoctors} />
           </Col>
         </Row>
       </Container>
@@ -183,3 +188,4 @@ const Alldoctor = () => {
 }
 
 export default Alldoctor
+

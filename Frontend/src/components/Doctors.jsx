@@ -15,11 +15,10 @@ import doctor12 from '../assets/file (5) 4.png';
 import { FaCircle } from "react-icons/fa6";
 import { useNavigate } from 'react-router-dom';
 import '../App.css';
-import { Prev } from 'react-bootstrap/esm/PageItem';
 
 const Doctors = () => {
   const navigate = useNavigate();
-  const Doctorsdata = [
+  const doctorsData = [
     {
       id: 1,
       image: doctor1,
@@ -155,16 +154,16 @@ const Doctors = () => {
 
   return (
     <Container fluid>
-      <h1 className="text-center mt-4" style={{ fontFamily: "initial", fontWeight: "bold", color: "darkcyan" }}>
+      <h3 className="text-center mt-4" style={{ fontFamily: "initial", fontWeight: "bold", color: "darkcyan" }}>
         Top Doctors to Book
-      </h1>
+      </h3>
       <Row>
         <p className="text-center" style={{ fontFamily: "initial" }}>
           Simply browse through our extensive list of trusted doctors.
         </p>
-        {Doctorsdata.slice(0, visibleDoctors).map((doctor) => (
+        {doctorsData.slice(0, visibleDoctors).map((doctor) => (
           <Col xs={12} sm={6} md={4} lg={2} className="p-3" key={doctor.id}>
-            <Card className="doctorcard" onClick={() => handleDoctorClick(doctor.id)} style={{ cursor: "pointer" }}>
+            <Card className="doctorcard" onClick={() => handleDoctorClick(doctor.id)} style={{ cursor: "pointer",height:"350px"}}>
               <div className="image-wrapper">
                 <Card.Img variant="top" src={doctor.image} className="doctorimage" />
               </div>
@@ -179,7 +178,7 @@ const Doctors = () => {
           </Col>
         ))}
       </Row>
-      {visibleDoctors < Doctorsdata.length && (
+      {visibleDoctors < doctorsData.length && (
         <div className="text-center mt-4 mb-4">
           <Button variant="primary" onClick={handleShowMore}>
             Show More
