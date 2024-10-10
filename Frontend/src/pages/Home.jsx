@@ -16,7 +16,6 @@ const Home = () => {
         }
         imageurl={heroimage}
       />
-      <Doctors/>
       <Department/>
       <Footer/>
     </div>
