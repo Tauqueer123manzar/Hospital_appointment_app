@@ -15,7 +15,6 @@ import doctor9 from '../assets/file (5) 1.jpg';
 import doctor10 from '../assets/file (5) 2.png';
 import doctor11 from '../assets/file (5) 3.png';
 import doctor12 from '../assets/file (5) 4.png';
-import appointment from '../pages/Appointment.jsx';
 import Topbar from './Topbar';
 const DoctorProfile = () => {
     const { id } = useParams();
@@ -176,7 +175,7 @@ const DoctorProfile = () => {
             <div className='doctorpage' style={{backgroundColor:"lightgrey"}}>
             <Container>
                 <Row className="justify-content-center">
-                    <Col md={6}>
+                    <Col md={6} lg={5} style={{marginTop:"70px"}}>
                         <Card className='mb-5 mt-4'>
                             <Card.Img variant="top" src={doctor.image} alt={doctor.name} height={350}/>
                             <Card.Body>

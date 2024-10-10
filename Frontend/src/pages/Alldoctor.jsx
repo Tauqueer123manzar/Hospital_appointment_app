@@ -101,7 +101,7 @@ const Alldoctor = () => {
       image: doctor12,
       title: "Available",
       name: "Dr. Richard James",
-      description: "Therapy",
+      description: "Radiology",
     },
     {
       id: 13,
@@ -129,7 +129,7 @@ const Alldoctor = () => {
       image: doctor12,
       title: "Available",
       name: "Dr. Richard James",
-      description: "Therapy",
+      description: "Radiology",
     },
     {
       id: 17,
@@ -141,10 +141,9 @@ const Alldoctor = () => {
   ];
   const [selectedDepartment, setSelectedDepartment] = useState('All');
 
-  const filteredDoctors = selectedDepartment === 'All'
-    ? doctorsData
-    : doctorsData.filter((doctor) => doctor.description === selectedDepartment);
-
+  const filteredDoctors= selectedDepartment === 'All'
+   ? doctorsData
+   : doctorsData.filter(doctor => doctor.description === selectedDepartment);
 
   return (
     <>
@@ -165,8 +164,7 @@ const Alldoctor = () => {
                   <Button
                     variant={selectedDepartment === dept ? 'primary' : 'outline-primary'}
                     onClick={() => {
-                      console.log('Selected department:', dept);
-                      setSelectedDepartment(dept)
+                      setSelectedDepartment(dept);
                     }}
                     style={{ width: "250px" }}
                   >
@@ -175,7 +173,6 @@ const Alldoctor = () => {
                 </Col>
               ))}
             </Row>
-
           </Col>
           <Col xs={12} md={6} lg={9} style={{ marginTop: "65px" }}>
             <Doctors doctor={filteredDoctors} />
@@ -184,8 +181,7 @@ const Alldoctor = () => {
       </Container>
       <Footer />
     </>
-  )
+  );
 }
 
-export default Alldoctor
-
+export default Alldoctor;
