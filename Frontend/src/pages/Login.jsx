@@ -1,9 +1,44 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Container, Row, Col, Button, Form } from 'react-bootstrap';
 import Topbar from '../components/Topbar';
 import Footer from '../components/Footer';
-
+import axios from 'axios';
+import { toast } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
 const Login = () => {
+  const[formdata,setFormdata]=useState({
+    email:"",
+    password:"",
+    confirmpassword:""
+  });
+  const navigate=useNavigate();
+
+  const handleChange=(e)=>{
+    setFormdata({
+      ...formdata,
+      [e.target.name]:e.target.value
+    });
+  };
+
+  const handleSubmit=async(e)=>{
+    e.preventDefault();
+    if(formdata.password !== formdata.confirmpassword){
+      toast.error("Passwords does not match");
+      return;
+    }
+    try{
+      const response=await axios.post("http://localhost:8080/api/v1/user/login",formdata,{
+        headers:{
+          "Content-Type":"application/json"
+        }
+    });
+    toast.success("Login Successful!");
+    navigate("/");
+  }catch(error){
+    toast.error(error.response.data.message || "Login failed");
+    console.error("Login failed error!",error);
+  }
+};
   return (
     <>
       <Topbar />
@@ -18,7 +53,7 @@ const Login = () => {
           }}
         >
         <h2 className='text-center' style={{fontWeight:"bold",fontFamily:"initial",marginTop:"120px"}}>User Login</h2>
-          <Form style={{ width: '100%', maxWidth: '600px' }} className='mt-3'>
+          <Form style={{ width: '100%', maxWidth: '600px' }} className='mt-3' onSubmit={handleSubmit}>
           <div className='shadow-lg p-5 bg-white rounded mt-3' style={{maxWidth:"800px",height:"100%"}}>
             <Row className='d-flex justify-content-center align-items-center'>
             <h2 className='text-center'>Login</h2>
@@ -28,6 +63,9 @@ const Login = () => {
                     required
                     type='email'
                     placeholder='Email'
+                    name='email'
+                    value={formdata.email}
+                    onChange={handleChange}
                     style={{ padding: '12px' }}
                   />
                 </Form.Group>
@@ -40,6 +78,9 @@ const Login = () => {
                   <Form.Control
                     required
                     type='password'
+                    name='password'
+                    value={formdata.password}
+                    onChange={handleChange}
                     placeholder='Password'
                     style={{ padding: '12px' }}
                   />
@@ -53,6 +94,9 @@ const Login = () => {
                   <Form.Control
                     required
                     type='password'
+                    name='confirmpassword'
+                    value={formdata.confirmpassword}
+                    onChange={handleChange}
                     placeholder='Confirm Password'
                     style={{ padding: '12px' }}
                   />
@@ -69,7 +113,7 @@ const Login = () => {
 
             <Row className='d-flex justify-content-center p-4'>
               <Col xs={8} lg={4} md={6} className='p-2'>
-                <Button variant='primary' className='w-100'>
+                <Button variant='primary' type="submit" className='w-100'>
                   Login
                 </Button>
               </Col>
