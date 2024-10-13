@@ -33,7 +33,7 @@ const UserSchema = new mongoose.Schema({
     password: {
         type: String,
         required: true,
-        minlength: [9, "Minimum Length should be 11 characters"],
+        minlength: [5, "Minimum Length should be 5 characters"],
         select: false,
     },
     role: {

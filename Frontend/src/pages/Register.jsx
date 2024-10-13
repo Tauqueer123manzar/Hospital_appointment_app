@@ -4,21 +4,18 @@ import Topbar from '../components/Topbar';
 import signup from '../assets/healthbg.jpg'
 import Footer from '../components/Footer';
 import { toast } from 'react-toastify';
-import {Navigate,useNavigate } from 'react';
-import {context} from '../main.jsx'
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios'
 import '../App.css'
 const Register = () => {
-  // Authenticated state
-  // const[isAuthenticated,setIsAuthenticated]=useContext(context);
-
   const [firstname, setFirstName] = useState("");
   const [lastname, setLastname] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [gender, setGender] = useState("");
   const [password, setPassword] = useState("");
-  // const navigateTo=useNavigate();
+
+  const navigate=useNavigate();
   const handleRegister = async (e) => {
     e.preventDefault();
     console.log('Form submitted', firstname, lastname, email, phone, gender, password);
@@ -39,16 +36,13 @@ const Register = () => {
         setPhone("");
         setGender("");
         setPassword("");
-        setIsAuthenticated(true);
+        navigate("/login");
       })
     } catch (error) {
       toast.error(error.response.data.message);
     }
   };
 
-  // if(isAuthenticated){
-  //   return <Navigate to={"/"}/>;
-  // }
   return (
     <>
       <Topbar />
