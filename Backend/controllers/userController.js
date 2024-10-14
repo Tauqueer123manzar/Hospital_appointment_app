@@ -1,4 +1,5 @@
 const User = require("../models/UserSchema");
+const Signin=require("../models/Signin");
 const catchAsyncErrors = require("../middlewares/catchAsyncErrors");
 const ErrorHandler = require("../middlewares/Errorhandler");
 const { GenerateToken } = require("../utils/jwtToken");
@@ -56,7 +57,7 @@ exports.loginRegister = catchAsyncErrors(async (req, res, next) => {
         return next(new ErrorHandler("Password and ConfirmPassword Do not Match!", 400));
     }
 
-    const user = await User.findOne({ email }).select("+password");
+    const user = await Signin.findOne({ email }).select("+password");
     if (!user) {
         return next(new ErrorHandler("Invalid password or Email!", 400));
     }
