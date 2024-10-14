@@ -9,7 +9,8 @@ const Login = () => {
   const[formdata,setFormdata]=useState({
     email:"",
     password:"",
-    confirmpassword:""
+    confirmpassword:"",
+    role:"Patient"
   });
   const navigate=useNavigate();
 
