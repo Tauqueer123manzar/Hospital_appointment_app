@@ -12,6 +12,7 @@ const Errormiddleware = (err, req, res, next) => {
         const message = "Json Web Token is invalid, Try Again!";
         err = new Errorhandler(message, 400);
     }
+    
     if (err.name === "TokenExpiredError") {
         const message = "Json Web Token Expired, Try Again!";
         err = new Errorhandler(message, 400);
