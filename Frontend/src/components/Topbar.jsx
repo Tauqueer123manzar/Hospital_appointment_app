@@ -1,63 +1,86 @@
-import React, { useState } from 'react'
+import React, { useContext } from 'react';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import Container from 'react-bootstrap/Container';
 import Dropdown from 'react-bootstrap/Dropdown';
-import Tauqueer from '../assets/Tauqueer Image.jpg'
-import '../App.css'
+import { context } from '../main';
+import '../App.css';
+import { Button } from 'react-bootstrap';
+import axios from 'axios';
+import { toast } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
+
 const Topbar = () => {
-  const[isLoggedIn,setIsLoggedIn]=useState(true);
-  const[profile,setProfile]=useState({
-    name:"Md Tauqueer Manzar",
-    profilePicture:Tauqueer
-  });
+  const { isAuthenticated, setIsAuthenticated } = useContext(context);
+  const navigateTo = useNavigate();
 
-  const handlelogout=()=>{
-    setIsLoggedIn(false);
-  }
+  // Logout function
+  const handlelogout = async () => {
+    try {
+      const res = await axios.get('http://localhost:8080/api/v1/user/patient/logout', {
+        withCredentials: true,
+      });
+      toast.success(res.data.message);
+      setIsAuthenticated(false);
+    } catch (err) {
+      toast.error(err.response.data.message);
+    }
+  };
 
-  const handlelogin=()=>{
-    setIsLoggedIn(true);
-  }
+  // Navigate to login
+  const gotologin = () => {
+    navigateTo('/login');
+  };
+
   return (
     <Navbar expand="lg" className="navbar shadow fixed-top bg-light">
-    <Container fluid>
-      <Navbar.Brand>
-      <h1 style={{color:"darkred",fontWeight:"bold"}}><a href='/'/>EasyCare</h1>
-      </Navbar.Brand>
-      <Navbar.Toggle aria-controls="navbarScroll" />
-      <Navbar.Collapse id="navbarScroll">
-        <Nav
-          className="mx-auto"
-          style={{ maxHeight: '100%',maxWidth:"100%",textAlign:"center"}}
-          navbarScroll
-        >
-          <Nav.Link className='text-secondary home' style={{fontWeight:"bold"}} href="/">HOME</Nav.Link>
-          <Nav.Link className='text-secondary alldoctor' style={{fontWeight:"bold"}} href='/alldoctors'>ALL DOCTORS</Nav.Link>
-          <Nav.Link className='text-secondary appointment' style={{fontWeight:"bold"}} href="/appointment">APPOINTMENT</Nav.Link>
-          <Nav.Link className='text-secondary about' style={{fontWeight:"bold"}} href="/about">ABOUT US</Nav.Link>
-          <Nav.Link className='text-secondary service' style={{fontWeight:"bold"}} href='/service'>SERVICE</Nav.Link>
-          <Nav.Link className='text-secondary contact' style={{fontWeight:"bold"}} href='/contact'>CONTACT</Nav.Link>
-          <Nav.Link className='text-secondary myprofile' style={{fontWeight:"bold"}} href='/myprofile'></Nav.Link>
-          <Nav.Link className='text-secondary myappointment' style={{fontWeight:"bold"}} href='/myappointment'></Nav.Link>
+      <Container fluid>
+        <Navbar.Brand>
+          <h1 style={{ color: 'darkred', fontWeight: 'bold' }}>
+            <a href="/" style={{ textDecoration: 'none' }}>EasyCare</a>
+          </h1>
+        </Navbar.Brand>
+        <Navbar.Toggle aria-controls="navbarScroll" />
+        <Navbar.Collapse id="navbarScroll">
+          <Nav className="mx-auto" style={{ maxHeight: '100%', maxWidth: '100%', textAlign: 'center' }} navbarScroll>
+            <Nav.Link className='text-secondary home' style={{ fontWeight: 'bold' }} href="/">HOME</Nav.Link>
+            <Nav.Link className='text-secondary alldoctor' style={{ fontWeight: 'bold' }} href='/alldoctors'>ALL DOCTORS</Nav.Link>
+            <Nav.Link className='text-secondary appointment' style={{ fontWeight: 'bold' }} href="/appointment">APPOINTMENT</Nav.Link>
+            <Nav.Link className='text-secondary about' style={{ fontWeight: 'bold' }} href="/about">ABOUT US</Nav.Link>
+            <Nav.Link className='text-secondary service' style={{ fontWeight: 'bold' }} href='/service'>SERVICE</Nav.Link>
+            <Nav.Link className='text-secondary contact' style={{ fontWeight: 'bold' }} href='/contact'>CONTACT</Nav.Link>
           </Nav>
           <div className='button'>
-          <Dropdown>
-          <Dropdown.Toggle id="dropdown-basic" style={{ borderRadius: "50px",width: "150px", height: "45px", padding: 0,}}>
-       <a href='/register' style={{color:"white",textDecoration:"none",listStyle:"none"}}> Create Account</a>
-      </Dropdown.Toggle>
+            <Dropdown>
+              <Dropdown.Toggle id="dropdown-basic" style={{ borderRadius: '50px', width: '150px', height: '45px', padding: 0 }}>
+                {/* Display login or logout based on the isAuthenticated state */}
+                {isAuthenticated ? (
+                  <span style={{ color: 'white', textDecoration: 'none' }}>Logout</span>
+                ) : (
+                  <span style={{ color: 'white', textDecoration: 'none' }}>Login</span>
+                )}
+              </Dropdown.Toggle>
 
-              <Dropdown.Menu align="end" className='bg-gray'>
-                <Dropdown.Item href="/myappointment">My Appointments</Dropdown.Item>
-                <Dropdown.Item href="/myprofile">My Profile</Dropdown.Item>
-                <Dropdown.Item href="/logout">Logout</Dropdown.Item>
+              <Dropdown.Menu align="end" className="bg-gray">
+                {/* These items are only visible if the user is authenticated */}
+                {isAuthenticated ? (
+                  <>
+                    <Dropdown.Item href="/myappointment">My Appointments</Dropdown.Item>
+                    <Dropdown.Item href="/myprofile">My Profile</Dropdown.Item>
+                    <Dropdown.Item href="/logout" onClick={handlelogout}>Logout</Dropdown.Item>
+                  </>
+                ) : (
+                  // If the user is not authenticated, show only the login option
+                  <Dropdown.Item href="/login" onClick={gotologin}>Login</Dropdown.Item>
+                )}
               </Dropdown.Menu>
             </Dropdown>
-          </div>
-      </Navbar.Collapse>
-    </Container>
-  </Navbar>
-  )
-}
 
-export default Topbar
+          </div>
+        </Navbar.Collapse>
+      </Container>
+    </Navbar>
+  );
+};
+
+export default Topbar;
