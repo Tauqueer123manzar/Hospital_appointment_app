@@ -64,3 +64,48 @@ exports.addnewAdmin = catchAsyncErrors(async(req,res,next)=>{
         message:"New Admin Added Successfully"
     });
 });
+
+
+// ================================= Get All Doctors ==========================================
+exports.getallDoctors=catchAsyncErrors(async(req,res,next)=>{
+    const doctors=await User.find({role:"Doctor"});
+    res.status(200).json({
+        success:true,
+        doctors
+    });
+});
+
+// ===================================== Get user Details ================================
+exports.getUserDetails=catchAsyncErrors(async(req,res,next)=>{
+    const user=await User.findById(req.user.id);
+    res.status(200).json({
+        success:true,
+        user
+    });
+});
+
+// ====================================== Admin Logout ===================================
+exports.adminLogout=catchAsyncErrors(async(req,res,next)=>{
+    res.cookie("adminToken",null,{
+        expires:new Date(Date.now()),
+        httpOnly:true
+    });
+    res.status(200).json({
+        success:true,
+        message:"Admin Logged Out Successfully",
+    });
+});
+
+// ===================================== Patient Logout =======================================
+exports.patientLogout=catchAsyncErrors(async(req,res,next)=>{
+    res.cookie("patientToken",null,{
+        expires:new Date(Date.now()),
+        httpOnly:true
+    });
+    res.status(200).json({
+        success:true,
+        message:"Patient Logged Out Successfullt"
+    });
+});
+
+
