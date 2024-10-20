@@ -173,3 +173,4 @@ exports.addnewDoctor = catchAsyncErrors(async (req, res, next) => {
         doctor
     });
 });
+

@@ -1,7 +1,7 @@
 const Message=require("../models/message");
 const catchAsyncErrors=require("../middlewares/catchAsyncErrors");
 const Errorhandler=require("../middlewares/Errorhandler");
-const sendmessage=catchAsyncErrors(async(req,res,next)=>{
+exports.sendmessage=catchAsyncErrors(async(req,res,next)=>{
     const{firstname,lastname,email,phonenumber,message}=req.body;
     if(!firstname || !lastname ||!email || !phonenumber ||!message){
         return next(new Errorhandler("Please fill full form",400));
@@ -16,4 +16,12 @@ const sendmessage=catchAsyncErrors(async(req,res,next)=>{
         next(error);
     }
 });
-module.exports=sendmessage;
+
+// ======================================= Get All Messages ===============================================
+exports.getallMessages= catchAsyncErrors(async(req,res,next)=>{
+    const messages=await Message.find();
+    res.status(200).json({
+        success:true,
+        messages
+    });
+});
