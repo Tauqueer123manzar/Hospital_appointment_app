@@ -44,7 +44,7 @@ const UserSchema = new mongoose.Schema({
     doctordepartment: {
         type: String,
     },
-    docAvtar: {
+    docAvatar: {
         public_id: String,
         url: String,
     }
