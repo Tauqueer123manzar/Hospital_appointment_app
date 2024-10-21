@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import Container from 'react-bootstrap/Container';
@@ -11,26 +11,26 @@ import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
 
 const Topbar = () => {
-  const { isAuthenticated, setIsAuthenticated } = useContext(context);
+  const {isAuthenticated,setIsAuthenticated}=useState(context);
   const navigateTo = useNavigate();
 
   // Logout function
-  const handlelogout = async () => {
-    try {
-      const res = await axios.get('http://localhost:8080/api/v1/user/patient/logout', {
-        withCredentials: true,
-      });
-      toast.success(res.data.message);
-      setIsAuthenticated(false);
-    } catch (err) {
-      toast.error(err.response.data.message);
-    }
+  const handlelogout=async()=>{
+        await axios.get("http://localhost:8080/api/v1/user/patient/logout",{
+          withCredentials:true,
+        }).then(res=>{
+          toast.success(res.data.message);
+          setIsAuthenticated(false);
+        }).catch((err)=>{
+          toast.error(err.response.data.message);
+        });
   };
 
+  const gotologin=()=>{
+    navigateTo("/login");
+  }
+
   // Navigate to login
-  const gotologin = () => {
-    navigateTo('/login');
-  };
 
   return (
     <Navbar expand="lg" className="navbar shadow fixed-top bg-light">
@@ -54,7 +54,7 @@ const Topbar = () => {
             <Dropdown>
               <Dropdown.Toggle id="dropdown-basic" style={{ borderRadius: '50px', width: '150px', height: '45px', padding: 0 }}>
                 {/* Display login or logout based on the isAuthenticated state */}
-                {isAuthenticated ? (
+                {!isAuthenticated ? (
                   <span style={{ color: 'white', textDecoration: 'none' }}>Logout</span>
                 ) : (
                   <span style={{ color: 'white', textDecoration: 'none' }}>Login</span>
