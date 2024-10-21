@@ -9,7 +9,7 @@ const UserSchema= new mongoose.Schema({
         type:String,
         required:true
     },
-    Confirm_password:{
+    confirmPassword:{
         type:String,
         required:true
     }
