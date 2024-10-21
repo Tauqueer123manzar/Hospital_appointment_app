@@ -14,7 +14,7 @@ exports.sendAppointment=catchAsyncErrors(async(req,res,next)=>{
         doctorDepartment:specialization
     });
     if(!isconflict){
-        return next(new ErrorHandler("Doctor not available",4000));
+        return next(new ErrorHandler("Doctor not available",400));
     }
    try{
       await Appointment.create({patientName,specialization,appointmentDate,selectDoctor,selectDay,selectTime,hasvisited,doctorId,patientId});
