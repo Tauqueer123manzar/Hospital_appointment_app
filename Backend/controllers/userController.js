@@ -100,13 +100,15 @@ exports.adminLogout = catchAsyncErrors(async (req, res, next) => {
 exports.patientLogout = catchAsyncErrors(async (req, res, next) => {
     res.cookie("patientToken", null, {
         expires: new Date(Date.now()),
-        httpOnly: true
+        httpOnly: true 
     });
+    
     res.status(200).json({
         success: true,
-        message: "Patient Logged Out Successfullt"
+        message: "Patient Logged Out Successfully" 
     });
 });
+
 
 // ==================================== Add new Doctor ============================================
 exports.addnewDoctor = catchAsyncErrors(async (req, res, next) => {

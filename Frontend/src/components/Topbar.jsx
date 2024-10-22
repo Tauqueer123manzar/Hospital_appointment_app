@@ -5,32 +5,32 @@ import Container from 'react-bootstrap/Container';
 import Dropdown from 'react-bootstrap/Dropdown';
 import { context } from '../main';
 import '../App.css';
-import { Button } from 'react-bootstrap';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
 
 const Topbar = () => {
-  const {isAuthenticated,setIsAuthenticated}=useState(context);
+  const {isAuthenticated,setIsAuthenticated}=useContext(context);
   const navigateTo = useNavigate();
 
   // Logout function
-  const handlelogout=async()=>{
-        await axios.get("http://localhost:8080/api/v1/user/patient/logout",{
-          withCredentials:true,
-        }).then(res=>{
-          toast.success(res.data.message);
-          setIsAuthenticated(false);
-        }).catch((err)=>{
-          toast.error(err.response.data.message);
-        });
-  };
+ const handlelogout=async()=>{
+    await axios.get("http://localhost:8080/api/v1/user/patient/logout",{
+      withCredentials:true
+    }).then((res)=>{
+      toast.success(res.data.message);
+      setIsAuthenticated(false);
+      navigateTo("/login");
+    }).catch((err)=>{
+      toast.error(err.response.data.message);
+    })
+  }
+
 
   const gotologin=()=>{
     navigateTo("/login");
   }
 
-  // Navigate to login
 
   return (
     <Navbar expand="lg" className="navbar shadow fixed-top bg-light">
@@ -54,7 +54,7 @@ const Topbar = () => {
             <Dropdown>
               <Dropdown.Toggle id="dropdown-basic" style={{ borderRadius: '50px', width: '150px', height: '45px', padding: 0 }}>
                 {/* Display login or logout based on the isAuthenticated state */}
-                {!isAuthenticated ? (
+                {isAuthenticated ? (
                   <span style={{ color: 'white', textDecoration: 'none' }}>Logout</span>
                 ) : (
                   <span style={{ color: 'white', textDecoration: 'none' }}>Login</span>
@@ -67,11 +67,11 @@ const Topbar = () => {
                   <>
                     <Dropdown.Item href="/myappointment">My Appointments</Dropdown.Item>
                     <Dropdown.Item href="/myprofile">My Profile</Dropdown.Item>
-                    <Dropdown.Item href="/logout" onClick={handlelogout}>Logout</Dropdown.Item>
+                    <Dropdown.Item onClick={handlelogout}>Logout</Dropdown.Item>
                   </>
                 ) : (
                   // If the user is not authenticated, show only the login option
-                  <Dropdown.Item href="/login" onClick={gotologin}>Login</Dropdown.Item>
+                  <Dropdown.Item onClick={gotologin}>Login</Dropdown.Item>
                 )}
               </Dropdown.Menu>
             </Dropdown>

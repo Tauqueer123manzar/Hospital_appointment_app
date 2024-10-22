@@ -1,6 +1,6 @@
-exports.GenerateToken = async(user, message, statusCode, res) => {
+exports.GenerateToken =async(user, message, statusCode, res) => {
     const token =await user.generateJsonWebToken();
-    console.log("Generated Token: ", token);  // Add this line
+    console.log("Generated Token: ", token); 
     const cookieName = user.role === "Admin" ? "adminToken" : "patientToken";
 
     res.status(statusCode).cookie(cookieName, token, {
