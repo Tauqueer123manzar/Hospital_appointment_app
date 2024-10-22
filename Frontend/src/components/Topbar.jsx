@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import Container from 'react-bootstrap/Container';
@@ -10,25 +10,40 @@ import '../App.css';
 import axios from 'axios';
 
 const Topbar = () => {
-  const {isAuthenticated,setIsAuthenticated}=useContext(context);
+  const { isAuthenticated, setIsAuthenticated } = useContext(context);
   const navigateTo = useNavigate();
 
   // Logout function
- const handlelogout=async()=>{
-    await axios.get("http://localhost:8080/api/v1/user/patient/logout",{
-      withCredentials:true
-    }).then((res)=>{
-      toast.success(res.data.message);
+  const handlelogout = () => {
+    // await axios.get("http://localhost:8080/api/v1/user/patient/logout",{
+    //   withCredentials:true
+    // }).then((res)=>{
+    //   toast.success(res.data.message);
+    //   localStorage.clear();
+    //   setIsAuthenticated(false);
+    // }).catch((err)=>{
+    //   toast.error(err.response.data.message);
+    // })
+    try{
+      toast.success("Logged out successfully");
+      localStorage.clear();
       setIsAuthenticated(false);
-    }).catch((err)=>{
-      toast.error(err.response.data.message);
-    })
+    }catch(error){
+      console.log("error in logout:",error);
+      toast.error(error);
+    }
+    
+
   }
 
 
-  const gotologin=()=>{
+  const gotologin = () => {
     navigateTo("/login");
   }
+
+  useEffect(() => {
+    console.log("isAuthenticated", isAuthenticated);
+  }, [isAuthenticated])
 
 
   return (
