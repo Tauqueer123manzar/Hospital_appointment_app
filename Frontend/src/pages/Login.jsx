@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { Container, Row, Col, Button, Form } from 'react-bootstrap';
 import Topbar from '../components/Topbar';
 import Footer from '../components/Footer';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
-
+import {context} from '../main';
 const Login = () => {
   const [formdata, setFormdata] = useState({
     email: "",
@@ -14,8 +14,12 @@ const Login = () => {
     role: "Patient"
   });
 
+  const {isAuthenticated,setIsAuthenticated}=useContext(context);
   const navigate = useNavigate();
 
+  if(isAuthenticated){
+    return navigate("/");
+  }
   const handleChange = (e) => {
     setFormdata({
       ...formdata,
@@ -39,9 +43,10 @@ const Login = () => {
         }
       });
       toast.success("Login Successful!");
+      setIsAuthenticated(true);
       navigate("/");
     } catch (error) {
-      toast.error(error.response?.data?.message || "Login failed");
+      toast.error(error.response.data.message || "Login failed");
       console.error("Login failed error!", error);
     }
   };

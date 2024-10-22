@@ -6,15 +6,32 @@ import Register from './pages/Register'
 import Login from './pages/Login'
 import Services from './pages/Services'
 import Contactus from './pages/Contactus'
-import { ToastContainer} from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 import MyProfile from './pages/MyProfile'
 import MyAppointment from '../src/pages/MyAppointments'
-import './App.css'
 import Doctorprofile from './components/Doctorprofile'
 import Alldoctor from './pages/Alldoctor'
+import { ToastContainer} from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import {context} from './main';
+import './App.css'
+import { useContext, useEffect } from 'react'
 function App() {
-  
+  const {isAuthenticated,setIsAuthenticated,setUser}=useContext(context);
+  useEffect(()=>{
+    const fetchUser=async()=>{
+      try{
+         const response=await axios.get("http://localhost:8080/api/v1/user/patient/me",{
+          withCredentials:true
+         });
+         setIsAuthenticated(true);
+         setUser(response.data.user);
+      }catch(error){
+         setIsAuthenticated(false);
+         setUser(null);
+      }
+    };
+    fetchUser();
+  },[isAuthenticated]);
   return (
     <>
      <Router>
