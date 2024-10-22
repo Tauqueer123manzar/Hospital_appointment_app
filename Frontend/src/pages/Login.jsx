@@ -42,7 +42,7 @@ const Login = () => {
           "Content-Type": "application/json"
         }
       });
-      toast.success("Login Successful!");
+      toast.success(response.data.message);
       setIsAuthenticated(true);
       navigate("/");
     } catch (error) {

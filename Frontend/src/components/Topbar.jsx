@@ -4,10 +4,10 @@ import Navbar from 'react-bootstrap/Navbar';
 import Container from 'react-bootstrap/Container';
 import Dropdown from 'react-bootstrap/Dropdown';
 import { context } from '../main';
-import '../App.css';
-import axios from 'axios';
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
+import '../App.css';
+import axios from 'axios';
 
 const Topbar = () => {
   const {isAuthenticated,setIsAuthenticated}=useContext(context);
@@ -20,7 +20,6 @@ const Topbar = () => {
     }).then((res)=>{
       toast.success(res.data.message);
       setIsAuthenticated(false);
-      navigateTo("/login");
     }).catch((err)=>{
       toast.error(err.response.data.message);
     })
