@@ -42,6 +42,11 @@ const Login = () => {
           "Content-Type": "application/json"
         }
       });
+      if(response.status===200){
+        localStorage.setItem("token", response.data.token);
+        localStorage.setItem("user", response.data.user._id);
+        localStorage.setItem("role",response.data.role);
+      }
       toast.success(response.data.message);
       setIsAuthenticated(true);
       navigate("/");
