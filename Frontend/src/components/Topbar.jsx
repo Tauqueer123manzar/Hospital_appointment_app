@@ -2,12 +2,14 @@ import React, { useContext, useEffect, useState } from 'react';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import Container from 'react-bootstrap/Container';
+import { Link } from 'react-router-dom';
 import Dropdown from 'react-bootstrap/Dropdown';
 import { context } from '../main';
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
+import Adminpage from '../pages/Adminpage';
 import '../App.css';
-import axios from 'axios';
+// import axios from 'axios';
 
 const Topbar = () => {
   const { isAuthenticated, setIsAuthenticated } = useContext(context);
@@ -15,12 +17,12 @@ const Topbar = () => {
 
   // Logout function
   const handlelogout = () => {
-    try{
+    try {
       toast.success("Logged out successfully");
       localStorage.clear();
       setIsAuthenticated(false);
-    }catch(error){
-      console.log("error in logout:",error);
+    } catch (error) {
+      console.log("error in logout:", error);
       toast.error(error);
     }
   }
@@ -53,6 +55,11 @@ const Topbar = () => {
             <Nav.Link className='text-secondary service' style={{ fontWeight: 'bold' }} href='/service'>SERVICE</Nav.Link>
             <Nav.Link className='text-secondary contact' style={{ fontWeight: 'bold' }} href='/contact'>CONTACT</Nav.Link>
           </Nav>
+          <div className='btn'>
+            <Link to="/admin" className='btn btn-outline-danger' style={{ borderRadius: "30px", width: "120px", height: "45px" }}>
+              Admin
+            </Link>
+          </div>
           <div className='button'>
             <Dropdown>
               <Dropdown.Toggle id="dropdown-basic" style={{ borderRadius: '50px', width: '150px', height: '45px', padding: 0 }}>
