@@ -25,19 +25,6 @@ function App() {
     }
   }
   useEffect(()=>{
-    // const fetchUser=async()=>{
-    //   try{
-    //      const response=await axios.get("http://localhost:8080/api/v1/user/patient/me",{
-    //       withCredentials:true
-    //      });
-    //      setIsAuthenticated(true);
-    //      setUser(response.data.user);
-    //   }catch(error){
-    //     console.log("error",error);
-    //      setIsAuthenticated(false);
-    //      setUser(null);
-    //   }
-    // };
     fetchUser();
   },[isAuthenticated]);
   return (

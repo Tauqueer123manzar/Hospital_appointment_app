@@ -15,15 +15,6 @@ const Topbar = () => {
 
   // Logout function
   const handlelogout = () => {
-    // await axios.get("http://localhost:8080/api/v1/user/patient/logout",{
-    //   withCredentials:true
-    // }).then((res)=>{
-    //   toast.success(res.data.message);
-    //   localStorage.clear();
-    //   setIsAuthenticated(false);
-    // }).catch((err)=>{
-    //   toast.error(err.response.data.message);
-    // })
     try{
       toast.success("Logged out successfully");
       localStorage.clear();
@@ -32,8 +23,6 @@ const Topbar = () => {
       console.log("error in logout:",error);
       toast.error(error);
     }
-    
-
   }
 
 
