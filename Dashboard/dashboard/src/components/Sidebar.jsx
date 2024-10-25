@@ -10,6 +10,7 @@ import { RiLogoutBoxRFill } from "react-icons/ri";
 import {useNavigate} from 'react-router-dom';
 import { GiHamburgerMenu } from "react-icons/gi";
 import { toast } from "react-toastify";
+import axios from 'axios';
 import '../App.css'
 const Sidebar = () => {
   const [show, setShow] = useState(false);
@@ -17,7 +18,7 @@ const Sidebar = () => {
   const navigateTo=useNavigate();
 
   const gotoHome=()=>{
-    navigateTo("/");
+    navigateTo("/admin");
     setShow(!show);
   }
 
@@ -41,6 +42,18 @@ const Sidebar = () => {
     setShow(!show);
   }
 
+const handlelogout = () => {
+  try {
+    toast.success("Logged out successfully");
+    localStorage.clear();
+    setIsAuthenticated(false);
+    console.log("isAuthenticated",isAuthenticated);
+  } catch (error) {
+    console.log("error in logout:", error);
+    toast.error(error);
+  }
+}
+
   return (
     <>
     <nav
@@ -50,9 +63,10 @@ const Sidebar = () => {
       <div className='links'>
       <li className='items' style={{textDecoration:"none",listStyle:"none"}}><TiHome onClick={gotoHome} style={{fontSize:"40px"}}/></li>
       <li className='items' style={{textDecoration:"none",listStyle:"none"}}><FaUserDoctor onClick={gotoDoctorspage} style={{fontSize:"40px"}}/></li>
+      <li className='items' style={{textDecoration:"none",listStyle:"none"}}><MdAddModerator onClick={gotoAddnewadmin} style={{fontSize:"40px"}}/></li>
       <li className='items' style={{textDecoration:"none",listStyle:"none"}}><IoPersonAddSharp onClick={gotoAddnewdoctor}  style={{fontSize:"40px"}}/></li>
       <li className='items' style={{textDecoration:"none",listStyle:"none"}}><RiMessage2Fill  onClick={gotomessages} style={{fontSize:"40px"}}/></li>
-      <li className='items' style={{textDecoration:"none",listStyle:"none"}}><RiLogoutBoxRFill onClick={gotomessages} style={{fontSize:"40px"}}/></li>
+      <li className='items' style={{textDecoration:"none",listStyle:"none"}}><RiLogoutBoxRFill onClick={handlelogout} style={{fontSize:"40px"}}/></li>
      </div>
     </nav>
     </>
