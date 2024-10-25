@@ -7,7 +7,6 @@ import Dropdown from 'react-bootstrap/Dropdown';
 import { context } from '../main';
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
-import Adminpage from '../pages/Adminpage';
 import '../App.css';
 // import axios from 'axios';
 
@@ -55,15 +54,14 @@ const Topbar = () => {
             <Nav.Link className='text-secondary service' style={{ fontWeight: 'bold' }} href='/service'>SERVICE</Nav.Link>
             <Nav.Link className='text-secondary contact' style={{ fontWeight: 'bold' }} href='/contact'>CONTACT</Nav.Link>
           </Nav>
-          <div className='btn'>
-            <Link to="/admin" className='btn btn-outline-danger' style={{ borderRadius: "30px", width: "120px", height: "45px" }}>
+          <div className='admin m-2'>
+            <Link to="/admin" className='btn btn-danger text-center' style={{ borderRadius: "30px", width: "120px", height: "45px" }}>
               Admin
             </Link>
           </div>
           <div className='button'>
             <Dropdown>
               <Dropdown.Toggle id="dropdown-basic" style={{ borderRadius: '50px', width: '150px', height: '45px', padding: 0 }}>
-                {/* Display login or logout based on the isAuthenticated state */}
                 {isAuthenticated ? (
                   <span style={{ color: 'white', textDecoration: 'none' }}>Logout</span>
                 ) : (
@@ -72,7 +70,6 @@ const Topbar = () => {
               </Dropdown.Toggle>
 
               <Dropdown.Menu align="end" className="bg-gray">
-                {/* These items are only visible if the user is authenticated */}
                 {isAuthenticated ? (
                   <>
                     <Dropdown.Item href="/myappointment">My Appointments</Dropdown.Item>
@@ -80,7 +77,6 @@ const Topbar = () => {
                     <Dropdown.Item onClick={handlelogout}>Logout</Dropdown.Item>
                   </>
                 ) : (
-                  // If the user is not authenticated, show only the login option
                   <Dropdown.Item onClick={gotologin}>Login</Dropdown.Item>
                 )}
               </Dropdown.Menu>

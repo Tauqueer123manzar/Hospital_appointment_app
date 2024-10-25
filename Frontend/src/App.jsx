@@ -18,7 +18,7 @@ import { useContext, useEffect } from 'react'
 // import axios from 'axios'
 import Adminpage from './pages/Adminpage'
 function App() {
-  const {isAuthenticated,setIsAuthenticated,setUser}=useContext(context);
+  const {isAuthenticated,setIsAuthenticated}=useContext(context);
 
   const fetchUser=async()=>{
     if(localStorage.getItem("token")){
