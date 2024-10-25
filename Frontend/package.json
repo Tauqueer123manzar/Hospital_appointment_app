@@ -8,8 +8,7 @@
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint .",
-    "preview": "vite preview",
-    "vercel-build": "react-scripts build"
+    "preview": "vite preview"
   },
   "dependencies": {
     "animate.css": "^4.1.1",
