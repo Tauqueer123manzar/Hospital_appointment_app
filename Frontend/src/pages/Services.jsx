@@ -27,6 +27,7 @@ const Services = () => {
     { id: 8, name: "PEDIATRICS", image: Pediatrics, description: " our Pediatrics Department is committed to providing exceptional medical care for children, from newborns." },
     { id: 9, name: "ONCOLOGY", image: Oncology, description: "our Oncology Department is dedicated to providing high-quality care for patients diagnosed with cancer" },
   ];
+
   return (
     <>
       <Topbar />

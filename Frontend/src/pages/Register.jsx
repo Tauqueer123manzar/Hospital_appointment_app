@@ -5,6 +5,7 @@ import signup from '../assets/healthbg.jpg'
 import Footer from '../components/Footer';
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
+import { context } from '../main';
 import axios from 'axios'
 import '../App.css'
 const Register = () => {
@@ -16,6 +17,8 @@ const Register = () => {
   const [password, setPassword] = useState("");
 
   const navigate=useNavigate();
+  const{isAuthenticated,setIsAuthenticated}=useContext(context);
+
   const handleRegister = async (e) => {
     e.preventDefault();
     console.log('Form submitted', firstname, lastname, email, phone, gender, password);
@@ -30,18 +33,22 @@ const Register = () => {
         }
       ).then(res => {
         toast.success(res.data.message);
+        setIsAuthenticated(true);
         setFirstName("");
         setLastname("");
         setEmail("");
         setPhone("");
         setGender("");
         setPassword("");
-        navigate("/login");
       })
     } catch (error) {
       toast.error(error.response.data.message);
     }
   };
+
+  if(isAuthenticated){
+   navigate("/");
+  }
 
   return (
     <>
