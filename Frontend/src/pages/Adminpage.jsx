@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext,useEffect } from 'react'
 import { Container, Row, Col, Button, Form } from 'react-bootstrap';
 import Topbar from '../components/Topbar';
 import Footer from '../components/Footer';
@@ -12,14 +12,14 @@ const Adminpage = () => {
     email: "",
     password: "",
     confirmPassword: "",
-    role: "Patient"
+    role: "Admin"
   });
 
    const {isAuthenticated,setIsAuthenticated}=useContext(context);
    const navigate=useNavigate();
 
    if(isAuthenticated){
-    navigate("/admin");
+    navigate("/");
    }
 
    const handleChange=(e)=>{
@@ -43,20 +43,22 @@ const Adminpage = () => {
           "Content-Type":"application/json"
         }
       });
-      if(response.status===200){
-        localStorage.setItem("token",response.data.token);
-        localStorage.setItem("user",response.data.user_id);
-        localStorage.setItem("role",response.data.role);
-      }
       toast.success(response.data.message);
+      console.log(response.data);
       setIsAuthenticated(true);
-      navigate("/admin");
+      navigate("/");
     } catch (error) {
       toast.error(error.response.data.message || "Login failed");
       console.error("Login failed error!", error);
     }
    }
 
+   useEffect(() => {
+    if (isAuthenticated) {
+        navigate('/'); 
+        console.log("isAuthenticates",isAuthenticated);
+    }
+}, [isAuthenticated]);
   return (
    <>
     <Topbar />
