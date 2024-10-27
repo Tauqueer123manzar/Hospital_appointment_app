@@ -29,7 +29,7 @@ const MessageSchema = new mongoose.Schema({
         minLength: [10, "Message must be at least 10 characters long"],
         maxLength: [1000, "Message can be at most 1000 characters long"],
     }
-});
+},{timestamps:true});
 const Message = mongoose.model('Message', MessageSchema);
 
 module.exports = Message;

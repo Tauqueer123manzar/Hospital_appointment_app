@@ -1,8 +1,8 @@
 import { StrictMode, createContext, useState } from 'react'
 import { createRoot } from 'react-dom/client'
 import React from 'react';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import App from './App.jsx'
-
 export const context = createContext({ isAuthenticated: false });
 
 const Appwrapper = () => {

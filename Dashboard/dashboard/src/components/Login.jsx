@@ -5,6 +5,7 @@ import axios from 'axios';
 import { useState } from 'react';
 import { context } from '../main';
 import { toast } from 'react-toastify';
+import '../App.css'
 const Login = () => {
   const [formdata, setFormdata] = useState({
     email: "",
@@ -43,7 +44,7 @@ const Login = () => {
       });
       toast.success(response.data.message);
       console.log(response.data);
-      localStorage.setItem("token", response.data.token);
+      localStorage.setItem("adminToken", response.data.token);
       setIsAuthenticated(true);
       navigate("/admin");
     } catch (error) {
@@ -54,25 +55,17 @@ const Login = () => {
 
    useEffect(() => {
     if (isAuthenticated) {
-        navigate('/'); 
+        navigate('/admin'); 
         console.log("isAuthenticates",isAuthenticated);
     }
 }, [isAuthenticated]);
   return (
    <>
-      <Container fluid className='d-flex flex-column' style={{ maxHeight: '100vh', padding: 0 }}>
-        <div
-          className='d-flex flex-column justify-content-center align-items-center'
-          style={{
-            backgroundColor:'lightcyan',
-            width: '100%',
-            maxHeight: '100vh',
-            padding: '20px',
-          }}
-        >
-          <h2 className='text-center' style={{ fontWeight: "bold", fontFamily: "initial", marginTop: "120px" }}>Admin and Doctor Login</h2>
-          <Form style={{ width: '100%', maxWidth: '600px' }} className='mt-3' onSubmit={handleSubmit}>
-            <div className='shadow-lg p-5 bg-white rounded mt-3' style={{ maxWidth: "800px", height: "100%" }}>
+      <Container fluid className='' style={{ height: '100vh',width:"100vw",padding: 0 }}>
+        <div className='bg-light p-5 h-100 '>
+          <h2 className='text-center' style={{ fontWeight: "bold", fontFamily: "initial",marginTop:"45px"}}>Admin and Doctor Login</h2>
+          <Form style={{ width: '100%'}} className='mt-3 d-flex justify-content-center align-items-center' onSubmit={handleSubmit}>
+            <div className='shadow-lg p-5 bg-white rounded mt-3' style={{ maxWidth: "900px", height: "100%" }}>
               <Row className='d-flex justify-content-center align-items-center'>
                 <h2 className='text-center'>Login</h2>
                 <Col xs={12}>

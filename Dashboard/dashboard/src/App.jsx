@@ -12,18 +12,17 @@ import 'react-toastify/dist/ReactToastify.css';
 import { context } from './main';
 import './App.css'
 function App() {
-  const { isAuthenticated, setIsAuthenticated, setUser } = useContext(context);
+  const { isAuthenticated, setIsAuthenticated } = useContext(context);
   useEffect(() => {
-    if (localStorage.getItem('token')) {
+    if (localStorage.getItem('adminToken')) {
       setIsAuthenticated(true);
     }
   },[])
-  //  const location=useLocation();
+
 
   return (
     <>
       <Router>
-        {/* {isAuthenticated && location.pathname !== '/login' && <Sidebar/>} */}
         <Sidebar />
         <Routes>
           <Route path='/admin' element={<Dashboard />} />
