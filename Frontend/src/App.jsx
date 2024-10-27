@@ -16,7 +16,6 @@ import {context} from './main';
 import './App.css'
 import { useContext, useEffect } from 'react'
 // import axios from 'axios'
-import Adminpage from './pages/Adminpage'
 function App() {
   const {isAuthenticated,setIsAuthenticated}=useContext(context);
 
@@ -43,7 +42,6 @@ function App() {
         <Route path='/alldoctors' element={<Alldoctor/>}/>
         <Route path='/register' element={<Register/>}/>
         <Route path='/login' element={<Login/>}/> 
-        <Route path='/admin' element={<Adminpage/>}/>
       </Routes>
       <ToastContainer position="top-center"/>
      </Router> 
