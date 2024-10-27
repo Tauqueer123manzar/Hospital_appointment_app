@@ -53,7 +53,7 @@
 
 .values .val-box{
    width: 270px;
-   height: 65px;
+   height: 100px;
    display: flex;
    justify-content: flex-start;
    padding: 15px 15px 10px 0;
