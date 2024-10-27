@@ -54,11 +54,6 @@ const Topbar = () => {
             <Nav.Link className='text-secondary service' style={{ fontWeight: 'bold' }} href='/service'>SERVICE</Nav.Link>
             <Nav.Link className='text-secondary contact' style={{ fontWeight: 'bold' }} href='/contact'>CONTACT</Nav.Link>
           </Nav>
-          <div className='admin m-2'>
-            <Link to="/admin" className='btn btn-danger text-center' style={{ borderRadius: "30px", width: "120px", height: "45px" }}>
-              Admin
-            </Link>
-          </div>
           <div className='button'>
             <Dropdown>
               <Dropdown.Toggle id="dropdown-basic" style={{ borderRadius: '50px', width: '150px', height: '45px', padding: 0 }}>

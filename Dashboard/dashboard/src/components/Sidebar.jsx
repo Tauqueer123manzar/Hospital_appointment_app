@@ -46,7 +46,7 @@ const Sidebar = () => {
     try {
       toast.success("Logged out successfully");
       localStorage.clear();
-      navigateTo("/login");
+      navigateTo("/login")
       setIsAuthenticated(false);
       console.log("isAuthenticated", isAuthenticated);
     } catch (error) {
