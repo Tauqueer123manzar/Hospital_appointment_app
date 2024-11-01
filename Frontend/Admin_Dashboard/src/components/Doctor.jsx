@@ -7,7 +7,7 @@ import doctor3 from '../assets/file (4) 4.png';
 const Doctor = () => {
   return (
     <>
-     <Container fluid style={{maxWidth:"100vh",maxWidth:"100vw"}}>
+     <Container fluid style={{maxHeight:"100vh",maxWidth:"100vw"}}>
      <Row className='mt-4 d-flex justify-content-center'>
      <h1 className='text-center text-primary'>Doctors</h1>
      <Col sm={12} md={4}>
