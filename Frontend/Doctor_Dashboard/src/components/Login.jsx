@@ -44,7 +44,9 @@ const Login = () => {
             });
             toast.success(response.data.message);
             console.log(response.data);
-            localStorage.setItem("doctorTokemn",response.data.token);
+            localStorage.setItem("doctorToken",response.data.token);
+            console.log("isAuthenticated",isAuthenticated);
+            setIsAuthenticated(true);
             navigate("/");
         } catch (error) {
             toast.error(error.response.data.message || "Login failed");

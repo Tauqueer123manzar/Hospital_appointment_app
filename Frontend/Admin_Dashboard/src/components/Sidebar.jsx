@@ -8,7 +8,6 @@ import { IoPersonAddSharp } from "react-icons/io5";
 import { RiMessage2Fill } from "react-icons/ri";
 import { RiLogoutBoxRFill } from "react-icons/ri";
 import { useNavigate } from 'react-router-dom';
-import { GiHamburgerMenu } from "react-icons/gi";
 import { toast } from "react-toastify";
 import axios from 'axios';
 import '../App.css'

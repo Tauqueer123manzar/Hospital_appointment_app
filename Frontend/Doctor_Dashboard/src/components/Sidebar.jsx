@@ -1,14 +1,9 @@
-import React, { useEffect } from 'react'
+import React, { useEffect,useState, useContext } from 'react'
 import { context } from '../main'
-import { useState, useContext } from 'react';
 import { TiHome } from "react-icons/ti";
 import { FaUserDoctor } from "react-icons/fa6";
-import { MdAddModerator } from "react-icons/md";
-import { IoPersonAddSharp } from "react-icons/io5";
-import { RiMessage2Fill } from "react-icons/ri";
 import { RiLogoutBoxRFill } from "react-icons/ri";
 import { useNavigate } from 'react-router-dom';
-import { GiHamburgerMenu } from "react-icons/gi";
 import { toast } from "react-toastify";
 import axios from 'axios';
 import '../App.css'
@@ -19,27 +14,17 @@ const Sidebar = () => {
   const navigateTo = useNavigate();
 
   const gotoHome = () => {
-    navigateTo("/admin");
+    navigateTo("/");
     setShow(!show);
   }
 
-  const gotoDoctorspage = () => {
-    navigateTo("/doctors");
+  const gotoAppointment = () => {
+    navigateTo("/appointment");
     setShow(!show);
   }
 
-  const gotomessages = () => {
-    navigateTo("/messages");
-    setShow(!show);
-  }
-
-  const gotoAddnewdoctor = () => {
-    navigateTo("/doctor/addnew");
-    setShow(!show);
-  }
-
-  const gotoAddnewadmin = () => {
-    navigateTo("/admin/addnew");
+  const gotoprofile=()=>{
+    navigateTo("/profile");
     setShow(!show);
   }
 
@@ -47,8 +32,8 @@ const Sidebar = () => {
     try {
       toast.success("Logged out successfully");
       localStorage.clear();
-      navigateTo("/login")
       setIsAuthenticated(false);
+      navigateTo("/login")
       console.log("isAuthenticated", isAuthenticated);
     } catch (error) {
       console.log("error in logout:", error);
@@ -67,16 +52,14 @@ const Sidebar = () => {
   return (
     <>
          {
-        isAuthenticated ? <nav
+         isAuthenticated ? <nav
           style={isAuthenticated ? { display: "flex" } : { display: "none" }}
           className={show ? "show sidebar" : "sidebar"}>
-          <h1>Dashboard</h1>
+          <h1 className='' style={{fontWeight:"700",fontFamily:"initial"}}>Dashboard</h1>
           <div className='links'>
             <li className='items' style={{ textDecoration: "none", listStyle: "none" }}><TiHome onClick={gotoHome} style={{ fontSize: "40px" }} /></li>
-            <li className='items' style={{ textDecoration: "none", listStyle: "none" }}><FaUserDoctor onClick={gotoDoctorspage} style={{ fontSize: "40px" }} /></li>
-            <li className='items' style={{ textDecoration: "none", listStyle: "none" }}><MdAddModerator onClick={gotoAddnewadmin} style={{ fontSize: "40px" }} /></li>
-            <li className='items' style={{ textDecoration: "none", listStyle: "none" }}><IoPersonAddSharp onClick={gotoAddnewdoctor} style={{ fontSize: "40px" }} /></li>
-            <li className='items' style={{ textDecoration: "none", listStyle: "none" }}><RiMessage2Fill onClick={gotomessages} style={{ fontSize: "40px" }} /></li>
+            <li className='items' style={{ textDecoration: "none", listStyle: "none" }}><i class="fa-solid fa-calendar-check" onClick={gotoAppointment} style={{ fontSize: "40px" }}></i></li>
+            <li className='items' style={{ textDecoration:"none",  listStyle:"none"}}><i class="fa-solid fa-user-doctor" onClick={gotoprofile} style={{fontSize:"40px"}}></i></li>
             <li className='items' style={{ textDecoration: "none", listStyle: "none" }}><RiLogoutBoxRFill onClick={handlelogout} style={{ fontSize: "40px" }} /></li>
           </div>
         </nav> : ''
