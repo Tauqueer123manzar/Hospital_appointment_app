@@ -63,7 +63,7 @@ const Login = () => {
    <>
       <Container fluid className='' style={{ height: '100vh',width:"100vw",padding: 0 }}>
         <div className='bg-light p-5 h-100 '>
-          <h2 className='text-center' style={{ fontWeight: "bold", fontFamily: "initial",marginTop:"45px"}}>Admin and Doctor Login</h2>
+          <h2 className='text-center' style={{ fontWeight: "bold", fontFamily: "initial",marginTop:"45px"}}>Admin Login</h2>
           <Form style={{ width: '100%'}} className='mt-3 d-flex justify-content-center align-items-center' onSubmit={handleSubmit}>
             <div className='shadow-lg p-5 bg-white rounded mt-3' style={{ maxWidth: "900px", height: "100%" }}>
               <Row className='d-flex justify-content-center align-items-center'>

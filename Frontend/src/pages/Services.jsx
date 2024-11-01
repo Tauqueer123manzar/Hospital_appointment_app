@@ -14,6 +14,7 @@ import Dermatology from '../assets/derma.jpg';
 import Footer from '../components/Footer';
 import { MdStarRate } from "react-icons/md";
 import image1 from '../assets/Group 8.jpg';
+import { Typewriter } from 'react-simple-typewriter';
 import '../App.css'
 const Services = () => {
   const servicedata = [
@@ -32,9 +33,20 @@ const Services = () => {
     <>
       <Topbar />
       <Container fluid style={{ maxWidth: "100%", maxHeight: "100%" }}>
-        <Row>
+        <Row className='mt-5'>
           <Col sm={12} lg={5} md={6}>
-            <h1 className='' style={{ fontSize: "45px", fontWeight: "bold", fontFamily: "initial",marginTop:"120px",marginLeft:"48px"}}>Providing Quality Easycare for a Brighter and Healthy Future</h1>
+          <h1 className='mt-5 p-5' style={{ fontWeight: "700", fontFamily: "initial", fontSize: "45px" }}>
+            <Typewriter
+                words={['Providing Quality Easycare for a Brighter and Healthy Future.']}
+                loop={0}
+                cursor='true'
+                cursorstyle='_'
+                typespeed={80}
+                deletedspeed={50}
+                delayspeed={2000}
+                fontSize="50px"
+            />
+          </h1>
             <p className='m-5'>At our hospital, we are dedicated to providing exceptional medical care to our patients and their families. Our experienced team of medical professionals, cutting-edge technology, and compassionate approach make us a leader in the healthcare industry</p>
             <Button variant='primary' style={{ width: '250px', height: '45px', marginLeft: "45px" }} className='mt-1'>
               <a href='/appointment' style={{ color: 'white', textDecoration: 'none' }}>
@@ -43,14 +55,13 @@ const Services = () => {
             </Button>
           </Col>
           <Col sm={12} lg={7} md={6} className='d-flex justify-content-center align-items-center position-relative'>
-            <img src={doctor} width={550} height={490} className='' style={{marginLeft:"950",marginTop:"100px"}}/>
+            <img src={doctor} width={550} height={490} className='mt-5' style={{marginLeft:"950"}}/>
             <img src={image1} width={200} height={60} className='image position-absolute' style={{ top: "400px", right: "500px", zIndex: 1 }} />
           </Col>
         </Row>
 
         <Row>
           <h1 className='mt-3 text-center' style={{ fontSize: "55px", fontFamily: "initial", fontWeight: "bold", color: "rgba(0, 126, 133, 1)" }}>Our Services</h1>
-          <p className='mt-3 text-center' >At Easycare Hospital, we believe in providing specialized, quality healthcare to ensure the well-being of our patients.</p>
           {
             servicedata.map(service => (
               <Col key={service.id} sm={12} md={6} lg={4} className='p-3'>
