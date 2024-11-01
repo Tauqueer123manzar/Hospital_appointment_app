@@ -48,6 +48,25 @@ exports.loginRegister = catchAsyncErrors(async (req, res, next) => {
     GenerateToken(user, "User Login Successfully", 200, res)
 });
 
+//   ======================================== Doctor Register ==============================================
+exports.DoctorRegister = catchAsyncErrors(async(req,res,next)=>{
+    const {firstname,lastname,email,phone,gender,password,role}=req.body;
+    if(!firstname || !lastname || !email || !phone || !gender || !password || !role){
+        return next(new ErrorHandler("Please fill the full form",400));
+    }
+    if(role !=="Doctor"){
+        return next(new ErrorHandler("Invalid role for this registration",400));
+    }
+
+    let user=await User.findOne({email});
+    if(user){
+        return next(new ErrorHandler("Doctor Already registered",400));
+    }
+
+    user=await User.create({firstname,lastname,email,phone,gender,password,role});
+    GenerateToken(user,"Doctor Registered Successfully",200,res);
+});
+
 //   ======================================= Add new Admin =================================================
 exports.addnewAdmin = catchAsyncErrors(async (req, res, next) => {
     const { firstname, lastname, email, phone, gender, password } = req.body;

@@ -1,6 +1,69 @@
-import React from 'react'
+import React, { useEffect } from 'react'
+import { context } from '../main'
+import { useState, useContext } from 'react';
+import { TiHome } from "react-icons/ti";
+import { FaUserDoctor } from "react-icons/fa6";
+import { MdAddModerator } from "react-icons/md";
+import { IoPersonAddSharp } from "react-icons/io5";
+import { RiMessage2Fill } from "react-icons/ri";
+import { RiLogoutBoxRFill } from "react-icons/ri";
+import { useNavigate } from 'react-router-dom';
+import { GiHamburgerMenu } from "react-icons/gi";
+import { toast } from "react-toastify";
+import axios from 'axios';
+import '../App.css'
 
 const Sidebar = () => {
+  const [show, setShow] = useState(false);
+  const { isAuthenticated, setIsAuthenticated } = useContext(context);
+  const navigateTo = useNavigate();
+
+  const gotoHome = () => {
+    navigateTo("/admin");
+    setShow(!show);
+  }
+
+  const gotoDoctorspage = () => {
+    navigateTo("/doctors");
+    setShow(!show);
+  }
+
+  const gotomessages = () => {
+    navigateTo("/messages");
+    setShow(!show);
+  }
+
+  const gotoAddnewdoctor = () => {
+    navigateTo("/doctor/addnew");
+    setShow(!show);
+  }
+
+  const gotoAddnewadmin = () => {
+    navigateTo("/admin/addnew");
+    setShow(!show);
+  }
+
+  const handlelogout = () => {
+    try {
+      toast.success("Logged out successfully");
+      localStorage.clear();
+      navigateTo("/login")
+      setIsAuthenticated(false);
+      console.log("isAuthenticated", isAuthenticated);
+    } catch (error) {
+      console.log("error in logout:", error);
+      toast.error(error);
+    }
+  }
+
+
+  useEffect(() => {
+    console.log("isAuthenticated in sidebar", isAuthenticated);
+
+  }, [isAuthenticated])
+
+
+
   return (
     <>
          {
