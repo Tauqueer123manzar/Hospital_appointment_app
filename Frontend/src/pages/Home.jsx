@@ -4,15 +4,21 @@ import Department from '../components/Department';
 import heroimage from '../assets/hero (1).png';
 import Topbar from '../components/Topbar'
 import Footer from '../components/Footer';
-import Doctors from '../components/Doctors';
-import Appointment from './Appointment';
+import { Typewriter } from 'react-simple-typewriter';
 const Home = () => {
   return (
     <div>
      <Topbar/>
       <Hero
         title={
-          "Welcome to EasyCare Clinic Your Trusted Healthcare Provider"
+         <Typewriter 
+          words={["Welcome to EasyCare Clinic Your Trusted Healthcare Provider."]}
+          loop={0}
+          cursorStyle="_"
+          typeSpeed={100}
+          deleteSpeed={60}
+          delaySpeed={1000}
+          />
         }
         imageurl={heroimage}
       />
