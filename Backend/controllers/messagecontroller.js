@@ -10,7 +10,7 @@ exports.sendmessage=catchAsyncErrors(async(req,res,next)=>{
         await Message.create({firstname,lastname,email,phonenumber,message});
         res.status(200).json({
             success:true,
-            message:"Message sent successfully"
+            message:"Message sent successfully",
         });
     }catch(error){
         next(error);

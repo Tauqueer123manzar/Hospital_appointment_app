@@ -16,7 +16,7 @@ const Home = () => {
           loop={0}
           cursorStyle="_"
           typeSpeed={100}
-          deleteSpeed={60}
+          deleteSpeed={45}
           delaySpeed={1000}
           />
         }
