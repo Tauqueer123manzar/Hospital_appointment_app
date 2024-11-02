@@ -36,18 +36,10 @@ const Dashboard = () => {
        </div>
 
        <div className='val-box'>
-       <i style={{fontSize:"35px",fontWeight:"700",marginLeft:"20px"}}> <FaCheck color="purple" /></i>
+       <i style={{fontSize:"35px",fontWeight:"700",marginLeft:"20px"}}><FaUsers style={{color:"blue"}}/></i>
         <div>
           <span>Patient</span>
           <h3>30</h3>
-        </div>
-       </div>
-
-       <div className='val-box'>
-       <i style={{fontSize:"35px",fontWeight:"700",marginLeft:"20px"}}><FaUsers /></i>
-        <div>
-          <span>Register Doctors</span>
-          <h3>2000</h3>
         </div>
        </div>
       </div>

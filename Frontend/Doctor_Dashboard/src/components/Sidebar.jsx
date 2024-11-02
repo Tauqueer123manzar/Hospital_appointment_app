@@ -30,7 +30,7 @@ const Sidebar = () => {
 
   const handlelogout = () => {
     try {
-      toast.success("Logged out successfully");
+      toast.success("Doctor Logged out successfully");
       localStorage.clear();
       setIsAuthenticated(false);
       navigateTo("/login")

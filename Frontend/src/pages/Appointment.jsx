@@ -313,7 +313,7 @@ const AppointmentForm = () => {
   return (
     <>
       <Topbar />
-      <Container fluid style={{ maxWidth: "200%", padding: 0}}>
+      <Container fluid style={{ width: "100%",height:"100vh",padding: 0}}>
         <div style={{ width: "100%", position: "relative" }}>
           <img
             src={appointment}

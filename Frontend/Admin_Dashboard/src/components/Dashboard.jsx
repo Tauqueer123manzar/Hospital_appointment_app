@@ -21,7 +21,7 @@ const Dashboard = () => {
        <div className='val-box'>
        <i style={{fontSize:"35px",fontWeight:"700",marginLeft:"20px"}}><FaUsers style={{color:"blue"}}/></i>
         <div>
-          <span>New Users</span>
+          <span>Total Users</span>
           <h3>10,000</h3>
         </div>
        </div>
@@ -29,8 +29,8 @@ const Dashboard = () => {
        <div className='val-box'>
        <i style={{fontSize:"35px",fontWeight:"700",marginLeft:"20px"}}><FaCalendarAlt color="pink" /></i>
         <div>
-          <span>Appointment</span>
-          <h3>8,267</h3>
+          <span>Total Appointment</span>
+          <h3>87</h3>
         </div>
        </div>
 

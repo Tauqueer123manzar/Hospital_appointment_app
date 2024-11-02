@@ -43,7 +43,7 @@ const Sidebar = () => {
 
   const handlelogout = () => {
     try {
-      toast.success("Logged out successfully");
+      toast.success("Admin Logged out successfully");
       localStorage.clear();
       navigateTo("/login")
       setIsAuthenticated(false);
@@ -68,7 +68,7 @@ const Sidebar = () => {
         isAuthenticated ? <nav
           style={isAuthenticated ? { display: "flex" } : { display: "none" }}
           className={show ? "show sidebar" : "sidebar"}>
-          <h1>Dashboard</h1>
+          <h1 style={{fontFamily:"initial",fontWeight:"bold"}}>Dashboard</h1>
           <div className='links'>
             <li className='items' style={{ textDecoration: "none", listStyle: "none" }}><TiHome onClick={gotoHome} style={{ fontSize: "40px" }} /></li>
             <li className='items' style={{ textDecoration: "none", listStyle: "none" }}><FaUserDoctor onClick={gotoDoctorspage} style={{ fontSize: "40px" }} /></li>
