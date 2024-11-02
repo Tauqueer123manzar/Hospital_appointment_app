@@ -16,7 +16,7 @@ const Dashboard = () => {
   return (
     <div style={{backgroundColor:"rgb(211, 211, 211)",Width:"100%",height:"99vh",top:"0"}}>
       <div className='values'>
-      <h1>Dashboard</h1>
+      <h1 className='p-2' style={{fontFamily:"initial",fontWeight:"650"}}>Admin Dashboard</h1>
       <div className='value'>
        <div className='val-box'>
        <i style={{fontSize:"35px",fontWeight:"700",marginLeft:"20px"}}><FaUsers style={{color:"blue"}}/></i>
