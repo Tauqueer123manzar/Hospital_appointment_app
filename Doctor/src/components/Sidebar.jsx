@@ -62,7 +62,7 @@ const Sidebar = () => {
             <li className='items' style={{ textDecoration:"none",  listStyle:"none"}}><i class="fa-solid fa-user-doctor" onClick={gotoprofile} style={{fontSize:"40px"}}></i></li>
             <li className='items' style={{ textDecoration: "none", listStyle: "none" }}><RiLogoutBoxRFill onClick={handlelogout} style={{ fontSize: "40px" }} /></li>
           </div>
-        </nav> : ''
+        </nav> : ''    
       }
 
     </>
