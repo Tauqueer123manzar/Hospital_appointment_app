@@ -14,14 +14,14 @@ const Doctor = () => {
       if (isAuthenticated) {
         try {
           const response = await fetch("http://localhost:8080/api/v1/user/doctors", {
-           withcredentials:true,
+           method:'GET',
             headers: {
               "Content-Type": "application/json",
                Authorization: `Bearer ${localStorage.getItem("adminToken")}`
             },
+            credentials:'include'
           });
 
-          // Check if response is successful
           if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
           }
@@ -33,7 +33,6 @@ const Doctor = () => {
           console.log("Error fetching doctors:", error.message);
           toast.error("Error fetching doctors: " + error.message);
         } finally {
-          // Stop loading once request completes (either success or error)
           setLoading(false);
         }
       }
@@ -47,8 +46,8 @@ const Doctor = () => {
   }
 
   return (
-    <Container fluid style={{ maxHeight: "100vh", maxWidth: "100vw" }}>
-      <Row className="mt-4" style={{ marginLeft: "290px" }}>
+    <Container fluid style={{ height: "100vh", maxWidth: "100vw",backgroundColor:"lightslategrey"}}>
+      <Row style={{ marginLeft: "290px" }}>
         <h1 className="text-center text-dark" style={{ fontFamily: 'initial', fontSize: "35px", fontWeight: "bold" }}>
           These All Doctors We have!
         </h1>
@@ -69,10 +68,10 @@ const Doctor = () => {
                     />
                     <Card.Body>
                       <Card.Title>{doc.firstname} {doc.lastname}</Card.Title>
-                      <p>Email: <span className='mb-2 text-muted'>{doc.email}</span></p>
-                      <p>Phone: <span className='mb-2 text-muted'>{doc.phone}</span></p>
-                      <p>Gender: <span className='mb-2 text-muted'>{doc.gender}</span></p>
-                      <p>Department: <span className='mb-2 text-muted'>{doc.doctordepartment}</span></p>
+                      <p style={{fontWeight:"bold"}}>Email: <span className='mb-2 text-muted'>{doc.email}</span></p>
+                      <p style={{fontWeight:"bold"}}>Phone: <span className='mb-2 text-muted'>{doc.phone}</span></p>
+                      <p style={{fontWeight:"bold"}}>Gender: <span className='mb-2 text-muted'>{doc.gender}</span></p>
+                      <p style={{fontWeight:"bold"}}>Department: <span className='mb-2 text-muted'>{doc.doctordepartment}</span></p>
                     </Card.Body>
                   </Card>
                 </div>
