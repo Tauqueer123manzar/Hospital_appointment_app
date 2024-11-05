@@ -69,7 +69,7 @@ const Login = () => {
             padding: '20px',
           }}
         >
-          <h2 className='text-center' style={{ fontWeight: "bold", fontFamily: "initial", marginTop: "120px" }}>User Login</h2>
+          <h2 className='text-center' style={{ fontWeight: "bold", fontFamily: "initial", marginTop: "120px" }}>Patient Login</h2>
           <Form style={{ width: '100%', maxWidth: '600px' }} className='mt-3' onSubmit={handleSubmit}>
             <div className='shadow-lg p-5 bg-white rounded mt-3' style={{ maxWidth: "800px", height: "100%" }}>
               <Row className='d-flex justify-content-center align-items-center'>

@@ -11,6 +11,7 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { context } from './main';
 import './App.css'
+import Chats from './components/Chats';
 function App() {
   const { isAuthenticated, setIsAuthenticated } = useContext(context);
   useEffect(() => {
@@ -32,6 +33,7 @@ function App() {
           <Route path='/admin/addnew' element={<AddNewAdmin />} />
           <Route path='/messages' element={<Message />} />
           <Route path='/doctors' element={<Doctor />} />
+          <Route path='/chats' element={<Chats/>}/>
         </Routes>
         <ToastContainer position="top-center" />
       </Router>

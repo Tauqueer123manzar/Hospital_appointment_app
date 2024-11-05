@@ -8,6 +8,7 @@ import { IoPersonAddSharp } from "react-icons/io5";
 import { RiMessage2Fill } from "react-icons/ri";
 import { RiLogoutBoxRFill } from "react-icons/ri";
 import { useNavigate } from 'react-router-dom';
+import { IoChatbubbleEllipsesSharp } from "react-icons/io5";
 import { toast } from "react-toastify";
 import axios from 'axios';
 import '../App.css'
@@ -38,6 +39,11 @@ const Sidebar = () => {
 
   const gotoAddnewadmin = () => {
     navigateTo("/admin/addnew");
+    setShow(!show);
+  }
+
+  const gotochats=()=>{
+    navigateTo("/chats");
     setShow(!show);
   }
 
@@ -75,6 +81,7 @@ const Sidebar = () => {
             <li className='items' style={{ textDecoration: "none", listStyle: "none" }}><MdAddModerator onClick={gotoAddnewadmin} style={{ fontSize: "40px" }} /></li>
             <li className='items' style={{ textDecoration: "none", listStyle: "none" }}><IoPersonAddSharp onClick={gotoAddnewdoctor} style={{ fontSize: "40px" }} /></li>
             <li className='items' style={{ textDecoration: "none", listStyle: "none" }}><RiMessage2Fill onClick={gotomessages} style={{ fontSize: "40px" }} /></li>
+            <li className='items' style={{ textDecoration: "none", listStyle: "none" }}><IoChatbubbleEllipsesSharp onClick={gotochats} style={{fontSize:"40px"}}/></li>
             <li className='items' style={{ textDecoration: "none", listStyle: "none" }}><RiLogoutBoxRFill onClick={handlelogout} style={{ fontSize: "40px" }} /></li>
           </div>
         </nav> : ''

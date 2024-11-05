@@ -36,7 +36,7 @@ const MessageForm = () => {
   return (
     <Container fluid className='d-flex justify-content-center align-items-center' style={{height:'85vh'}}>
       <div className="shadow-lg p-5 bg-white rounded mt-5 message-form" style={{ maxWidth: '700px', width: '100%',height:"90%",marginBottom:"60px"}}>
-        <h2 className='text-center fw-1' style={{ fontSize: "30px", fontWeight: "bold",color:"rgba(0, 126, 133, 1)"}}>Send Us A Message</h2>
+        <h2 className='text-center fw-1' style={{ fontSize: "30px", fontWeight: "bold",color:"rgba(0, 126, 133, 1)"}}>Request a call back</h2>
         <Form onSubmit={handleMessage}>
           <Row className="m-2">
             <Col lg={6} md={4} sm={12} className='p-3'>
