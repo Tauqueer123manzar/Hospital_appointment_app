@@ -61,7 +61,7 @@ const Register = () => {
           backgroundRepeat: "no-repeat",
           width: "100%",
         }}>
-          <h2 className='text-center' style={{ fontWeight: "bold", fontFamily: "initial",marginTop:"120px" }}>User Signup</h2>
+          <h2 className='text-center' style={{ fontWeight: "bold", fontFamily: "initial",marginTop:"120px" }}>Patient Signup</h2>
           <Form style={{ maxWidth: '99%' }} className='d-flex justify-content-center align-items-center p-4 mt-2' onSubmit={handleRegister}>
             <div className='shadow-lg p-5 bg-white rounded mt-3' style={{ maxWidth: "800px", height: "100%" }}>
               <Row className='d-flex justify-content-center align-items-center'>

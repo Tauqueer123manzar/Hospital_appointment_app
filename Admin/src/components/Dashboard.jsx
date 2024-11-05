@@ -5,6 +5,9 @@ import '../App.css'
 import { FaUsers } from "react-icons/fa";
 import { FaCalendarAlt} from 'react-icons/fa';
 import { FaCheck} from 'react-icons/fa';
+import Table from 'react-bootstrap/Table';
+import photo from '../assets/file (4) 4.png'
+import photo1 from '../assets/file (5) 4.png'
 const Dashboard = () => {
   const { isAuthenticated, setIsAuthenticated } = useContext(context);
   const navigateTo = useNavigate();
@@ -16,8 +19,7 @@ const Dashboard = () => {
   return (
     <div style={{backgroundColor:"rgb(211, 211, 211)",Width:"100%",height:"99vh",top:"0"}}>
       <div className='values'>
-      <h1 className='p-2' style={{fontFamily:"initial",fontWeight:"650"}}>Admin Dashboard</h1>
-      <div className='value'>
+      <div className='value mt-3'>
        <div className='val-box'>
        <i style={{fontSize:"35px",fontWeight:"700",marginLeft:"20px"}}><FaUsers style={{color:"blue"}}/></i>
         <div>
@@ -50,6 +52,195 @@ const Dashboard = () => {
         </div>
        </div>
       </div>
+
+      <Table striped bordered hover responsive className='mt-2 rounded'>
+       <thead>
+        <tr>
+          <td>Name</td>
+          <td>Title</td>
+          <td>Status</td>
+          <td>Role</td>
+          <td>Edit</td>
+        </tr>
+       </thead>
+       <tbody>
+        <tr>
+          <td class="people d-flex">
+            <img  style={{width:"120px",height:"70px"}} src={photo1} alt=" "/>
+            <div class="people-de">
+               <h5>Tauqueer manzar</h5>
+               <p>tauqueer@example.com</p>
+            </div>
+          </td>
+         
+           <td class="people-des">
+              <h5>Software Engineer</h5>
+              <p>Web dev</p>
+           </td>
+
+           <td class="active">
+              <p>Active</p> 
+           </td>
+
+           <td class="Role">
+              <p>Owner</p>
+           </td>
+
+           <td class="edit"><a href="#">edit</a></td>
+        </tr>
+
+        <tr>
+          <td class="people d-flex">
+            <img style={{width:"120px",height:"70px"}} src={photo1} alt=" "/>
+            <div class="people-de">
+               <h5>John Doe</h5>
+               <p>john@example.com</p>
+            </div>
+          </td>
+         
+           <td class="people-des">
+              <h5>Software Engineer</h5>
+              <p>Web dev</p>
+           </td>
+
+           <td class="active">
+              <p>Active</p> 
+           </td>
+
+           <td class="Role">
+              <p>Owner</p>
+           </td>
+
+           <td class="edit"><a href="#">edit</a></td>
+        </tr>
+
+        <tr>
+          <td class="people d-flex">
+            <img style={{width:"120px",height:"70px"}} src={photo1} alt=" "/>
+            <div class="people-de">
+               <h5>Thomas Joe</h5>
+               <p>john@example.com</p>
+            </div>
+          </td>
+         
+           <td class="people-des">
+              <h5>Software Engineer</h5>
+              <p>Web dev</p>
+           </td>
+
+           <td class="active">
+              <p>Active</p> 
+           </td>
+
+           <td class="Role">
+              <p>Owner</p>
+           </td>
+
+           <td class="edit"><a href="#">edit</a></td>
+        </tr>
+
+        <tr>
+          <td class="people d-flex">
+            <img style={{width:"120px",height:"70px"}} src={photo1} alt=" "/>
+            <div class="people-de">
+               <h5>md anwar alam</h5>
+               <p>mdanwar@gmail.com</p>
+            </div>
+          </td>
+         
+           <td class="people-des">
+              <h5>Software Engineer</h5>
+              <p>Web dev</p>
+           </td>
+
+           <td class="active">
+              <p>Active</p> 
+           </td>
+
+           <td class="Role">
+              <p>Owner</p>
+           </td>
+
+           <td class="edit"><a href="#">edit</a></td>
+        </tr>
+
+        <tr>
+          <td class="people d-flex">
+            <img style={{width:"120px",height:"70px"}} src={photo1} alt=" "/>
+            <div class="people-de">
+               <h5>janishar alam</h5>
+               <p>janishar@gmail.com</p>
+            </div>
+          </td>
+         
+           <td class="people-des">
+              <h5>Software Engineer</h5>
+              <p>Web dev</p>
+           </td>
+
+           <td class="active">
+              <p>Active</p> 
+           </td>
+
+           <td class="Role">
+              <p>Owner</p>
+           </td>
+
+           <td class="edit"><a href="#">edit</a></td>
+        </tr>
+
+        <tr>
+          <td class="people d-flex">
+            <img style={{width:"120px",height:"70px"}} src={photo1} alt=" "/>
+            <div class="people-de">
+               <h5>Charllie kyle</h5>
+               <p>charlie@example.com</p>
+            </div>
+          </td>
+         
+           <td class="people-des">
+              <h5>Software Engineer</h5>
+              <p>Web dev</p>
+           </td>
+
+           <td class="active">
+              <p>Active</p> 
+           </td>
+
+           <td class="Role">
+              <p>Owner</p>
+           </td>
+
+           <td class="edit"><a href="#">edit</a></td>
+        </tr>
+
+        <tr>
+          <td class="people  d-flex">
+            <img style={{width:"120px",height:"70px"}} src={photo1} alt=" "/>
+            <div class="people-de">
+               <h5>Charllie kyle</h5>
+               <p>charlie@example.com</p>
+            </div>
+          </td>
+         
+           <td class="people-des">
+              <h5>Software Engineer</h5>
+              <p>Web dev</p>
+           </td>
+
+           <td class="active">
+              <p>Active</p> 
+           </td>
+
+           <td class="Role">
+              <p>Owner</p>
+           </td>
+
+           <td class="edit"><a href="#">edit</a></td>
+        </tr>
+
+       </tbody>
+     </Table>
     </div>
     </div>
   )

@@ -1,58 +1,88 @@
-import React from 'react'
-import {Container,Row,Col} from 'react-bootstrap';
-import Card from 'react-bootstrap/Card';
-import doctor1 from '../assets/file (5) 4.png';
-import doctor2 from '../assets/file (5) 3.png';
-import doctor3 from '../assets/file (4) 4.png';
-const Doctor = () => {
-  return (
-    <>
-     <Container fluid style={{maxHeight:"100vh",maxWidth:"100vw"}}>
-     <Row className='mt-4 d-flex justify-content-center'>
-     <h1 className='text-center text-primary'>Doctors</h1>
-     <Col sm={12} md={4}>
-     <Card style={{ width: '20rem',marginLeft:"300px"}}>
-      <Card.Img variant="top" src={doctor1} height={300}/>
-      <Card.Body>
-        <Card.Title className='p-2'>Dr.Ramesh</Card.Title>
-        <Card.Subtitle  className='p-2'><strong>Email:</strong>ramesh@gmail.com</Card.Subtitle>
-        <Card.Subtitle  className='p-2'><strong>Phone:</strong>+91-987654321</Card.Subtitle>
-        <Card.Subtitle  className='p-2'><strong>Speciality:</strong>Orthopedics</Card.Subtitle>
-        <Card.Text>     
-        </Card.Text>
-      </Card.Body>
-    </Card>
-    </Col>
-    <Col sm={12} md={4}>
-     <Card style={{ width: '20rem',marginLeft:"100px"}}>
-      <Card.Img variant="top" src={doctor2} height={300}/>
-      <Card.Body>
-        <Card.Title className='p-2'>Dr.Ramesh</Card.Title>
-        <Card.Subtitle  className='p-2'><strong>Email:</strong>ramesh@gmail.com</Card.Subtitle>
-        <Card.Subtitle  className='p-2'><strong>Phone:</strong>+91-987654321</Card.Subtitle>
-        <Card.Subtitle  className='p-2'><strong>Speciality:</strong>Orthopedics</Card.Subtitle>
-        <Card.Text>     
-        </Card.Text>
-      </Card.Body>
-    </Card>
-    </Col>
-    <Col sm={12} md={4}>
-     <Card style={{ width: '20rem',marginLeft:"-100px"}}>
-      <Card.Img variant="top" src={doctor3} height={300}/>
-      <Card.Body>
-        <Card.Title className='p-2'>Dr.Ramesh</Card.Title>
-        <Card.Subtitle  className='p-2'><strong>Email:</strong>ramesh@gmail.com</Card.Subtitle>
-        <Card.Subtitle  className='p-2'><strong>Phone:</strong>+91-987654321</Card.Subtitle>
-        <Card.Subtitle  className='p-2'><strong>Speciality:</strong>Orthopedics</Card.Subtitle>
-        <Card.Text>     
-        </Card.Text>
-      </Card.Body>
-    </Card>
-    </Col>
-    </Row>
-     </Container>
-    </>
-  )
-}
+import React, { useState, useContext, useEffect } from 'react';
+import { Container, Row, Col, Card } from 'react-bootstrap';
+import { context } from '../main';
+import { Navigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
-export default Doctor
+const Doctor = () => {
+  const [doctor, setDoctor] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const { isAuthenticated } = useContext(context);
+
+  useEffect(() => {
+    const fetchDoctor = async () => {
+      if (isAuthenticated) {
+        try {
+          const response = await fetch("http://localhost:8080/api/v1/user/doctors", {
+           withcredentials:true,
+            headers: {
+              "Content-Type": "application/json",
+               Authorization: `Bearer ${localStorage.getItem("adminToken")}`
+            },
+          });
+
+          // Check if response is successful
+          if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+          }
+
+          const data = await response.json();
+          console.log("Response:", data.doctors);
+          setDoctor(data.doctors);
+        } catch (error) {
+          console.log("Error fetching doctors:", error.message);
+          toast.error("Error fetching doctors: " + error.message);
+        } finally {
+          // Stop loading once request completes (either success or error)
+          setLoading(false);
+        }
+      }
+    };
+
+    fetchDoctor();
+  }, [isAuthenticated]);
+
+  if (!isAuthenticated) {
+    return <Navigate to="/login" />;
+  }
+
+  return (
+    <Container fluid style={{ maxHeight: "100vh", maxWidth: "100vw" }}>
+      <Row className="mt-4" style={{ marginLeft: "290px" }}>
+        <h1 className="text-center text-dark" style={{ fontFamily: 'initial', fontSize: "35px", fontWeight: "bold" }}>
+          These All Doctors We have!
+        </h1>
+        {loading ? (
+          <h1 className="text-center text-danger" style={{ fontSize: '45px', fontWeight: "bold" }}>Loading...</h1>
+        ) : (
+          doctor.length === 0 ? (
+            <h1 className="text-center text-dark" style={{ fontSize: "65px", fontWeight: "bold" }}>No Doctor Found</h1>
+          ) : (
+            doctor.map((doc) => (
+              <Col sm={12} md={6} lg={4} key={doc.id}>
+                <div className="doctor-card">
+                  <Card style={{ width: '20rem' }}>
+                    <Card.Img
+                      variant="top"
+                      src={doc.docAvatar ? doc.docAvatar.url : 'fallback-image-url'} // Fallback image if avatar is missing
+                      alt='Doctor Avatar'
+                    />
+                    <Card.Body>
+                      <Card.Title>{doc.firstname} {doc.lastname}</Card.Title>
+                      <p>Email: <span className='mb-2 text-muted'>{doc.email}</span></p>
+                      <p>Phone: <span className='mb-2 text-muted'>{doc.phone}</span></p>
+                      <p>Gender: <span className='mb-2 text-muted'>{doc.gender}</span></p>
+                      <p>Department: <span className='mb-2 text-muted'>{doc.doctordepartment}</span></p>
+                    </Card.Body>
+                  </Card>
+                </div>
+              </Col>
+            ))
+          )
+        )}
+      </Row>
+    </Container>
+  );
+};
+
+export default Doctor;

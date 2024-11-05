@@ -5,8 +5,7 @@ const User = require("../models/UserSchema");
 
 exports.isAdminAuthenticated = catchAsyncErrors(async (req, res, next) => {
     const token = req.headers.authorization.split(" ")[1];
-    // console.log("Admin Token: ", token);
-    console.log("header:", req.headers);
+    console.log("Admin Token: ", token);
     if (!token) {
         return next(new ErrorHandler("Admin not Authenticated", 400));
     }

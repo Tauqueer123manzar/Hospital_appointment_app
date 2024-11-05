@@ -158,6 +158,11 @@
   font-size: 0.95rem;
 }
 
+.box1:hover{
+   transform: scale(1.05);
+   transition: cubic-bezier(0.165, 0.84, 0.44, 1) 0.3s;
+   cursor: pointer;
+}
 @media (max-width: 1200px) {
   .doctorcard {
     height: 380px;
@@ -181,4 +186,11 @@
   .message-form {
     height: fit-content;
   }
+}
+
+/*anwar*/
+.heighlight{
+  background-color: blue;
+  color: white;
+  padding: 12px 20px;
 }

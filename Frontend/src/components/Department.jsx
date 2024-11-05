@@ -34,7 +34,7 @@ const Department = () => {
     },
     large: {
       breakpoint: { max: 1324, min: 1005 },
-      items: 4,
+      items: 5,
       slidesToSlide: 1,
     },
     medium: {
@@ -50,8 +50,11 @@ const Department = () => {
   };
 
   return (
-    <div className="container departments" style={{ backgroundColor: "", maxWidth: "90%", maxHeight: "100%" }}>
-      <h2 style={{ fontFamily: "initial", fontWeight: "700" }}>DEPARTMENTS</h2>
+    <Container fluid style={{width:"100%",height:"100%"}}>
+    <div className="container departments" style={{ backgroundColor: "", maxWidth: "100%", maxHeight: "100%" }}>
+      <h2 style={{ fontFamily: "initial", fontWeight: "700" }} className='text-center mt-5'>DEPARTMENTS</h2>
+      <p className='text-center' style={{fontFamily:"initial"}}>Patients can easily browse through departments, select their preferred doctors, and book appointments at times convenient for them.</p>
+      <p className='text-center' style={{fontFamily:"initial"}}>With a robust range of 10 specialized departments, EasyCare ensures patients receive targeted and expert care in areas like Cardiology, Orthopedics, Pediatrics, and more.</p>
       <Carousel
         responsive={responsive}
       >
@@ -63,6 +66,7 @@ const Department = () => {
         ))}
       </Carousel>
     </div>
+    </Container>
   );
 };
 
