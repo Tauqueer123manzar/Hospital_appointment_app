@@ -135,11 +135,15 @@ exports.addnewDoctor = catchAsyncErrors(async (req, res, next) => {
     if (!req.files || Object.keys(req.files).length === 0) {
         return next(new ErrorHandler("Doctor Avatar Required!", 400));
     }
-
+    
+    // if (!req.files || !req.files.docAvatar) {
+    //     return next(new ErrorHandler("Doctor Avatar Required!", 400));
+    // }
+    console.log("Uploaded Files:", req.files);
     const { docAvatar } = req.files;
 
     // Allowed formats for avatar
-    const allowedFormats = ["image/png", "image/jpeg", "image/webp"];
+    const allowedFormats = ["image/png", "image/jpeg", "image/webp","image/jpg"];
     if (!allowedFormats.includes(docAvatar.mimetype)) {
         return next(new ErrorHandler("File format not supported!", 400));
     }
@@ -160,6 +164,7 @@ exports.addnewDoctor = catchAsyncErrors(async (req, res, next) => {
     try {
         cloudinaryResponse = await cloudinary.uploader.upload(docAvatar.tempFilePath, {
             folder: "avatars",
+            use_filename:true
         });
     } catch (error) {
         console.error("Cloudinary Error:", error);
@@ -170,7 +175,6 @@ exports.addnewDoctor = catchAsyncErrors(async (req, res, next) => {
     if (!cloudinaryResponse || cloudinaryResponse.error) {
         return next(new ErrorHandler("Failed to upload avatar", 500));
     }
-
     // Create doctor in the database
     const doctor = await User.create({
         firstname,

@@ -22,16 +22,20 @@ app.use(cors({
 app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+
 app.use(fileUpload({
     useTempFiles: true,
-    tempFileDir: '/tmp/'
+    tempFileDir: "/tmp/"
 }));
+
 
 // Routes
 app.use("/api/v1/message", MessageRouter);
 app.use("/api/v1/user",UserRouter);
 app.use("/api/v1/appointment",AppointmentRouter);
 app.use(Errormiddleware);
+
 
   
 module.exports = app;

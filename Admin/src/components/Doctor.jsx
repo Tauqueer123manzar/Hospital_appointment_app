@@ -41,6 +41,7 @@ const Doctor = () => {
     fetchDoctor();
   }, [isAuthenticated]);
 
+
   if (!isAuthenticated) {
     return <Navigate to="/login" />;
   }
@@ -48,7 +49,7 @@ const Doctor = () => {
   return (
     <Container fluid style={{ height: "100vh", maxWidth: "100vw",backgroundColor:"lightslategrey"}}>
       <Row style={{ marginLeft: "290px" }}>
-        <h1 className="text-center text-dark" style={{ fontFamily: 'initial', fontSize: "35px", fontWeight: "bold" }}>
+        <h1 className="text-center text-dark mt-3" style={{ fontFamily: 'initial', fontSize: "35px", fontWeight: "bold" }}>
           These All Doctors We have!
         </h1>
         {loading ? (
@@ -59,7 +60,7 @@ const Doctor = () => {
           ) : (
             doctor.map((doc) => (
               <Col sm={12} md={6} lg={4} key={doc.id}>
-                <div className="doctor-card">
+                <div className="doctor-card mt-2">
                   <Card style={{ width: '20rem' }}>
                     <Card.Img
                       variant="top"
@@ -67,7 +68,7 @@ const Doctor = () => {
                       alt='Doctor Avatar'
                     />
                     <Card.Body>
-                      <Card.Title>{doc.firstname} {doc.lastname}</Card.Title>
+                      <Card.Title><span style={{fontWeight:"bold",marginBottom:"10px"}}>Name:</span>{doc.firstname} {doc.lastname}</Card.Title>
                       <p style={{fontWeight:"bold"}}>Email: <span className='mb-2 text-muted'>{doc.email}</span></p>
                       <p style={{fontWeight:"bold"}}>Phone: <span className='mb-2 text-muted'>{doc.phone}</span></p>
                       <p style={{fontWeight:"bold"}}>Gender: <span className='mb-2 text-muted'>{doc.gender}</span></p>
