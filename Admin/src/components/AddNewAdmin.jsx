@@ -47,7 +47,7 @@ const AddNewAdmin = () => {
 
   return (
     <>
-      <Container fluid className='d-flex flex-column' style={{ height: "98vh",width:"94%", padding: 0 ,margin:0,marginLeft:"100px",backgroundColor:"lightsteelblue"}}>
+      <Container fluid className='d-flex flex-column' style={{ height: "98vh",width:"94%", padding: 0 ,margin:0,marginLeft:"100px",backgroundColor:"#f0f0f1"}}>
       <h1 style={{ color: 'darkred', fontWeight: 'bold',fontSize:"50px"}} className='text-center mt-4'>EasyCare</h1>
           <h2 className='text-center mt-4' style={{ fontWeight: "bold", fontFamily: "initial"}}>Add New Admin</h2>
           <Form style={{ maxWidth: '100%',height:"80%"}} className='d-flex justify-content-center align-items-center p-4 mt-2' onSubmit={handleAddNewAdmin}>
