@@ -16,16 +16,17 @@ const AddNewAdmin = () => {
   const navigate=useNavigate();
   const{isAuthenticated,setIsAuthenticated}=useContext(context);
 
-  const handleRegister = async (e) => {
+  const handleAddNewAdmin= async (e) => {
     e.preventDefault();
     console.log('Form submitted', firstname, lastname, email, phone, gender, password);
     try {
-      await axios.post("http://localhost:8080/api/v1/user/patient/register",
-        { firstname, lastname, email, phone, gender, password,role:"Patient" },
+      await axios.post("http://localhost:8080/api/v1/user/admin/addnew",
+        { firstname, lastname, email, phone, gender, password},
         {
           withCredentials: true,
-          headers: {
-            "Content-Type": "application/json"
+          headers:{
+            "Content-Type":"application/json",
+            Authorization:`Bearer ${localStorage.getItem("adminToken")}`
           }
         }
       ).then(res => {
@@ -43,16 +44,13 @@ const AddNewAdmin = () => {
     }
   };
 
-  if(isAuthenticated){
-   navigate("/");
-  }
 
   return (
     <>
       <Container fluid className='d-flex flex-column' style={{ height: "98vh",width:"94%", padding: 0 ,margin:0,marginLeft:"100px",backgroundColor:"lightsteelblue"}}>
       <h1 style={{ color: 'darkred', fontWeight: 'bold',fontSize:"50px"}} className='text-center mt-4'>EasyCare</h1>
           <h2 className='text-center mt-4' style={{ fontWeight: "bold", fontFamily: "initial"}}>Add New Admin</h2>
-          <Form style={{ maxWidth: '100%',height:"80%"}} className='d-flex justify-content-center align-items-center p-4 mt-2' onSubmit={handleRegister}>
+          <Form style={{ maxWidth: '100%',height:"80%"}} className='d-flex justify-content-center align-items-center p-4 mt-2' onSubmit={handleAddNewAdmin}>
             <div className='' style={{width:"60%", height: "100%" }}>
               <Row className='d-flex justify-content-center align-items-center'>
                 <h2 className='text-center mt-4' sm={12} md={6} lg={4} style={{ fontFamily: "initial", fontWeight: "bold" }}></h2>
