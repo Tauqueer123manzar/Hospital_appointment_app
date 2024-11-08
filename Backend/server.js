@@ -1,6 +1,6 @@
 const app=require("./app");
 const cloudinary = require('cloudinary').v2;
-const connectDb = require('./database/dbconnection');
+require('dotenv').config();
 
 // Cloudinary configuration
 cloudinary.config({
