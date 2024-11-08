@@ -38,9 +38,11 @@ const Login = () => {
 
     try {
      const response= await axios.post("http://localhost:8080/api/v1/user/login",formdata,{
-        headers:{
-          "Content-Type":"application/json"
-        }
+        withCredentials: true,
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("adminToken")}`
+          }
       });
       toast.success(response.data.message);
       console.log(response.data);

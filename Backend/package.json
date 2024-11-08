@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "nodemon server.js",
-    "start": "nodmeon server.js"
+    "start": "nodemon server.js"
   },
   "author": "Tauqueer manzar",
   "license": "ISC",

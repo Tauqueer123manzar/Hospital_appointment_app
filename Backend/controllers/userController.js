@@ -135,15 +135,14 @@ exports.addnewDoctor = catchAsyncErrors(async (req, res, next) => {
     if (!req.files || Object.keys(req.files).length === 0) {
         return next(new ErrorHandler("Doctor Avatar Required!", 400));
     }
-    
-    // if (!req.files || !req.files.docAvatar) {
-    //     return next(new ErrorHandler("Doctor Avatar Required!", 400));
-    // }
-    console.log("Uploaded Files:", req.files);
+
+    // Check specifically for docAvatar
     const { docAvatar } = req.files;
 
+    console.log("Uploaded Files:", req.files);  // Debugging ke liye
+
     // Allowed formats for avatar
-    const allowedFormats = ["image/png", "image/jpeg", "image/webp","image/jpg"];
+    const allowedFormats = ["image/png", "image/jpeg", "image/webp"];
     if (!allowedFormats.includes(docAvatar.mimetype)) {
         return next(new ErrorHandler("File format not supported!", 400));
     }
@@ -154,27 +153,29 @@ exports.addnewDoctor = catchAsyncErrors(async (req, res, next) => {
         return next(new ErrorHandler("Please provide all required details", 400));
     }
 
+    // Check if email is already registered
     const isRegistered = await User.findOne({ email });
     if (isRegistered) {
         return next(new ErrorHandler(`${isRegistered.role} already registered with this email`, 400));
     }
 
-    // Upload avatar to Cloudinary
+    // Upload avatar to Cloudinary using the correct method
     let cloudinaryResponse;
     try {
         cloudinaryResponse = await cloudinary.uploader.upload(docAvatar.tempFilePath, {
             folder: "avatars",
-            use_filename:true
+            use_filename: true,
         });
     } catch (error) {
         console.error("Cloudinary Error:", error);
         return next(new ErrorHandler("Failed to upload avatar", 500));
     }
 
-    // Ensure that the response is valid
     if (!cloudinaryResponse || cloudinaryResponse.error) {
+        console.error("Cloudinary Error:", cloudinaryResponse.error || "Unknown Cloudinary error");
         return next(new ErrorHandler("Failed to upload avatar", 500));
     }
+
     // Create doctor in the database
     const doctor = await User.create({
         firstname,
@@ -191,11 +192,9 @@ exports.addnewDoctor = catchAsyncErrors(async (req, res, next) => {
         },
     });
 
-    // Send success response
     res.status(200).json({
         success: true,
         message: "Doctor Added Successfully",
-        doctor
+        doctor,
     });
 });
-

@@ -30,7 +30,6 @@ const Doctor = () => {
           console.log("Response:", data.doctors);
           setDoctor(data.doctors);
         } catch (error) {
-          console.log("Error fetching doctors:", error.message);
           toast.error("Error fetching doctors: " + error.message);
         } finally {
           setLoading(false);
@@ -47,28 +46,29 @@ const Doctor = () => {
   }
 
   return (
-    <Container fluid style={{ height: "100vh", maxWidth: "100vw",backgroundColor:"lightslategrey"}}>
+    <Container fluid style={{ height: "auto", width: "100%",backgroundColor:"lightslategrey",overflowX:"hidden",overflowY:"scroll",scrollbarWidth:"none",paddingBottom:"10px"}}>
       <Row style={{ marginLeft: "290px" }}>
-        <h1 className="text-center text-dark mt-3" style={{ fontFamily: 'initial', fontSize: "35px", fontWeight: "bold" }}>
+        <h1 className="text-center text-dark mt-3" style={{ fontFamily: 'initial', fontSize: "30px", fontWeight: "bold" }}>
           These All Doctors We have!
         </h1>
         {loading ? (
           <h1 className="text-center text-danger" style={{ fontSize: '45px', fontWeight: "bold" }}>Loading...</h1>
         ) : (
           doctor.length === 0 ? (
-            <h1 className="text-center text-dark" style={{ fontSize: "65px", fontWeight: "bold" }}>No Doctor Found</h1>
+            <h1 className="text-center text-dark" style={{ fontSize: "45px", fontWeight: "bold" }}>No Doctor Found</h1>
           ) : (
             doctor.map((doc) => (
               <Col sm={12} md={6} lg={4} key={doc.id}>
                 <div className="doctor-card mt-2">
-                  <Card style={{ width: '20rem' }}>
+                  <Card style={{ width: '23rem'}}>
                     <Card.Img
                       variant="top"
                       src={doc.docAvatar ? doc.docAvatar.url : 'fallback-image-url'} // Fallback image if avatar is missing
                       alt='Doctor Avatar'
+                      style={{height:'300px',width:"100%"}}
                     />
                     <Card.Body>
-                      <Card.Title><span style={{fontWeight:"bold",marginBottom:"10px"}}>Name:</span>{doc.firstname} {doc.lastname}</Card.Title>
+                      <Card.Title><span style={{fontWeight:"bold",marginBottom:"10px"}}>Name: </span>{doc.firstname} {doc.lastname}</Card.Title>
                       <p style={{fontWeight:"bold"}}>Email: <span className='mb-2 text-muted'>{doc.email}</span></p>
                       <p style={{fontWeight:"bold"}}>Phone: <span className='mb-2 text-muted'>{doc.phone}</span></p>
                       <p style={{fontWeight:"bold"}}>Gender: <span className='mb-2 text-muted'>{doc.gender}</span></p>
