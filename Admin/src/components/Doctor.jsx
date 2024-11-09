@@ -60,7 +60,7 @@ const Doctor = () => {
             doctor.map((doc) => (
               <Col sm={12} md={6} lg={4} key={doc.id}>
                 <div className="doctor-card mt-2">
-                  <Card style={{ width: '23rem'}}>
+                  <Card style={{ width: '21rem'}}>
                     <Card.Img
                       variant="top"
                       src={doc.docAvatar ? doc.docAvatar.url : 'fallback-image-url'} // Fallback image if avatar is missing

@@ -1,205 +1,70 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { Container, Row, Col, Button } from 'react-bootstrap';
+import { Container, Row, Col, Button,Spinner} from 'react-bootstrap';
 import Card from 'react-bootstrap/Card';
 import ListGroup from 'react-bootstrap/ListGroup';
-import doctor1 from '../assets/file (2) 1.jpg';
-import doctor2 from '../assets/file (2) 2.jpg';
-import doctor3 from '../assets/file (2) 3.png';
-import doctor4 from '../assets/file (3) 1.jpg';
-import doctor5 from '../assets/file (3) 3.png';
-import doctor6 from '../assets/file (4) 1.jpg';
-import doctor7 from '../assets/file (4) 2.jpg';
-import doctor8 from '../assets/file (4) 4.png';
-import doctor9 from '../assets/file (5) 1.jpg';
-import doctor10 from '../assets/file (5) 2.png';
-import doctor11 from '../assets/file (5) 3.png';
-import doctor12 from '../assets/file (5) 4.png';
 import Topbar from './Topbar';
+import axios from 'axios';
+
 const DoctorProfile = () => {
     const { id } = useParams();
-    const doctorId = parseInt(id);
-    const Doctorsdata = [
-        {
-            id: 1,
-            image: doctor1,
-            title: "Available",
-            name: "Dr. Richard James",
-            description: "Cardiology",
-            specialization: "Dr. Richard James is specialist in cardiology this is best doctor",
-            experience: "5 years",
-            Age: "45",
-            mobileno: "9474658273",
-            email: "richard@gmail.com"
-        },
-        {
-            id: 2,
-            image: doctor2,
-            title: "Available",
-            name: "Dr. Richard James",
-            description: "ENT",
-            specialization: "Dr. Richard James is specialist in cardiology this is best doctor",
-            experience: "5 years",
-            Age: "45",
-            mobileno: "9474658273",
-            email: "richard@gmail.com"
-        },
-        {
-            id: 3,
-            image: doctor3,
-            title: "Available",
-            name: "Dr. Richard James",
-            description: "Neurology",
-            specialization: "Dr. Richard James is specialist in cardiology this is best doctor",
-            experience: "5 years",
-            Age: "45",
-            mobileno: "9474658273",
-            email: "richard@gmail.com"
-        },
-        {
-            id: 4,
-            image: doctor4,
-            title: "Available",
-            name: "Dr. Richard James",
-            description: "Orthopedics",
-            specialization: "Dr. Richard James is specialist in cardiology this is best doctor",
-            experience: "5 years",
-            Age: "45",
-            mobileno: "9474658273",
-            email: "richard@gmail.com"
-        },
-        {
-            id: 5,
-            image: doctor5,
-            title: "Available",
-            name: "Dr. Richard James",
-            description: "Therapy",
-            specialization: "Dr. Richard James is specialist in cardiology this is best doctor",
-            experience: "5 years",
-            Age: "45",
-            mobileno: "9474658273",
-            email: "richard@gmail.com"
-        },
-        {
-            id: 6,
-            image: doctor6,
-            title: "Available",
-            name: "Dr. Richard James",
-            description: "Dermatology",
-            specialization: "Dr. Richard James is specialist in cardiology this is best doctor",
-            experience: "5 years",
-            Age: "45",
-            mobileno: "9474658273",
-            email: "richard@gmail.com"
-        },
-        {
-            id: 7,
-            image: doctor7,
-            title: "Available",
-            name: "Dr. Richard James",
-            description: "Pediatrics",
-            specialization: "Dr. Richard James is specialist in cardiology this is best doctor",
-            experience: "5 years",
-            Age: "45",
-            mobileno: "9474658273",
-            email: "richard@gmail.com"
-        },
-        {
-            id: 8,
-            image: doctor8,
-            title: "Available",
-            name: "Dr. Richard James",
-            description: "General physician",
-            specialization: "Dr. Richard James is specialist in cardiology this is best doctor",
-            experience: "5 years",
-            Age: "45",
-            mobileno: "9474658273",
-            email: "richard@gmail.com"
-        },
-        {
-            id: 9,
-            image: doctor9,
-            title: "Available",
-            name: "Dr. Richard James",
-            description: "Oncology",
-            specialization: "Dr. Richard James is specialist in cardiology this is best doctor",
-            experience: "5 years",
-            Age: "45",
-            mobileno: "9474658273",
-            email: "richard@gmail.com"
-        },
-        {
-            id: 10,
-            image: doctor10,
-            title: "Available",
-            name: "Dr. Richard James",
-            description: "ENT",
-            specialization: "Dr. Richard James is specialist in cardiology this is best doctor",
-            experience: "5 years",
-            Age: "45",
-            mobileno: "9474658273",
-            email: "richard@gmail.com"
-        },
-        {
-            id: 11,
-            image: doctor11,
-            title: "Available",
-            name: "Dr. Richard James",
-            description: "Neurology",
-            specialization: "Dr. Richard James is specialist in cardiology this is best doctor",
-            experience: "5 years",
-            Age: "45",
-            mobileno: "9474658273",
-            email: "richard@gmail.com"
-        },
-        {
-            id: 12,
-            image: doctor12,
-            title: "Available",
-            name: "Dr. Richard James",
-            description: "Therapy",
-            specialization: "Dr. Richard James is specialist in cardiology this is best doctor",
-            experience: "5 years",
-            Age: "45",
-            mobileno: "9474658273",
-            email: "richard@gmail.com"
-        },
-    ];
-    // Fetch the doctor information based on the id or use dummy data
-    const doctor = Doctorsdata.find((doc) => doc.id === doctorId) || Doctorsdata[0];
-    // You can fetch the data from API or context state depending on your data flow
+    const [doctor, setDoctor] = useState(null);
+    const [loader,setLoader]=useState(false);
+    const apiUrl = `http://localhost:8080/api/v1/user/doctors/${id}`;
+
+    useEffect(() => {
+        const fetchDoctorData = async () => {
+            setLoader(true);
+            try {
+                const response = await axios.get(apiUrl);
+                setDoctor(response.data);
+            } catch (error) {
+                console.error('Error fetching doctor data:', error);
+            }finally{
+                setLoader(false);
+            }
+        };
+
+        fetchDoctorData();
+    }, [id]);
+
+    if (!doctor) {
+        return <Spinner animation='border' variant='danger' className='mt-5 d-flex justify-content-center' style={{marginLeft:"45%"}}/>
+    }
 
     return (
         <>
             <Topbar />
-            <div className='doctorpage' style={{backgroundColor:"lightgrey"}}>
-            <Container>
-                <Row className="justify-content-center">
-                    <Col md={6} lg={5} style={{marginTop:"70px"}}>
-                        <Card className='mb-5 mt-4'>
-                            <Card.Img variant="top" src={doctor.image} alt={doctor.name} height={350}/>
-                            <Card.Body>
-                                <Card.Title>{doctor.name}</Card.Title>
-                                <Card.Subtitle className="mb-2 text-muted">
-                                    {doctor.specialization}
-                                </Card.Subtitle>
-                                <Card.Text style={{fontWeight:"650"}}>{doctor.description}</Card.Text>
-                            </Card.Body>
-                            <ListGroup className="list-group-flush">
-                                <ListGroup.Item><strong>Experience:</strong> {doctor.experience}</ListGroup.Item>
-                                <ListGroup.Item><strong>Age:</strong> {doctor.Age}</ListGroup.Item>
-                                <ListGroup.Item><strong>Mobile No:</strong> {doctor.mobileno}</ListGroup.Item>
-                                <ListGroup.Item><strong>Email:</strong> {doctor.email}</ListGroup.Item>
-                            </ListGroup>
-                            <Card.Body>
-                                <Button href="/appointment" variant="primary" className='d-flex justify-content-center align-items-center'>
-                                    Book Appointment
-                                </Button>
-                            </Card.Body>
-                        </Card>
-                    </Col>
-                </Row>
-            </Container>
+            <div className='doctorpage' style={{ backgroundColor: "lightgrey" }}>
+                <Container>
+                    <Row className="justify-content-center">
+                        <Col md={6} lg={5} style={{ marginTop: "70px" }}>
+                            <Card className='mb-5 mt-4'>
+                                <Card.Img variant="top" src={doctor.docAvatar} alt={doctor.Name} height={350} />
+                                <Card.Body>
+                                    <Card.Title>{doctor.Name}</Card.Title>
+                                    <Card.Subtitle className="mb-2 text-muted">
+                                        {doctor.Department}
+                                    </Card.Subtitle>
+                                    <Card.Text style={{ fontWeight: "650" }}>
+                                        {doctor.specialization || "Specialization information not available."}
+                                    </Card.Text>
+                                </Card.Body>
+                                <ListGroup className="list-group-flush">
+                                    <ListGroup.Item><strong>Experience:</strong> {doctor.experience || "N/A"}</ListGroup.Item>
+                                    <ListGroup.Item><strong>Age:</strong> {doctor.age || "N/A"}</ListGroup.Item>
+                                    <ListGroup.Item><strong>Mobile No:</strong> {doctor.Phone}</ListGroup.Item>
+                                    <ListGroup.Item><strong>Email:</strong> {doctor.Email}</ListGroup.Item>
+                                </ListGroup>
+                                <Card.Body>
+                                    <Button href="/appointment" variant="primary" className='d-flex justify-content-center align-items-center'>
+                                        Book Appointment
+                                    </Button>
+                                </Card.Body>
+                            </Card>
+                        </Col>
+                    </Row>
+                </Container>
             </div>
         </>
     );
