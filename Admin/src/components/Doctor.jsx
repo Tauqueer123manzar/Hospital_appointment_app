@@ -63,16 +63,16 @@ const Doctor = () => {
                   <Card style={{ width: '21rem'}}>
                     <Card.Img
                       variant="top"
-                      src={doc.docAvatar ? doc.docAvatar.url : 'fallback-image-url'} // Fallback image if avatar is missing
+                      src={doc.docAvatar ? doc.docAvatar.url : 'fallback-image-url'}
                       alt='Doctor Avatar'
-                      style={{height:'300px',width:"100%"}}
+                      style={{height:'220px',width:"100%"}}
                     />
                     <Card.Body>
                       <Card.Title><span style={{fontWeight:"bold",marginBottom:"10px"}}>Name: </span>{doc.firstname} {doc.lastname}</Card.Title>
-                      <p style={{fontWeight:"bold"}}>Email: <span className='mb-2 text-muted'>{doc.email}</span></p>
-                      <p style={{fontWeight:"bold"}}>Phone: <span className='mb-2 text-muted'>{doc.phone}</span></p>
-                      <p style={{fontWeight:"bold"}}>Gender: <span className='mb-2 text-muted'>{doc.gender}</span></p>
-                      <p style={{fontWeight:"bold"}}>Department: <span className='mb-2 text-muted'>{doc.doctordepartment}</span></p>
+                      <p style={{fontWeight:"bold"}}>Email: <span className='mb-1 text-muted'>{doc.email}</span></p>
+                      <p style={{fontWeight:"bold"}}>Phone: <span className='mb-1 text-muted'>{doc.phone}</span></p>
+                      <p style={{fontWeight:"bold"}}>Gender: <span className='mb-1 text-muted'>{doc.gender}</span></p>
+                      <p style={{fontWeight:"bold"}}>Department: <span className='mb-1 text-muted'>{doc.doctordepartment}</span></p>
                     </Card.Body>
                   </Card>
                 </div>

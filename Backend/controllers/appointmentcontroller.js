@@ -1,29 +1,36 @@
+const mongoose=require("mongoose");
 const Appointment=require("../models/AppointmentSchema");
-const catchAsyncErrors=require("../middlewares/catchAsyncErrors");
-const ErrorHandler=require("../middlewares/Errorhandler");
+const catchAsyncErrors = require("../middlewares/catchAsyncErrors");
+const ErrorHandler = require("../middlewares/Errorhandler");
+const { GenerateToken } = require("../utils/jwtToken");
 
-exports.sendAppointment=catchAsyncErrors(async(req,res,next)=>{
-    const{patientName,specialization,appointmentDate,selectDoctor,selectDay,hasvisited,selectTime}=req.body;
+// =========================== create a new appointment ================================================
+exports.createAppointment=catchAsyncErrors(async(req,res,next)=>{
+    try {
+        const {patientName,specialization,appointmentDate,hasVisited,doctorName,selectTime,doctorId,patientId,status}=req.body;
+        if(!patientName || !specialization || !appointmentDate || !doctorName || !selectTime || !doctorId || !patientId){
+            return next(new ErrorHandler("Missing required fields",400));
+        }
 
-    if(!patientName || !specialization || !appointmentDate || !selectDoctor || !selectDay || !selectTime){
-        return next(new ErrorHandler("please fill full form",400));
+        const newAppointment=new Appointment({
+            patientName,
+            specialization,
+            appointmentDate,
+            hasVisited:hasVisited||false,
+            doctorName,
+            selectTime,
+            doctorId,
+            patientId,
+            status:status || "Pending"
+        });
+
+        const savedAppointment=await newAppointment.save();
+        res.status(201).json({
+            message:"Appointment Created Sucessfully",appointment:savedAppointment
+        });
+    } catch (error) {
+        res.status(500).json({
+            message:"Error in creating appointment",error
+        });
     }
-    const isconflict=await Appointment.findOne({
-        selectDoctor:doctorId,
-        role:"Doctor",
-        doctorDepartment:specialization
-    });
-    if(!isconflict){
-        return next(new ErrorHandler("Doctor not available",400));
-    }
-   try{
-      await Appointment.create({patientName,specialization,appointmentDate,selectDoctor,selectDay,selectTime,hasvisited,doctorId,patientId});
-      res.status(200).json({
-         success:true,
-         message:"Appointment sent successfully"
-      });  
-   }catch(error){
-     console.log(error);
-     next(error);
-   }
 })

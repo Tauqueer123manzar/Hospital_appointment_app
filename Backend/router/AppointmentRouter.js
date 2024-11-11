@@ -1,8 +1,8 @@
 const express=require("express");
-const {sendAppointment}=require("../controllers/appointmentcontroller");
+const {createAppointment}=require("../controllers/appointmentcontroller");
 
 const router=express.Router();
 
-router.post("/send",sendAppointment);
+router.post("/create",createAppointment);
 
 module.exports=router;
