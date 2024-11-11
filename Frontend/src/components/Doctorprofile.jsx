@@ -17,7 +17,7 @@ const DoctorProfile = () => {
             setLoader(true);
             try {
                 const response = await axios.get(apiUrl);
-                setDoctor(response.data);
+                setDoctor(response.data.doctors[0]);
             } catch (error) {
                 console.error('Error fetching doctor data:', error);
             }finally{

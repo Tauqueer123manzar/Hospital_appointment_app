@@ -20,31 +20,27 @@ const AppointmentSchema = new mongoose.Schema({
         type:Boolean,
         default:false
     },
-    selectDay: {
-        type: String,
-        required: true,
-        trim: true
-    },
-    selectDoctor: {
-        doctorName:{
-            type:String,
-            required:true
-        }
-    },
+   doctorName:{
+       type:String,
+       required:true
+   },
     selectTime: {
         type: String,
         required: true,
-        trim: true
+        trim: true,
+        enum:["9:00 AM","10:00 AM","11:00 AM","1:00 PM","2:00 PM","3:00 PM"]
     },
     doctorId: {
         type: mongoose.Schema.ObjectId,
         ref: "User",
-        required: true
+        required: true,
+        index:true
     },
     patientId: {
         type: mongoose.Schema.ObjectId,
         ref: "User",
-        required: true
+        required: true,
+        index:true
     },
     status: {
         type: String,
@@ -53,5 +49,6 @@ const AppointmentSchema = new mongoose.Schema({
     },
 }, { timestamps: true });
 
+AppointmentSchema.index({appointmentDate:1});
 const Appointment = mongoose.model("Appointment", AppointmentSchema);
 module.exports = Appointment;

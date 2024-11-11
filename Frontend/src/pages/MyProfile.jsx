@@ -34,7 +34,7 @@ const MyProfile = () => {
     <Container fluid>
     <div className="container mt-5">
       {/* Profile Section */}
-      <Card className="mb-4">
+      <Card className="mb-4" style={{marginTop:"100px"}}>
         <Card.Header>My Profile</Card.Header>
         <Card.Body>
           <Row>

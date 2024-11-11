@@ -22,7 +22,6 @@ const AppointmentForm = () => {
 
   const [selectedDoctor, setSelectedDoctor] = useState(null);
   const [timeSlot, setTimeSlot] = useState('');
-  const [selectedDay, setSelectedDay] = useState(''); 
   const [appointmentdate,setAppointmentdate]=useState('');
 
   const specializationData = [
@@ -288,7 +287,6 @@ const AppointmentForm = () => {
     const selectedSpecialization = e.target.value;
     setFormData({ ...formData, specialization: selectedSpecialization, doctorname: '' });
     setSelectedDoctor(null); // Reset doctor when specialization changes
-    setSelectedDay(''); // Reset day when specialization changes
     setTimeSlot('');// Reset time slot
     setAppointmentdate('') // Reset appointment date
   };
@@ -301,12 +299,10 @@ const AppointmentForm = () => {
 
     setFormData({ ...formData, doctorname: selectedDoctorName });
     setSelectedDoctor(doctor);
-    setSelectedDay(''); // Reset day when doctor changes
     setTimeSlot(''); // Reset time slot
   };
 
   const handleDayChange = (e) => {
-    setSelectedDay(e.target.value);
     setTimeSlot(''); // Reset time slot when day changes
   };
 
@@ -319,7 +315,7 @@ const AppointmentForm = () => {
             src={appointment}
             style={{
               width: "100%",
-              height:"135vh",
+              height:"100vh",
               objectFit: "cover",
               position: "absolute",
               top: "0",
@@ -400,20 +396,6 @@ const AppointmentForm = () => {
                   </Form.Control>
                 </Form.Group>
 
-                <Form.Group controlId="selectDay" className='mb-3'>
-                  <Form.Label style={{fontWeight:"700",fontFamily:"inherit"}}>Select Day</Form.Label>
-                  <Form.Control
-                    as="select"
-                    value={selectedDay}
-                    onChange={handleDayChange}
-                    disabled={!selectedDoctor}
-                  >
-                    <option>Select Day</option>
-                    {selectedDoctor && Object.keys(selectedDoctor.availableTimings).map((day, index) => (
-                      <option key={index} value={day}>{day}</option>
-                    ))}
-                  </Form.Control>
-                </Form.Group>
 
                 {/* Time Slot */}
                 <Form.Group controlId="timeSlot" className='mb-3'>
@@ -422,10 +404,9 @@ const AppointmentForm = () => {
                     as="select"
                     value={timeSlot}
                     onChange={(e) => setTimeSlot(e.target.value)}
-                    disabled={!selectedDay}
                   >
                     <option>Select Time Slot</option>
-                    {selectedDoctor && selectedDay && selectedDoctor.availableTimings[selectedDay]?.map((time, index) => (
+                    {selectedDoctor && selectedDoctor.availableTimings[0]?.map((time, index) => (
                       <option key={index} value={time}>{time}</option>
                     ))}
                   </Form.Control>
@@ -439,7 +420,6 @@ const AppointmentForm = () => {
                       <Card.Text>
                         Specialization: {formData.specialization} <br />
                         Consultation Charge: ₹{selectedDoctor.charge} <br />
-                        Selected Day: {selectedDay} <br />
                         Selected Time Slot: {timeSlot}<br/>
                         appointmentdate:{formData.appointmentdate}
                       </Card.Text>
