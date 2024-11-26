@@ -25,8 +25,8 @@ exports.isAdminAuthenticated = catchAsyncErrors(async (req, res, next) => {
 });
 
 exports.isPatientAuthenticated = catchAsyncErrors(async (req, res, next) => {
-    const token = req.cookies.patientToken;
-    console.log("Patient Token: ", req.cookies.patientToken);
+    const token = req.headers.authorization.split(" ")[1];
+    console.log("Patient Token: ", token);
     if (!token) {
         return next(new ErrorHandler("Patinet not Authenticated", 400));
     }
