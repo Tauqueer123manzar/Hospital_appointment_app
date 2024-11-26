@@ -54,7 +54,7 @@ const Footer = () => {
                     </Col>
                     <div className='text-center m-4'>
                     <hr style={{border:"1px solid white"}}/>
-                    <span style={{color:"red",fontSize:"700"}}>Copyright © 2024, Easy Care.</span>
+                    <span style={{color:"red",fontSize:"700"}}>Copyright © 2024, Easy Care Made by Tauqueer Team.</span>
                     </div>
                 </Row>
             </Container>
