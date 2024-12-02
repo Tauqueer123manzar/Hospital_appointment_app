@@ -2,6 +2,7 @@ const mongoose=require("mongoose");
 const Appointment=require("../models/AppointmentSchema");
 const catchAsyncErrors = require("../middlewares/catchAsyncErrors");
 const ErrorHandler = require("../middlewares/Errorhandler");
+const User=require("../models/UserSchema");
 const { GenerateToken } = require("../utils/jwtToken");
 
 // =========================== create a new appointment ================================================

@@ -5,9 +5,6 @@ import '../App.css'
 import { FaUsers } from "react-icons/fa";
 import { FaCalendarAlt} from 'react-icons/fa';
 import { FaCheck} from 'react-icons/fa';
-import Table from 'react-bootstrap/Table';
-import photo from '../assets/file (4) 4.png'
-import photo1 from '../assets/file (5) 4.png'
 const Dashboard = () => {
   const { isAuthenticated, setIsAuthenticated } = useContext(context);
   const navigateTo = useNavigate();
