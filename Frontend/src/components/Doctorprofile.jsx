@@ -1,63 +1,164 @@
+// import React, { useEffect, useState } from 'react';
+// import { useParams } from 'react-router-dom';
+// import { Container, Row, Col, Button,Spinner,Card} from 'react-bootstrap';
+// import Topbar from './Topbar';
+// import axios from 'axios';
+
+// const DoctorProfile = () => {
+//     const { id } = useParams();
+//     const [doctor, setDoctor] = useState(null);
+//     const [loading,setLoading]=useState(true);
+//     useEffect(() => {
+//         const fetchDoctorData = async () => {
+//             setLoading(false);
+//             try {
+//                 const response = await axios.get(`http://localhost:8080/api/v1/user/doctors/${id}`);
+//                 setDoctor(response.data.doctor);
+//             } catch (error) {
+//                 console.error('Error fetching doctor data:', error.response?.data?.message || error.message);
+//             }finally{
+//                 setLoading(false);
+//             }
+//         };
+
+//         fetchDoctorData();
+//     }, [id]);
+
+//     if (!doctor) {
+//         <p>Doctor Not Found</p>
+//         return <Spinner animation='border' variant='danger' className='mt-5 d-flex justify-content-center' style={{marginLeft:"45%"}}/>
+//     }
+
+//     return (
+//         <>
+//         <Topbar />
+//         <div className='doctorpage' style={{ backgroundColor: "lightgrey" }}>
+//             <Container>
+//                 <Row className="justify-content-center">
+//                     <Col md={6} lg={5}>
+//                         <Card>
+//                             <Card.Img 
+//                                 variant="top" 
+//                                 src={doctor.docAvatar} 
+//                                 alt={doctor.firstname} 
+//                                 height={350}
+//                             />
+//                             <Card.Body>
+//                                 <Card.Title>
+//                                     {doctor.firstname} {doctor.lastname}
+//                                 </Card.Title>
+//                                 <Card.Text>
+//                                     {doctor.specialization || "No specialization provided"}
+//                                 </Card.Text>
+//                                 <Card.Text>
+//                                     Department: {doctor.doctordepartment}
+//                                 </Card.Text>
+//                                 <Card.Text>
+//                                     Email: {doctor.email}
+//                                 </Card.Text>
+//                                 <Card.Text>
+//                                     Phone: {doctor.phone}
+//                                 </Card.Text>
+//                             </Card.Body>
+//                             <Card.Body>
+//                                 <Button 
+//                                     href="/appointment" 
+//                                     variant="primary" 
+//                                     className='d-flex justify-content-center align-items-center'
+//                                 >
+//                                     Book Appointment
+//                                 </Button>
+//                             </Card.Body>
+//                         </Card>
+//                     </Col>
+//                 </Row>
+//             </Container>
+//         </div>
+//     </>
+    
+//     );
+// };
+
+// export default DoctorProfile;
+
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { Container, Row, Col, Button,Spinner} from 'react-bootstrap';
-import Card from 'react-bootstrap/Card';
-import ListGroup from 'react-bootstrap/ListGroup';
+import { Container, Row, Col, Button, Spinner, Card } from 'react-bootstrap';
 import Topbar from './Topbar';
 import axios from 'axios';
 
 const DoctorProfile = () => {
     const { id } = useParams();
     const [doctor, setDoctor] = useState(null);
-    const [loader,setLoader]=useState(false);
-    const apiUrl = `http://localhost:8080/api/v1/user/doctors/${id}`;
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
+        console.log('id from useParams:', id); // Debugging
         const fetchDoctorData = async () => {
-            setLoader(true);
             try {
-                const response = await axios.get(apiUrl);
-                setDoctor(response.data.doctors[0]);
+                setLoading(true);
+                const response = await axios.get(`http://localhost:8080/api/v1/user/doctors/${id}`);
+                setDoctor(response.data.doctor);
             } catch (error) {
-                console.error('Error fetching doctor data:', error);
-            }finally{
-                setLoader(false);
+                console.error('Error fetching doctor data:', error.response?.data?.message || error.message);
+            } finally {
+                setLoading(false);
             }
         };
 
-        fetchDoctorData();
+        if (id) {
+            fetchDoctorData();
+        } else {
+            console.error('No id provided in URL');
+            setLoading(false);
+        }
     }, [id]);
 
+    if (loading) {
+        return <Spinner animation="border" variant="danger" className="mt-5 d-flex justify-content-center" style={{ marginLeft: "45%" }} />;
+    }
+
     if (!doctor) {
-        return <Spinner animation='border' variant='danger' className='mt-5 d-flex justify-content-center' style={{marginLeft:"45%"}}/>
+        return <p>Doctor Not Found</p>;
     }
 
     return (
         <>
             <Topbar />
-            <div className='doctorpage' style={{ backgroundColor: "lightgrey" }}>
+            <div className="doctorpage" style={{ backgroundColor: "lightgrey" }}>
                 <Container>
                     <Row className="justify-content-center">
-                        <Col md={6} lg={5} style={{ marginTop: "70px" }}>
-                            <Card className='mb-5 mt-4'>
-                                <Card.Img variant="top" src={doctor.docAvatar} alt={doctor.Name} height={350} />
+                        <Col md={6} lg={5}>
+                            <Card>
+                                <Card.Img
+                                    variant="top"
+                                    src={doctor.docAvatar}
+                                    alt={doctor.firstname}
+                                    height={350}
+                                />
                                 <Card.Body>
-                                    <Card.Title>{doctor.Name}</Card.Title>
-                                    <Card.Subtitle className="mb-2 text-muted">
-                                        {doctor.Department}
-                                    </Card.Subtitle>
-                                    <Card.Text style={{ fontWeight: "650" }}>
-                                        {doctor.specialization || "Specialization information not available."}
+                                    <Card.Title>
+                                        {doctor.firstname} {doctor.lastname}
+                                    </Card.Title>
+                                    <Card.Text>
+                                        {doctor.specialization || "No specialization provided"}
+                                    </Card.Text>
+                                    <Card.Text>
+                                        Department: {doctor.doctordepartment}
+                                    </Card.Text>
+                                    <Card.Text>
+                                        Email: {doctor.email}
+                                    </Card.Text>
+                                    <Card.Text>
+                                        Phone: {doctor.phone}
                                     </Card.Text>
                                 </Card.Body>
-                                <ListGroup className="list-group-flush">
-                                    <ListGroup.Item><strong>Experience:</strong> {doctor.experience || "N/A"}</ListGroup.Item>
-                                    <ListGroup.Item><strong>Age:</strong> {doctor.age || "N/A"}</ListGroup.Item>
-                                    <ListGroup.Item><strong>Mobile No:</strong> {doctor.Phone}</ListGroup.Item>
-                                    <ListGroup.Item><strong>Email:</strong> {doctor.Email}</ListGroup.Item>
-                                </ListGroup>
                                 <Card.Body>
-                                    <Button href="/appointment" variant="primary" className='d-flex justify-content-center align-items-center'>
+                                    <Button
+                                        href="/appointment"
+                                        variant="primary"
+                                        className="d-flex justify-content-center align-items-center"
+                                    >
                                         Book Appointment
                                     </Button>
                                 </Card.Body>

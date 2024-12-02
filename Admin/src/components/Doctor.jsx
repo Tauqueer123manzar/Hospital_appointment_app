@@ -49,7 +49,7 @@ const Doctor = () => {
     <Container fluid style={{ height: "auto", width: "100%",backgroundColor:"lightslategrey",overflowX:"hidden",overflowY:"scroll",scrollbarWidth:"none",paddingBottom:"10px"}}>
       <Row style={{ marginLeft: "290px" }}>
         <h1 className="text-center text-dark mt-3" style={{ fontFamily: 'initial', fontSize: "30px", fontWeight: "bold" }}>
-          These All Doctors We have!
+        We have all these doctors!
         </h1>
         {loading ? (
           <h1 className="text-center text-danger" style={{ fontSize: '45px', fontWeight: "bold" }}>Loading...</h1>

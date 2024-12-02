@@ -94,6 +94,20 @@ exports.getallDoctors = catchAsyncErrors(async (req, res, next) => {
     });
 });
 
+// ==================================== Fetch a specific Doctor by Id ============================
+exports.getDoctorById=catchAsyncErrors(async(req,res,next)=>{
+    const {id}=req.params;
+    const doctor=await User.findById(id);
+    if(!doctor || doctor.role !=="Doctor"){
+         return next(new ErrorHandler("Doctor not found",400));
+
+    }
+    res.status(200).json({
+        success:true,
+        doctor
+    });
+});
+
 // ===================================== Get user Details ================================
 exports.getUserDetails = catchAsyncErrors(async (req, res, next) => {
     const user = await User.findById(req.user.id);

@@ -1,10 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect} from 'react';
 import { Container, Row, Col, Card, Button } from 'react-bootstrap';
 import { FaCircle } from "react-icons/fa6";
 import { useNavigate } from 'react-router-dom';
 import '../App.css';
 import axios from 'axios';
-import { useEffect } from 'react';
 
 const Doctors = () => {
   const navigate = useNavigate();
@@ -13,9 +12,9 @@ const Doctors = () => {
   const [selectedDepartment,setSelectedDepartment]=useState("");
 
   // Function to handle navigation to the doctor's profile.
-  const handleDoctorClick = (id) => {
+  const handleDoctorClick=(id)=>{
     navigate(`/doctor/${id}`);
-  };
+  }
 
   // Function to show more doctors.
   const handleShowMore = () => {
@@ -32,7 +31,7 @@ const Doctors = () => {
 
         const response = await axios.get("http://localhost:8080/api/v1/user/doctors", {
           headers: {
-            "Content-Type": "multipart/form-data",
+            "Content-Type": "application/json",
              Authorization: `Bearer ${localStorage.getItem("adminToken")}`
           },
         });
@@ -47,7 +46,7 @@ const Doctors = () => {
 
   // filtereddoctors
   const filteredDoctors=selectedDepartment?
-  doctors.filter(doctors => doctors.doctordepartment===selectedDepartment):
+  doctors.filter(doctor => doctor.doctordepartment===selectedDepartment):
   doctors;
 
   return (
@@ -59,7 +58,7 @@ const Doctors = () => {
         <p className="text-center" style={{ fontFamily: "initial" }}>
           Simply browse through our extensive list of trusted doctors.
         </p>
-        {doctors.slice(0, visibleDoctors).map((doctorItem) => (
+        {filteredDoctors.slice(0, visibleDoctors).map((doctorItem) => (
           <Col xs={12} sm={6} md={4} lg={3} className="p-3" key={doctorItem.id}>
             <Card className="doctorcard" onClick={() => handleDoctorClick(doctorItem.id)} style={{ cursor: "pointer", height: "450px"}}>
             <Card.Img
