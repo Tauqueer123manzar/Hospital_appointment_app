@@ -309,19 +309,22 @@ const AppointmentForm = () => {
   return (
     <>
       <Topbar />
-      <Container fluid style={{ width: "100%",height:"100vh",padding: 0}}>
+      <Container fluid style={{ width: "100%",maxHeight:"100vh",overflow:"scroll",overflowY:"scroll",overflowX:"hidden",padding: 0}}>
         <div style={{ width: "100%", position: "relative" }}>
           <img
             src={appointment}
             style={{
               width: "100%",
-              height:"100vh",
+              height:"100%",
               objectFit: "cover",
               position: "absolute",
               top: "0",
               left: "0",
               bottom:"0",
               zIndex: "-1",
+              overflow:"scroll",
+              overflowY:"scroll",
+              overflowX:"hidden"
             }}
             alt="Appointment Banner"
           />
