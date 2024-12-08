@@ -12,9 +12,11 @@ import Doctorprofile from './components/Doctorprofile'
 import Alldoctor from './pages/Alldoctor'
 import { ToastContainer} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { useContext, useEffect } from 'react'
+import Privacy from './components/Privacy'
+import Terms from './components/Terms'
 import {context} from './main';
 import './App.css'
-import { useContext, useEffect } from 'react'
 // import axios from 'axios'
 function App() {
   const {isAuthenticated,setIsAuthenticated}=useContext(context);
@@ -42,6 +44,8 @@ function App() {
         <Route path='/alldoctors' element={<Alldoctor/>}/>
         <Route path='/register' element={<Register/>}/>
         <Route path='/login' element={<Login/>}/> 
+        <Route path='/privacy' element={<Privacy/>}/>
+        <Route path='/terms' element={<Terms/>}/>
       </Routes>
       <ToastContainer position="top-center"/>
      </Router> 
