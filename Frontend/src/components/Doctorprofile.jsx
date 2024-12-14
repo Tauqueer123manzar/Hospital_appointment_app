@@ -1,23 +1,25 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
-import { Container, Row, Col, Button, Spinner, Card } from 'react-bootstrap';
+import { useParams, useNavigate } from 'react-router-dom';
+import { Container, Row, Col, Button, Spinner, Card, Alert } from 'react-bootstrap';
 import Topbar from './Topbar';
 import axios from 'axios';
 
 const DoctorProfile = () => {
     const { id } = useParams();
+    const navigate = useNavigate();
     const [doctor, setDoctor] = useState(null);
     const [loading, setLoading] = useState(true);
+    const [error, setError] = useState('');
 
     useEffect(() => {
-        console.log('id from useParams:', id);
         const fetchDoctorData = async () => {
             try {
                 setLoading(true);
+                setError('');
                 const response = await axios.get(`http://localhost:8080/api/v1/user/doctors/${id}`);
                 setDoctor(response.data.doctor);
-            } catch (error) {
-                console.error('Error fetching doctor data:', error.response?.data?.message || error.message);
+            } catch (err) {
+                setError(err.response?.data?.message || 'Error fetching doctor data');
             } finally {
                 setLoading(false);
             }
@@ -26,59 +28,67 @@ const DoctorProfile = () => {
         if (id) {
             fetchDoctorData();
         } else {
-            console.error('No id provided in URL');
+            setError('No ID provided in the URL');
             setLoading(false);
         }
     }, [id]);
 
     if (loading) {
-        return <Spinner animation="border" variant="danger" className="mt-5 d-flex justify-content-center" style={{ marginLeft: "45%" }} />;
+        return (
+            <div className="d-flex justify-content-center align-items-center" style={{ height: '100vh' }}>
+                <Spinner animation="border" variant="primary" />
+            </div>
+        );
+    }
+
+    if (error) {
+        return <Alert variant="danger" className="mt-5 text-center">{error}</Alert>;
     }
 
     if (!doctor) {
-        return <p>Doctor Not Found</p>;
+        return <Alert variant="warning" className="mt-5 text-center">Doctor Not Found</Alert>;
     }
 
     return (
         <>
             <Topbar />
-            <div className="doctorpage" style={{ backgroundColor: "lightgrey" }}>
+            <div className="doctorpage py-4" style={{ backgroundColor: "lightgrey", minHeight: "100vh" }}>
                 <Container>
                     <Row className="justify-content-center">
-                        <Col md={6} lg={5}>
+                        <Col md={8} lg={6}>
                             <Card>
                                 <Card.Img
                                     variant="top"
-                                    src={doctor.docAvatar}
-                                    alt={doctor.firstname}
+                                    src={doctor.docAvatar || '/placeholder-image.png'}
+                                    alt={doctor.firstname || 'Doctor'}
                                     height={350}
                                 />
                                 <Card.Body>
-                                    <Card.Title>
+                                    <Card.Title className="text-center">
                                         {doctor.firstname} {doctor.lastname}
                                     </Card.Title>
+                                    <Card.Text className="text-muted text-center">
+                                        {doctor.specialization || "Specialization not provided"}
+                                    </Card.Text>
+                                    <hr />
                                     <Card.Text>
-                                        {doctor.specialization || "No specialization provided"}
+                                        <strong>Department:</strong> {doctor.doctordepartment || 'N/A'}
                                     </Card.Text>
                                     <Card.Text>
-                                        Department: {doctor.doctordepartment}
+                                        <strong>Email:</strong> {doctor.email || 'N/A'}
                                     </Card.Text>
                                     <Card.Text>
-                                        Email: {doctor.email}
-                                    </Card.Text>
-                                    <Card.Text>
-                                        Phone: {doctor.phone}
+                                        <strong>Phone:</strong> {doctor.phone || 'N/A'}
                                     </Card.Text>
                                 </Card.Body>
-                                <Card.Body>
+                                <Card.Footer className="text-center">
                                     <Button
-                                        href="/appointment"
+                                        onClick={() => navigate(`/appointment?doctorId=${id}`)}
                                         variant="primary"
-                                        className="d-flex justify-content-center align-items-center"
                                     >
                                         Book Appointment
                                     </Button>
-                                </Card.Body>
+                                </Card.Footer>
                             </Card>
                         </Col>
                     </Row>
