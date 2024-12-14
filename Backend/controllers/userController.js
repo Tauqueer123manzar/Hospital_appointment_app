@@ -2,6 +2,7 @@ const User = require("../models/UserSchema");
 const catchAsyncErrors = require("../middlewares/catchAsyncErrors");
 const ErrorHandler = require("../middlewares/Errorhandler");
 const { GenerateToken } = require("../utils/jwtToken");
+const mongoose=require("mongoose");
 const cloudinary = require("cloudinary");
 // ==================================== Patient Register ============================================
 exports.PatientRegister = catchAsyncErrors(async (req, res, next) => {
@@ -95,18 +96,25 @@ exports.getallDoctors = catchAsyncErrors(async (req, res, next) => {
 });
 
 // ==================================== Fetch a specific Doctor by Id ============================
-exports.getDoctorById=catchAsyncErrors(async(req,res,next)=>{
-    const {id}=req.params;
-    const doctor=await User.findById(id);
-    if(!doctor || doctor.role !=="Doctor"){
-         return next(new ErrorHandler("Doctor not found",400));
+exports.getDoctorById = catchAsyncErrors(async (req, res, next) => {
+    const { id } = req.params;
 
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+        return next(new ErrorHandler("Invalid ID format", 400));
     }
+
+    const doctor = await User.findById(id);
+
+    if (!doctor || doctor.role !== "Doctor") {
+        return next(new ErrorHandler("Doctor not found", 404));
+    }
+
     res.status(200).json({
-        success:true,
-        doctor
+        success: true,
+        doctor,
     });
 });
+
 
 // ===================================== Get user Details ================================
 exports.getUserDetails = catchAsyncErrors(async (req, res, next) => {

@@ -12,9 +12,9 @@ const Doctors = () => {
   const [selectedDepartment,setSelectedDepartment]=useState("");
 
   // Function to handle navigation to the doctor's profile.
-  const handleDoctorClick=(id)=>{
-    navigate(`/doctor/${id}`);
-  }
+  // const handleDoctorClick=(id)=>{
+  //   navigate(`/doctor/${id}`);
+  // }
 
   // Function to show more doctors.
   const handleShowMore = () => {
@@ -28,7 +28,6 @@ const Doctors = () => {
   useEffect(() => {
     const fetchDoctorData = async () => {
       try {
-
         const response = await axios.get("http://localhost:8080/api/v1/user/doctors", {
           headers: {
             "Content-Type": "application/json",
@@ -38,7 +37,7 @@ const Doctors = () => {
         setDoctors(response.data.doctors);
         console.log(response.data.doctors);
       } catch (error) {
-        console.log(error.response.data.message);
+        console.log(error.response?.data?.message || "Error fetching doctor data");
       }
     }
     fetchDoctorData();
@@ -60,7 +59,7 @@ const Doctors = () => {
         </p>
         {filteredDoctors.slice(0, visibleDoctors).map((doctorItem) => (
           <Col xs={12} sm={6} md={4} lg={3} className="p-3" key={doctorItem.id}>
-            <Card className="doctorcard" onClick={() => handleDoctorClick(doctorItem.id)} style={{ cursor: "pointer", height: "450px"}}>
+            <Card className="doctorcard"  style={{ cursor: "pointer", height: "450px"}}>
             <Card.Img
                       variant="top"
                       src={doctorItem.docAvatar ? doctorItem.docAvatar.url : 'fallback-image-url'} // Fallback image if avatar is missing

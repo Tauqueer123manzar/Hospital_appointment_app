@@ -103,3 +103,21 @@ tbody tr td{
     font-weight: 600;
     color: #6019bd;
 }
+
+.dashboard-container {
+    padding: 20px;
+    background-color: #f8f9fa;
+  }
+  
+  h2 {
+    margin-bottom: 20px;
+  }
+  
+  .table {
+    border-radius: 8px;
+  }
+  
+  .badge {
+    font-size: 0.9rem;
+  }
+  
