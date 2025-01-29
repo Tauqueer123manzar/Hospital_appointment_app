@@ -11,7 +11,7 @@ const AboutUs = () => {
     <Topbar/>
       <Hero
         title={
-          "Learn More About Us | EasyCare Clinic Consult"
+          "MMMMMMMMMMMMMMMMMMMMMMMM | EasyCare Clinic Consult"
         }
         imageurl={about}
       />
