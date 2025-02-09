@@ -1,134 +1,134 @@
 import React, { useEffect,useContext }  from 'react'
 import { useNavigate } from 'react-router-dom';
-import { context } from '../main'
+import {context} from '../../main'
 import { FaUsers } from "react-icons/fa";
 import { FaCalendarAlt} from 'react-icons/fa';
 import { FaCheck} from 'react-icons/fa';
 import {Container,Row,Table,Badge} from 'react-bootstrap';
-import '../App.css'
-import Sidebar from './Sidebar';
+import Sidebar from '../../components/Sidebar'
+import '../../App.css'
 const Dashboard = () => {
   const { isAuthenticated, setIsAuthenticated } = useContext(context);
   const navigateTo = useNavigate();
   useEffect(() => {
     if (!isAuthenticated) {
-      navigateTo('/login');
+      navigateTo('/admin/login');
     }
   })
-  const appointments = [
-    {
-      patient: "Jhon Doe",
-      date: "2024-05-02",
-      doctor: "Benjamin Reynolds",
-      department: "Cardiology",
-      status: "Rejected",
-      visited: false,
-    },
-    {
-      patient: "Li Min Haw",
-      date: "2024-04-28",
-      doctor: "Olivia White",
-      department: "Orthopedics",
-      status: "Accepted",
-      visited: true,
-    },
-    {
-      patient: "Alex Michael",
-      date: "2024-06-01",
-      doctor: "Harper Nelson",
-      department: "Radiology",
-      status: "Pending",
-      visited: true,
-    },
-    {
-      patient: "Zeeshan Khan",
-      date: "2024-05-26",
-      doctor: "Noah Johnson",
-      department: "ENT",
-      status: "Accepted",
-      visited: false,
-    },
-    {
-      patient: "Zeeshan Khan",
-      date: "2024-09-27",
-      doctor: "Harper Nelson",
-      department: "Radiology",
-      status: "Accepted",
-      visited: false,
-    },
-    {
-      patient: "Zeeshan Khan",
-      date: "2024-10-25",
-      doctor: "Olivia White",
-      department: "Orthopedics",
-      status: "Pending",
-      visited: true,
-    },
-    {
-      patient: "Zeeshan Khan",
-      date: "2024-10-25",
-      doctor: "Olivia White",
-      department: "Orthopedics",
-      status: "Pending",
-      visited: true,
-    },
-    {
-      patient: "Zeeshan Khan",
-      date: "2024-10-25",
-      doctor: "Olivia White",
-      department: "Orthopedics",
-      status: "Pending",
-      visited: true,
-    },
-    {
-      patient: "Zeeshan Khan",
-      date: "2024-10-25",
-      doctor: "Olivia White",
-      department: "Orthopedics",
-      status: "Pending",
-      visited: true,
-    },
-    {
-      patient: "Zeeshan Khan",
-      date: "2024-10-25",
-      doctor: "Olivia White",
-      department: "Orthopedics",
-      status: "Pending",
-      visited: true,
-    },
-    {
-      patient: "Zeeshan Khan",
-      date: "2024-10-25",
-      doctor: "Olivia White",
-      department: "Orthopedics",
-      status: "Pending",
-      visited: true,
-    },
-    {
-      patient: "Zeeshan Khan",
-      date: "2024-10-25",
-      doctor: "Olivia White",
-      department: "Orthopedics",
-      status: "Pending",
-      visited: true,
-    },
-    {
-      patient: "Zeeshan Khan",
-      date: "2024-10-25",
-      doctor: "Olivia White",
-      department: "Orthopedics",
-      status: "Pending",
-      visited: true,
-    },
-    {
-      patient: "Zeeshan Khan",
-      date: "2024-10-25",
-      doctor: "Olivia White",
-      department: "Orthopedics",
-      status: "Pending",
-      visited: true,
-    },
-  ];
+  // const appointments = [
+  //   {
+  //     patient: "Jhon Doe",
+  //     date: "2024-05-02",
+  //     doctor: "Benjamin Reynolds",
+  //     department: "Cardiology",
+  //     status: "Rejected",
+  //     visited: false,
+  //   },
+  //   {
+  //     patient: "Li Min Haw",
+  //     date: "2024-04-28",
+  //     doctor: "Olivia White",
+  //     department: "Orthopedics",
+  //     status: "Accepted",
+  //     visited: true,
+  //   },
+  //   {
+  //     patient: "Alex Michael",
+  //     date: "2024-06-01",
+  //     doctor: "Harper Nelson",
+  //     department: "Radiology",
+  //     status: "Pending",
+  //     visited: true,
+  //   },
+  //   {
+  //     patient: "Zeeshan Khan",
+  //     date: "2024-05-26",
+  //     doctor: "Noah Johnson",
+  //     department: "ENT",
+  //     status: "Accepted",
+  //     visited: false,
+  //   },
+  //   {
+  //     patient: "Zeeshan Khan",
+  //     date: "2024-09-27",
+  //     doctor: "Harper Nelson",
+  //     department: "Radiology",
+  //     status: "Accepted",
+  //     visited: false,
+  //   },
+  //   {
+  //     patient: "Zeeshan Khan",
+  //     date: "2024-10-25",
+  //     doctor: "Olivia White",
+  //     department: "Orthopedics",
+  //     status: "Pending",
+  //     visited: true,
+  //   },
+  //   {
+  //     patient: "Zeeshan Khan",
+  //     date: "2024-10-25",
+  //     doctor: "Olivia White",
+  //     department: "Orthopedics",
+  //     status: "Pending",
+  //     visited: true,
+  //   },
+  //   {
+  //     patient: "Zeeshan Khan",
+  //     date: "2024-10-25",
+  //     doctor: "Olivia White",
+  //     department: "Orthopedics",
+  //     status: "Pending",
+  //     visited: true,
+  //   },
+  //   {
+  //     patient: "Zeeshan Khan",
+  //     date: "2024-10-25",
+  //     doctor: "Olivia White",
+  //     department: "Orthopedics",
+  //     status: "Pending",
+  //     visited: true,
+  //   },
+  //   {
+  //     patient: "Zeeshan Khan",
+  //     date: "2024-10-25",
+  //     doctor: "Olivia White",
+  //     department: "Orthopedics",
+  //     status: "Pending",
+  //     visited: true,
+  //   },
+  //   {
+  //     patient: "Zeeshan Khan",
+  //     date: "2024-10-25",
+  //     doctor: "Olivia White",
+  //     department: "Orthopedics",
+  //     status: "Pending",
+  //     visited: true,
+  //   },
+  //   {
+  //     patient: "Zeeshan Khan",
+  //     date: "2024-10-25",
+  //     doctor: "Olivia White",
+  //     department: "Orthopedics",
+  //     status: "Pending",
+  //     visited: true,
+  //   },
+  //   {
+  //     patient: "Zeeshan Khan",
+  //     date: "2024-10-25",
+  //     doctor: "Olivia White",
+  //     department: "Orthopedics",
+  //     status: "Pending",
+  //     visited: true,
+  //   },
+  //   {
+  //     patient: "Zeeshan Khan",
+  //     date: "2024-10-25",
+  //     doctor: "Olivia White",
+  //     department: "Orthopedics",
+  //     status: "Pending",
+  //     visited: true,
+  //   },
+  // ];
   return (
     <>
     <Sidebar/>
@@ -170,7 +170,7 @@ const Dashboard = () => {
       </div>  
     </div>
 
-    <Container fluid className=' dashboard-container' style={{marginLeft:"310px"}}>
+    {/* <Container fluid className=' dashboard-container' style={{marginLeft:"310px"}}>
        <Row className=''>
        <h1 style={{fontFamily:"initial",fontWeight:"550",marginLeft:"20px"}}>Appointments</h1>
        <Table striped bordered hover responsive>
@@ -221,7 +221,7 @@ const Dashboard = () => {
         </tbody>
         </Table>
        </Row>
-    </Container>
+    </Container> */}
     </div>
     </>
   )

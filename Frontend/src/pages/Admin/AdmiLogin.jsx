@@ -17,7 +17,7 @@ const AdminLogin = () => {
    const navigate=useNavigate();
 
    if(isAuthenticated){
-    navigate("/");
+    navigate("/admin/dashboard");
    }
 
    const handleChange=(e)=>{
@@ -46,8 +46,9 @@ const AdminLogin = () => {
       toast.success(response.data.message);
       console.log(response.data);
       localStorage.setItem("adminToken", response.data.token);
+      console.log("Admin LoggedIn Sucessfully");
       setIsAuthenticated(true);
-      navigate("/");
+      navigate("/admin/dashboard");
     } catch (error) {
       toast.error(error.response.data.message || "Login failed");
       console.error("Login failed error!", error);
@@ -56,7 +57,7 @@ const AdminLogin = () => {
 
    useEffect(() => {
     if (isAuthenticated) {
-        navigate('/'); 
+        navigate('/admin/dashboard'); 
         console.log("isAuthenticates",isAuthenticated);
     }
 }, [isAuthenticated]);

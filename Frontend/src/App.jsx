@@ -1,4 +1,5 @@
 import {BrowserRouter as Router,Routes,Route} from 'react-router-dom'
+import { useContext, useEffect } from 'react'
 import Home from './pages/Home'
 import Appointment from './pages/Appointment'
 import AboutUs from './pages/AboutUs'
@@ -10,13 +11,15 @@ import MyProfile from './pages/MyProfile'
 import MyAppointment from '../src/pages/MyAppointments'
 import Doctorprofile from './components/Doctorprofile'
 import Alldoctor from './pages/Alldoctor'
-import { ToastContainer} from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-import { useContext, useEffect } from 'react'
 import Privacy from './components/Privacy'
 import Terms from './components/Terms'
-import {context} from './main';
 import AdminLogin from './pages/Admin/AdmiLogin'
+import Dashboard from './pages/Admin/Dashboard'
+import Doctors from './pages/Admin/Doctors'
+import AddnewDoctor from './pages/Admin/AddnewDoctor'
+import { ToastContainer} from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import {context} from './main';
 // import axios from 'axios'
 import './App.css'
 function App() {
@@ -48,13 +51,15 @@ function App() {
         <Route path='/contact' element={<Contactus/>}/>
         <Route path='/myprofile' element={<MyProfile/>}/>
         <Route path='/myappointment' element={<MyAppointment/>}/>
-        {/* <Route path="/doctor/:id" element={<Doctorprofile />} /> */}
         <Route path='/alldoctors' element={<Alldoctor/>}/>
         <Route path='/register' element={<Register/>}/>
         <Route path='/login' element={<Login/>}/> 
         <Route path='/privacy' element={<Privacy/>}/>
         <Route path='/terms' element={<Terms/>}/>
-        <Route path='/admin' element={<AdminLogin/>}/>
+        <Route path='/admin/login' element={<AdminLogin/>}/>
+        <Route path='/admin/dashboard' element={<Dashboard/>}/>
+        <Route path='/doctors' element={<Doctors/>}/>
+        <Route path='/doctor/addnew' element={<AddnewDoctor/>}/>
       </Routes>
       <ToastContainer position="top-center"/>
      </Router> 
