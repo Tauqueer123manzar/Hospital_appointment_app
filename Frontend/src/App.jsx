@@ -16,8 +16,9 @@ import { useContext, useEffect } from 'react'
 import Privacy from './components/Privacy'
 import Terms from './components/Terms'
 import {context} from './main';
-import './App.css'
+import AdminLogin from './pages/Admin/AdmiLogin'
 // import axios from 'axios'
+import './App.css'
 function App() {
   const {isAuthenticated,setIsAuthenticated}=useContext(context);
 
@@ -29,6 +30,13 @@ function App() {
   useEffect(()=>{
     fetchUser();
   },[isAuthenticated]);
+
+  useEffect(()=>{
+    if(localStorage.getItem("adminToken")){
+      setIsAuthenticated(true)
+    }
+  },[]);
+  
   return (
     <>
      <Router>
@@ -46,6 +54,7 @@ function App() {
         <Route path='/login' element={<Login/>}/> 
         <Route path='/privacy' element={<Privacy/>}/>
         <Route path='/terms' element={<Terms/>}/>
+        <Route path='/admin' element={<AdminLogin/>}/>
       </Routes>
       <ToastContainer position="top-center"/>
      </Router> 
