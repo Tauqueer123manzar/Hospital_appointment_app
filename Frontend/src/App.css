@@ -47,6 +47,132 @@
 .message{
   background-color: rgb(138, 155, 155);
 }
+
+/* ==================================== Admin Dashboard ======================================== */
+.sidebar{
+  position: fixed;
+  width: 300px;
+  background-color: #1836dd;
+  display: flex;
+  flex-direction: column;
+  top: 0;
+  left: 0;
+  height: 100%;
+  align-items: center;
+  color: #18d7dd;
+  padding: 30px 0;
+}
+.sidebar .links{
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  gap: 35px;
+  cursor: pointer;
+}
+.items {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px 0;
+  width: 300px;
+  transition: background-color 0.3s ease, transform 0.3s ease-in-out;
+}
+.items:hover {
+  background-color: #fff;
+  transform: scale(1.0);
+}
+
+.items svg {
+  font-size: 40px;
+  color: #18d7dd;
+  transition: color 0.3s ease;
+}
+
+.items:hover svg {
+  color: #1836dd; /* Change icon color on hover */
+}
+.values{
+  margin-left: 310px;
+  margin-top: -10px;
+  padding: 20px;
+}
+.value{
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.values .val-box{
+ width: 300px;
+ height: 100px;
+ display: flex;
+ justify-content: flex-start;
+ padding: 15px 15px 10px 0;
+ background: #ffffff;
+ border-radius: 5px;
+}
+.values .val-box span,h3{
+  font-size: 20px;
+  font-weight: 600;
+  margin-left: 40px;
+}
+.values .val-box i{
+  font-size: 65px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: cadetblue;
+}
+
+table{
+  border-collapse: collapse;
+}
+tr{
+  border-bottom: 1px solid #d7dbe6;
+}
+thead td{
+  font-size: 14px;
+  text-transform: uppercase;
+  font-weight: 400;
+  background: #F9FAFB;
+  text-align: start;
+  padding: 15px;
+}
+tbody tr td{
+  padding: 10px 15px;
+}
+.active p{
+  background: #8ff59b;
+  padding: 2px 10px;
+  display: inline-block;
+  border-radius: 40px;
+  color: #2b2b2b;
+}
+.edit a{
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 600;
+  color: #6019bd;
+}
+
+.dashboard-container {
+  padding: 20px;
+  background-color: #f8f9fa;
+}
+
+h2 {
+  margin-bottom: 20px;
+}
+
+.table {
+  border-radius: 8px;
+}
+
+.badge {
+  font-size: 0.9rem;
+}
+
+
 @media (max-width: 477px) {
   .button {
     display: flex;
