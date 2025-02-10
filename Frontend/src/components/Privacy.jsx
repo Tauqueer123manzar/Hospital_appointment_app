@@ -8,7 +8,7 @@ const Privacy = () => {
     <>
     <Container fluid className="py-5 mt-5">
     <Topbar/>
-      <Card className="shadow-sm m-2">
+      <Card className="shadow-sm m-2c">
         <Card.Header as="h2" className="bg-primary text-white py-3">
           Privacy Policy
         </Card.Header>

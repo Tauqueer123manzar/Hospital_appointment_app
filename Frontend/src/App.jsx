@@ -17,6 +17,8 @@ import AdminLogin from './pages/Admin/AdmiLogin'
 import Dashboard from './pages/Admin/Dashboard'
 import Doctors from './pages/Admin/Doctors'
 import AddnewDoctor from './pages/Admin/AddnewDoctor'
+import AddnewAdmin from './pages/Admin/AddnewAdmin'
+import Message from './pages/Admin/Message'
 import { ToastContainer} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import {context} from './main';
@@ -60,6 +62,8 @@ function App() {
         <Route path='/admin/dashboard' element={<Dashboard/>}/>
         <Route path='/doctors' element={<Doctors/>}/>
         <Route path='/doctor/addnew' element={<AddnewDoctor/>}/>
+        <Route path='/admin/addnew' element={<AddnewAdmin/>}/>
+        <Route path='/messages' element={<Message/>}/>
       </Routes>
       <ToastContainer position="top-center"/>
      </Router> 
