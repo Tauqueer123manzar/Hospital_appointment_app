@@ -25,13 +25,13 @@ exports.PatientRegister = catchAsyncErrors(async (req, res, next) => {
 exports.loginRegister = catchAsyncErrors(async (req, res, next) => {
     const { email, password, confirmPassword, role } = req.body;
 
-    if (!email || !password || !confirmPassword || !role) {
+    if (!email || !password || !role) {
         return next(new ErrorHandler("Please Provide all details!", 400));
     }
 
-    if (password !== confirmPassword) {
-        return next(new ErrorHandler("Password and ConfirmPassword Do not Match!", 400));
-    }
+    // if (password !== confirmPassword) {
+    //     return next(new ErrorHandler("Password and ConfirmPassword Do not Match!", 400));
+    // }
 
     const user = await User.findOne({ email }).select("+password");
     if (!user) {
@@ -149,7 +149,6 @@ exports.patientLogout = catchAsyncErrors(async (req, res, next) => {
         message: "Patient Logged Out Successfully" 
     });
 });
-
 
 // ==================================== Add new Doctor ============================================
 exports.addnewDoctor = catchAsyncErrors(async (req, res, next) => {
