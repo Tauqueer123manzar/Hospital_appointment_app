@@ -236,6 +236,106 @@ h2 {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
+/* ====================== card style ======================== */
+/* General Styling */
+.title {
+  font-family: 'Poppins', sans-serif;
+  font-size: 24px;
+  font-weight: bold;
+  color: #00796b;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.subtitle {
+  font-family: 'Poppins', sans-serif;
+  font-size: 16px;
+  color: #666;
+  margin-bottom: 20px;
+}
+
+/* Doctor Card Styling */
+.doctor-card {
+  cursor: pointer;
+  border-radius: 12px;
+  overflow: hidden;
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+  background: #fff;
+  border: none;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.doctor-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+/* Image Container */
+.img-container {
+  overflow: hidden;
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
+}
+
+.doctor-img {
+  height: 280px;
+  width: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease-in-out;
+}
+
+.doctor-card:hover .doctor-img {
+  transform: scale(1.08);
+}
+
+/* Card Body */
+.doctor-card-body {
+  /* text-align: center; */
+  height:180px;
+  padding: 15px;
+  background-color: #f9f9f9;
+}
+
+/* Doctor Name */
+.doctor-name {
+  color: #00796b;
+  font-weight: bold;
+  font-size: 18px;
+  /* display: flex;
+  align-items: center;
+  justify-content: center; */
+  gap: 8px;
+}
+
+.status-icon {
+  font-size: 10px;
+  color: lightgreen;
+}
+
+/* Additional Info */
+.doctor-info {
+  font-size: 14px;
+  color: #444;
+  margin-top: 5px;
+  font-weight: 500;
+}
+
+/* Show More Button */
+.show-more-btn {
+  background: linear-gradient(45deg, #00796b, #009688);
+  border: none;
+  padding: 12px 25px;
+  font-size: 16px;
+  font-weight: bold;
+  color: white;
+  border-radius: 8px;
+}
+
+.show-more-btn:hover {
+  background: linear-gradient(45deg, #009688, #00796b);
+}
+
+/* =================== ended================ */
 .image-wrapper {
   height: 250px;
   background-color: rgba(0, 179, 255, 0.2);

@@ -25,37 +25,34 @@ const Doctors = ({ selectedDepartment }) => {
     fetchDoctorData();
   }, []);
 
-  // Filter doctors based on selectedDepartment
   const filteredDoctors = selectedDepartment === 'All'
     ? doctors
     : doctors.filter(doctor => doctor.doctordepartment === selectedDepartment);
 
   return (
     <Container fluid>
-      <h3 className="text-center mt-4" style={{ fontFamily: "initial", fontWeight: "bold", color: "darkcyan" }}>
-        Top Doctors to Book
-      </h3>
+      <h3 className="text-center mt-4 title">Top Doctors to Book</h3>
+      <p className="text-center subtitle">Simply browse through our extensive list of trusted doctors.</p>
       <Row>
-        <p className="text-center" style={{ fontFamily: "initial" }}>
-          Simply browse through our extensive list of trusted doctors.
-        </p>
         {filteredDoctors.slice(0, visibleDoctors).map((doctorItem) => (
           <Col xs={12} sm={6} md={4} lg={3} className="p-3" key={doctorItem.id}>
-            <Card className="doctorcard" style={{ cursor: "pointer", height: "450px" }}>
-              <Card.Img
-                variant="top"
-                src={doctorItem.docAvatar ? doctorItem.docAvatar.url : 'fallback-image-url'}
-                alt='Doctor Avatar'
-                style={{ height: '300px', width: "100%" }}
-              />
-              <Card.Body>
-                <Card.Subtitle style={{ color: 'lightgreen', padding: "5px" }}>
-                  <FaCircle style={{ fontSize: "10px" }} /><span className='ms-2'>{doctorItem.firstname} {doctorItem.lastname}</span>
+            <Card className="doctor-card">
+              <div className="img-container">
+                <Card.Img
+                  variant="top"
+                  src={doctorItem.docAvatar ? doctorItem.docAvatar.url : 'fallback-image-url'}
+                  alt='Doctor Avatar'
+                  className="doctor-img"
+                />
+              </div>
+              <Card.Body className="doctor-card-body">
+                <Card.Subtitle className="doctor-name">
+                  <FaCircle className="status-icon mt-1" /><span>{doctorItem.firstname} {doctorItem.lastname}</span>
                 </Card.Subtitle>
-                <Card.Subtitle style={{ fontFamily: "initial" }}><span>Email: </span>{doctorItem.email}</Card.Subtitle>
-                <Card.Subtitle style={{ fontFamily: "initial" }}><span>Phone: </span>{doctorItem.phone}</Card.Subtitle>
-                <Card.Subtitle style={{ fontFamily: "initial" }}><span>Gender: </span>{doctorItem.gender}</Card.Subtitle>
-                <Card.Subtitle style={{ fontFamily: "initial" }}><span>Department: </span>{doctorItem.doctordepartment}</Card.Subtitle>
+                <Card.Subtitle className="doctor-info p-2">Email: {doctorItem.email}</Card.Subtitle>
+                <Card.Subtitle className="doctor-info p-2">Phone: {doctorItem.phone}</Card.Subtitle>
+                <Card.Subtitle className="doctor-info p-2">Gender: {doctorItem.gender}</Card.Subtitle>
+                <Card.Subtitle className="doctor-info p-2">Department: {doctorItem.doctordepartment}</Card.Subtitle>
               </Card.Body>
             </Card>
           </Col>
@@ -63,7 +60,7 @@ const Doctors = ({ selectedDepartment }) => {
       </Row>
       {visibleDoctors < filteredDoctors.length && (
         <div className="text-center mt-4 mb-4">
-          <Button variant="primary" onClick={() => setVisibleDoctors(prev => prev + 12)}>
+          <Button className="show-more-btn" onClick={() => setVisibleDoctors(prev => prev + 12)}>
             Show More
           </Button>
         </div>

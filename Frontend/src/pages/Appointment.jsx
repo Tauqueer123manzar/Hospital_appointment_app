@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Form, Button, Row, Col, Card, Container } from 'react-bootstrap';
 import Footer from '../components/Footer';
 import Topbar from '../components/Topbar';
@@ -15,40 +15,53 @@ const Appointment = () => {
     doctorId: "",
     patientId: "1234567890", 
   });
+
+  const [specializations, setSpecializations] = useState([]);
+  const [doctors, setDoctors] = useState([]);
+  const [filteredDoctors, setFilteredDoctors] = useState([]);
   const [selectedDoctor, setSelectedDoctor] = useState(null);
   const [timeSlot, setTimeSlot] = useState('');
 
-  const specializationData = [
-    "Pediatrics", "Orthopedics", "Cardiology", "Neurology", "Radiology", "Dermatology", "Oncology", "ENT"
-  ];
-
-  const doctorsData = [
-    {
-      specialization: "Pediatrics",
-      doctors: [
-        { id: "doc1", name: "Dr. Smith", availableTimings: ["9:00 AM", "10:00 AM"], charge: 500 },
-      ],
-    },
-  ];
+  // ✅ Backend se registered doctors aur specialization fetch karna
+  useEffect(() => {
+    const fetchDoctors = async () => {
+      try {
+        const response = await fetch("http://localhost:8080/api/v1/user/doctors", {
+          headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+        });
+        const result = await response.json();
+        if (response.ok) {
+          setDoctors(result.doctors);
+          const specializationsList = [...new Set(result.doctors.map(doc => doc.specialization))];
+          setSpecializations(specializationsList);
+        } else {
+          alert(`Error: ${result.message}`);
+        }
+      } catch (error) {
+        alert("Failed to fetch doctors.");
+      }
+    };
+    fetchDoctors();
+  }, []);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
   const handleSpecializationChange = (e) => {
-    setFormData({ ...formData, specialization: e.target.value, doctorName: "", doctorId: "" });
+    const selectedSpec = e.target.value;
+    setFormData({ ...formData, specialization: selectedSpec, doctorName: "", doctorId: "" });
     setSelectedDoctor(null);
     setTimeSlot('');
+    
+    // ✅ Sirf wahi doctors filter honge jo is specialization ke hai
+    setFilteredDoctors(doctors.filter(doc => doc.specialization === selectedSpec));
   };
 
   const handleDoctorChange = (e) => {
-    const selectedDoctorName = e.target.value;
-    const doctor = doctorsData
-      .find(data => data.specialization === formData.specialization)
-      ?.doctors.find(doc => doc.name === selectedDoctorName);
-
-    setFormData({ ...formData, doctorName: selectedDoctorName, doctorId: doctor ? doctor.id : "" });
-    setSelectedDoctor(doctor);
+    const selectedDoc = filteredDoctors.find(doc => doc.name === e.target.value);
+    setFormData({ ...formData, doctorName: selectedDoc.name, doctorId: selectedDoc.id });
+    setSelectedDoctor(selectedDoc);
     setTimeSlot('');
   };
 
@@ -59,11 +72,15 @@ const Appointment = () => {
       return;
     }
     try {
-      const response = await fetch('/api/v1/appointment/create', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+      const response = await fetch("http://localhost:8080/api/v1/appointment/create", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`
+        },
         body: JSON.stringify({ ...formData, selectTime: timeSlot }),
       });
+
       const result = await response.json();
       if (response.ok) {
         alert("Appointment booked successfully!");
@@ -101,7 +118,7 @@ const Appointment = () => {
                 <Form.Label>Specialization</Form.Label>
                 <Form.Select name="specialization" value={formData.specialization} onChange={handleSpecializationChange} required>
                   <option value="">Select Specialization</option>
-                  {specializationData.map((spec, idx) => <option key={idx} value={spec}>{spec}</option>)}
+                  {specializations.map((spec, idx) => <option key={idx} value={spec}>{spec}</option>)}
                 </Form.Select>
               </Form.Group>
 
@@ -112,11 +129,9 @@ const Appointment = () => {
 
               <Form.Group controlId="doctorName" className="mb-3">
                 <Form.Label>Doctor Name</Form.Label>
-                <Form.Select name="doctorName" value={formData.doctorName} onChange={handleDoctorChange} disabled={!formData.specialization} required>
+                <Form.Select name="doctorName" value={formData.doctorName} onChange={handleDoctorChange} disabled={!filteredDoctors.length} required>
                   <option value="">Select Doctor</option>
-                  {doctorsData.filter(data => data.specialization === formData.specialization)
-                    .flatMap(data => data.doctors)
-                    .map((doc, idx) => <option key={idx} value={doc.name}>{doc.name}</option>)}
+                  {filteredDoctors.map((doc, idx) => <option key={idx} value={doc.name}>{doc.name}</option>)}
                 </Form.Select>
               </Form.Group>
 
