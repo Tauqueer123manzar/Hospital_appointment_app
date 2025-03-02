@@ -50,6 +50,5 @@ const AppointmentSchema = new mongoose.Schema({
     },
 }, { timestamps: true });
 
-AppointmentSchema.index({appointmentDate:1});
 const Appointment = mongoose.model("Appointment", AppointmentSchema);
 module.exports = Appointment;

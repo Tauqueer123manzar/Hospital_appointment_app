@@ -8,7 +8,7 @@ const { GenerateToken } = require("../utils/jwtToken");
 // =========================== create a new appointment ================================================
 exports.createAppointment=catchAsyncErrors(async(req,res,next)=>{
     try {
-        const {patientName,specialization,appointmentDate,hasVisited,doctorName,selectTime,doctorId,patientId,status}=req.body;
+        const {patientName,specialization,appointmentDate,doctorName,selectTime,doctorId,patientId}=req.body;
         if(!patientName || !specialization || !appointmentDate || !doctorName || !selectTime || !doctorId || !patientId){
             return next(new ErrorHandler("Missing required fields",400));
         }
@@ -17,15 +17,18 @@ exports.createAppointment=catchAsyncErrors(async(req,res,next)=>{
             patientName,
             specialization,
             appointmentDate,
-            hasVisited:hasVisited||false,
+            hasVisited:false,
             doctorName,
             selectTime,
-            status:status || "Pending"
+            doctorId,
+            patientId,
+            status:"Pending"
         });
 
         const savedAppointment=await newAppointment.save();
         res.status(201).json({
-            message:"Appointment Created Sucessfully",appointment:savedAppointment
+            message:"Appointment Created Sucessfully",
+            appointment:savedAppointment
         });
     } catch (error) {
         res.status(500).json({
@@ -75,13 +78,18 @@ exports.updateAppointmentStatus=catchAsyncErrors(async(req,res,next)=>{
         if(!validStatus.includes(status)){
             return next(new ErrorHandler("Invalid Status value",400));
         }
-        const appointment=await Appointment.findByIdAndUpdate(req.params.id,{status},{new:true});
+        const appointment=await Appointment.findByIdAndUpdate(
+            req.params.id,
+            {status},
+            {new:true}
+        );
 
         if(!appointment){
             return next(new ErrorHandler("Appointment not found",400));
         }
         res.status(200).json({
-            message:"Appointment status updated successfully",appointment
+            message:"Appointment status updated successfully",
+            appointment
         });
 
     } catch (error) {
