@@ -10,7 +10,7 @@ const Login = () => {
   const [formdata, setFormdata] = useState({
     email: "",
     password: "",
-    confirmPassword: "",
+    // confirmPassword: "",
     role: "Patient"
   });
 
@@ -31,10 +31,10 @@ const Login = () => {
     e.preventDefault();
 
     // Password matching validation
-    if (formdata.password !== formdata.confirmPassword) {
-      toast.error("Passwords do not match");
-      return;
-    }
+    // if (formdata.password !== formdata.confirmPassword) {
+    //   toast.error("Passwords do not match");
+    //   return;
+    // }
 
     try {
       const response = await axios.post("http://localhost:8080/api/v1/user/login", formdata, {
@@ -105,7 +105,7 @@ const Login = () => {
                 </Col>
               </Row>
 
-              <Row className='d-flex justify-content-center'>
+              {/* <Row className='d-flex justify-content-center'>
                 <Col xs={12}>
                   <Form.Group className='mb-3 p-2' controlId='confirmPassword'>
                     <Form.Control
@@ -119,7 +119,7 @@ const Login = () => {
                     />
                   </Form.Group>
                 </Col>
-              </Row>
+              </Row> */}
 
               <p className='text-center'>
                 Not registered?{' '}

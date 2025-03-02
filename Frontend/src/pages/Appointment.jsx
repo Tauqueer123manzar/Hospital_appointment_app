@@ -78,12 +78,18 @@ const Appointment = () => {
   return (
     <>
       <Topbar />
-      <Container fluid className="p-0 position-relative">
-        <div className="appointment-banner position-relative">
-          <img src={appointment} alt="Appointment Banner" className="w-100 img-fluid" style={{ height: '120vh', objectFit: 'cover' }} />
+      <Container fluid className="p-0">
+        <div className="appointment-banner">
+          <img src={appointment} alt="Appointment Banner" className="w-100 img-fluid" style={{ height: '100vh', objectFit: 'cover' }} />
         </div>
         <Container className="position-absolute top-50 start-50 translate-middle d-flex justify-content-center align-items-center w-100 px-3">
-          <Card className="shadow-lg p-4 rounded bg-light" style={{ maxWidth: '600px', width: '100%' }}>
+          <Row className="justify-content-center">
+            <Col xs={12} className="text-center">
+              <h1 className="text-white">Book an Appointment</h1>
+              <p className="text-dark">Book an appointment with our experienced doctors in just a few clicks.</p>
+            </Col>
+          </Row>
+          <Card className="shadow-lg p-4 m-4 rounded bg-light" style={{ maxWidth: '600px', width: '100%' }}>
             <h3 className="text-center mb-3">Book an Appointment</h3>
             <Form onSubmit={handleSubmit}>
               <Form.Group controlId="patientName" className="mb-3">
