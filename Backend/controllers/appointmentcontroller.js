@@ -3,118 +3,70 @@ const Appointment=require("../models/AppointmentSchema");
 const catchAsyncErrors = require("../middlewares/catchAsyncErrors");
 const ErrorHandler = require("../middlewares/Errorhandler");
 const User=require("../models/UserSchema");
-const { GenerateToken } = require("../utils/jwtToken");
+// // const { GenerateToken } = require("../utils/jwtToken");
 
-// =========================== create a new appointment ================================================
-exports.createAppointment=catchAsyncErrors(async(req,res,next)=>{
+// =========================== POST APPOINTMENT ===========================
+exports.postAppointment = catchAsyncErrors(async (req, res, next) => {
     try {
-        const {patientName,specialization,appointmentDate,doctorName,selectTime,doctorId,patientId}=req.body;
-        if(!patientName || !specialization || !appointmentDate || !doctorName || !selectTime || !doctorId || !patientId){
-            return next(new ErrorHandler("Missing required fields",400));
+        const { 
+            patientName, phone, gender, appointment_date, department, 
+            doctor_firstName, doctor_lastName, hasVisited 
+        } = req.body;
+
+        // Debugging Request Data
+        console.log("Received Appointment Request:", req.body);
+
+        // Validate Required Fields
+        if (!patientName || !phone || !gender || !appointment_date || !department || !doctor_firstName || !doctor_lastName) {
+            return next(new ErrorHandler("Missing required fields", 400));
         }
 
-        const newAppointment=new Appointment({
+        // Find Doctor in DB
+        const isConflict = await User.findOne({
+            firstname: doctor_firstName.trim(),
+            lastname: doctor_lastName.trim(),
+            role: "Doctor",
+            doctordepartment: department.trim()
+        });
+        
+        if (!isConflict) {
+            return res.status(404).json({
+                success: false,
+                message: "Doctor not found in this department!"
+             });
+        }
+
+        const patientId = req.user._id;
+        const doctorId = isConflict._id;
+
+        // Create New Appointment
+        const appointment = await Appointment.create({
             patientName,
-            specialization,
-            appointmentDate,
-            hasVisited:false,
-            doctorName,
-            selectTime,
+            phone,
+            gender,
+            appointment_date,
+            department,
+            doctor: {
+                 firstName: doctor_firstName,
+                 lastName: doctor_lastName
+             },
+            hasVisited,
             doctorId,
-            patientId,
-            status:"Pending"
+            patientId
         });
 
-        const savedAppointment=await newAppointment.save();
         res.status(201).json({
-            message:"Appointment Created Sucessfully",
-            appointment:savedAppointment
-        });
-    } catch (error) {
-        res.status(500).json({
-            message:"Error in creating appointment",error
-        });
-    }
-})
-
-
-// ================================= Get All Appointments ==================================================================
-exports.getAllAppointments=catchAsyncErrors(async(req,res,next)=>{
-    try {
-        const appointments=await Appointment.find();
-        res.status(200).json({
-            appointments
-        })
-    } catch (error) {
-        res.status(500).json({
-            message:"Error fetching appointments",error
-        });
-    }
-});
-
-
-// ==================================== Get appointment by Id =============================================================
-exports.getAppointmentById=catchAsyncErrors(async(req,res,next)=>{
-    try {
-        const appointment=await Appointment.findById(req.params.id);
-        if(!appointment){
-            return next(new ErrorHandler("Appointment not found",400));
-        }
-        res.status(200).json({
-            appointment
-        })
-    } catch (error) {
-        res.status(500).json({
-            message:"Error fetching appointment",error
-        });
-    }
-});
-
-// ===================================== update appointment status by Id ================================================
-exports.updateAppointmentStatus=catchAsyncErrors(async(req,res,next)=>{
-    try {
-        const {status}=req.body;
-        const validStatus=["Pending","Accepted","Rejected"];
-        if(!validStatus.includes(status)){
-            return next(new ErrorHandler("Invalid Status value",400));
-        }
-        const appointment=await Appointment.findByIdAndUpdate(
-            req.params.id,
-            {status},
-            {new:true}
-        );
-
-        if(!appointment){
-            return next(new ErrorHandler("Appointment not found",400));
-        }
-        res.status(200).json({
-            message:"Appointment status updated successfully",
+            success: true,
+            message: "Appointment Created Successfully!",
             appointment
         });
 
     } catch (error) {
+        console.error("Error Creating Appointment:", error);
         res.status(500).json({
-            message:"Error updating appointment status",error
+            success: false,
+            message: "Internal Server Error",
+            error: error.message
         });
     }
 });
-
-
-// ==================================== delete appointment by Id ===============================================
-exports.deleteAppointmentById=catchAsyncErrors(async(req,res,next)=>{
-    try {
-        const appointment=await Appointment.findByIdAndDelete(req.params.id);
-        if(!appointment){
-            return next(new ErrorHandler("Appointment not found",400));
-        }
-        res.status(200).json({
-            message:"Appointment deleted successfully"
-        });
-    } catch (error) {
-        console.log(error);
-        res.status(500).json({
-            message:"Error deleting appointment",error
-        });
-    }
-});
-
