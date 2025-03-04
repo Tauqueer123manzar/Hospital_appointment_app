@@ -29,10 +29,6 @@ exports.loginRegister = catchAsyncErrors(async (req, res, next) => {
         return next(new ErrorHandler("Please Provide all details!", 400));
     }
 
-    // if (password !== confirmPassword) {
-    //     return next(new ErrorHandler("Password and ConfirmPassword Do not Match!", 400));
-    // }
-
     const user = await User.findOne({ email }).select("+password");
     if (!user) {
         return next(new ErrorHandler("User is not registered!", 400));
