@@ -93,22 +93,29 @@ exports.getallDoctors = catchAsyncErrors(async (req, res, next) => {
 
 // ==================================== Fetch a specific Doctor by Id ============================
 exports.getDoctorById = catchAsyncErrors(async (req, res, next) => {
-    const { id } = req.params;
+    try {
+        const { id } = req.params;
 
-    if (!mongoose.Types.ObjectId.isValid(id)) {
-        return next(new ErrorHandler("Invalid ID format", 400));
+        // Check if the ID is valid
+        if (!mongoose.Types.ObjectId.isValid(id)) {
+            return next(new ErrorHandler("Invalid doctor ID format", 400));
+        }
+
+        // Find the doctor by ID and ensure they have the "Doctor" role
+        const doctor = await User.findOne({ _id: id, role: "Doctor" });
+
+        if (!doctor) {
+            return next(new ErrorHandler("Doctor not found", 404));
+        }
+
+        res.status(200).json({
+            success: true,
+            message: "Doctor found successfully",
+            doctor,
+        });
+    } catch (error) {
+        return next(new ErrorHandler(error.message, 500));
     }
-
-    const doctor = await User.findById(id);
-
-    if (!doctor || doctor.role !== "Doctor") {
-        return next(new ErrorHandler("Doctor not found", 404));
-    }
-
-    res.status(200).json({
-        success: true,
-        doctor,
-    });
 });
 
 

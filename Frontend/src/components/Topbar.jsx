@@ -8,6 +8,7 @@ import { context } from '../main';
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
 import '../App.css';
+import { Button } from 'react-bootstrap';
 // import axios from 'axios';
 
 const Topbar = () => {
@@ -55,8 +56,13 @@ const Topbar = () => {
             <Nav.Link className='text-secondary contact' style={{ fontWeight: 'bold' }} href='/contact'>CONTACT</Nav.Link>
           </Nav>
           <div className='button'>
+            <Button variant="primary" style={{ borderRadius: '50px', width: '100px', height: '45px',marginRight:'10px' }}>
+              <Link to="/admin/login" style={{ color: 'white', textDecoration: 'none' }}>Admin</Link>
+            </Button>
+          </div>
+          <div className='button'>
             <Dropdown>
-              <Dropdown.Toggle id="dropdown-basic" style={{ borderRadius: '50px', width: '150px', height: '45px', padding: 0 }}>
+              <Dropdown.Toggle id="dropdown-basic" style={{ borderRadius: '50px', width: '100px', height: '45px', padding: 0 }}>
                 {isAuthenticated ? (
                   <span style={{ color: 'white', textDecoration: 'none' }}>Logout</span>
                 ) : (

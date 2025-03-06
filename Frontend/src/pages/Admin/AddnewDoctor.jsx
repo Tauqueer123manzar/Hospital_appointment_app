@@ -40,7 +40,8 @@ const AddnewDoctor = () => {
     "Radiology",
     "Physical Therapy",
     "Oncology",
-    "Pediatrics"
+    "Pediatrics",
+    // "General Physician"
   ];
 
   const handleAddNewDoctor = async (e) => {
