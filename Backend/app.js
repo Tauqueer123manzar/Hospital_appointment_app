@@ -7,6 +7,7 @@ const fileUpload=require("express-fileupload");
 const Errormiddleware=require("./middlewares/Errormiddleware");
 const UserRouter= require("./router/UserRouter");
 const AppointmentRouter=require("./router/AppointmentRouter");
+const reportRoutes=require("./router/reportRoutes");
 dotenv.config({ path: "./config/.env" });
 const connectDb=require('./database/dbconnection');
 const router=express.Router();
@@ -32,6 +33,7 @@ app.use(fileUpload({
 app.use("/api/v1/message", MessageRouter);
 app.use("/api/v1/user",UserRouter);
 app.use("/api/v1/appointment",AppointmentRouter);
+app.use("/api/reports", reportRoutes);
 app.use(Errormiddleware);
 
   

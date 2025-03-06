@@ -61,7 +61,8 @@ const reviews = [
 
     return (
         <Container className='doctor-profile-container mt-2'>
-            <h3 className='text-center text-danger p-2'>Doctor Profile</h3>
+        <h1 className='text-center text-blue p-2 m-3' style={{fontStyle:"initial"}}>Doctor Details Page</h1>
+            <h3 className='text-center text-danger p-2'>{doctor.firstname} {doctor.lastname} - {doctor.doctordepartment}</h3>
             <Row className="justify-content-center">
                 <Col xs={12} md={8} lg={8} className='profile-card-container'>
                     <Card className='shadow-lg doctor-card p-4'>

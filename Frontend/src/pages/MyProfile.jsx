@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Form, Card, ListGroup, Col, Row, Image,Container } from 'react-bootstrap';
 import image from '../assets/Tauqueer Image.jpg';
 import Topbar from '../components/Topbar';
+import GenerateReport from '../components/GenerateReport';
 const MyProfile = () => {
   // State for storing user profile, appointments, and prescriptions
   const [profile, setProfile] = useState({
@@ -52,6 +53,9 @@ const MyProfile = () => {
             <Col md={9}>
               <h4>{profile.name}</h4>
               <p>{profile.city}</p>
+            </Col>
+            <Col md={3} className='mt-3' style={{ display: 'flex', alignItems: 'center' }}>
+              <GenerateReport/>
             </Col>
           </Row>
         </Card.Body>
