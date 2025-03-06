@@ -3,10 +3,10 @@ import { Container, Row, Col, Button } from 'react-bootstrap';
 import Topbar from '../components/Topbar';
 import Doctors from '../components/Doctors';
 import Footer from '../components/Footer';
-import '../App.css';
+// import '../App.css';
 
 const Alldoctor = () => {
-  const department = ['All', 'Cardiology', 'Neurology', 'Radiology', 'ENT', 'Orthopedics', 'Dermatology', 'Therapy', 'Pediatrics', 'Oncology', 'Physician'];
+  const department = ['All', 'Cardiology', 'Neurology', 'Radiology', 'ENT', 'Orthopedics', 'Dermatology', 'Physical Therapy', 'Pediatrics', 'Oncology', 'General Physician'];
   const [selectedDepartment, setSelectedDepartment] = useState('All');
 
   return (
@@ -36,7 +36,7 @@ const Alldoctor = () => {
               ))}
             </Row>
           </Col>
-          <Col xs={12} md={6} lg={9} style={{ marginTop: '65px' }}>
+          <Col xs={12} md={6} lg={8} style={{ marginTop: '65px' }}>
             <Doctors selectedDepartment={selectedDepartment} />
           </Col>
         </Row>

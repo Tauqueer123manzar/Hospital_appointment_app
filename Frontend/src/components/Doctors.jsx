@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Container, Row, Col, Card, Button } from 'react-bootstrap';
 import { FaCircle } from "react-icons/fa6";
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 import '../App.css';
 
@@ -25,6 +26,12 @@ const Doctors = ({ selectedDepartment }) => {
     fetchDoctorData();
   }, []);
 
+  const visibleDoctorsHandler = () => {
+    setVisibleDoctors(prevCounr=> prevCounr + 4); 
+
+  }
+
+
   const filteredDoctors = selectedDepartment === 'All'
     ? doctors
     : doctors.filter(doctor => doctor.doctordepartment === selectedDepartment);
@@ -35,7 +42,7 @@ const Doctors = ({ selectedDepartment }) => {
       <p className="text-center subtitle">Simply browse through our extensive list of trusted doctors.</p>
       <Row>
         {filteredDoctors.slice(0, visibleDoctors).map((doctorItem) => (
-          <Col xs={12} sm={6} md={4} lg={3} className="p-3" key={doctorItem.id}>
+          <Col xs={12} sm={6} md={4} lg={3} className="p-3" key={doctorItem._id}>
             <Card className="doctor-card">
               <div className="img-container">
                 <Card.Img
@@ -47,24 +54,24 @@ const Doctors = ({ selectedDepartment }) => {
               </div>
               <Card.Body className="doctor-card-body">
                 <Card.Subtitle className="doctor-name">
-                  <FaCircle className="status-icon mt-1" /><span>{doctorItem.firstname} {doctorItem.lastname}</span>
+                  <FaCircle className="status-icon mt-1" />
+                  <span>{doctorItem.firstname} {doctorItem.lastname}</span>
                 </Card.Subtitle>
                 <Card.Subtitle className="doctor-info p-2">Email: {doctorItem.email}</Card.Subtitle>
                 <Card.Subtitle className="doctor-info p-2">Phone: {doctorItem.phone}</Card.Subtitle>
-                <Card.Subtitle className="doctor-info p-2">Gender: {doctorItem.gender}</Card.Subtitle>
                 <Card.Subtitle className="doctor-info p-2">Department: {doctorItem.doctordepartment}</Card.Subtitle>
+                {/* Add a Link to the Doctor Profile */}
+                <Link to={`/doctor/${doctorItem._id}`}>
+                  <Button variant="primary" className="mt-4">View Profile</Button>
+                </Link>
               </Card.Body>
             </Card>
           </Col>
         ))}
+        <Col className="text-center" xs={12} lg={12}>
+        <Button variant="primary" className="mt-4 mb-3" onClick={visibleDoctorsHandler}>Load More</Button>
+        </Col>
       </Row>
-      {visibleDoctors < filteredDoctors.length && (
-        <div className="text-center mt-4 mb-4">
-          <Button className="show-more-btn" onClick={() => setVisibleDoctors(prev => prev + 12)}>
-            Show More
-          </Button>
-        </div>
-      )}
     </Container>
   );
 };

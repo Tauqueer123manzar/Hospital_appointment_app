@@ -1,100 +1,123 @@
 import React, { useEffect, useState } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
-import { Container, Row, Col, Button, Spinner, Card, Alert } from 'react-bootstrap';
-import Topbar from './Topbar';
+import { useParams } from 'react-router-dom';
+import { Container, Card, Row, Col, Button, ListGroup } from 'react-bootstrap';
 import axios from 'axios';
+import '../App.css';
 
 const DoctorProfile = () => {
-    const { id } = useParams();
-    const navigate = useNavigate();
+    const { id } = useParams();  // Get doctor ID from URL
     const [doctor, setDoctor] = useState(null);
     const [loading, setLoading] = useState(true);
-    const [error, setError] = useState('');
+    const [error, setError] = useState(null);
+    
+
+const reviews = [
+    {
+        patientName: "Bhavika Dadia Sanghavi",
+        profileImg: "https://res.cloudinary.com/dk962bx7h/image/upload/v1741164344/wkssulltmvmbs8gznfti.png", // Replace with actual image
+        rating: 5,
+        comment: "Dr.Manisha Kumari and Dr. Sneha Kumari were really patient and awesome throughout my pregnancy consultation. They listen to you carefully and provide all the required guidance and support. Best gynecologists to go to."
+    },
+    {
+        patientName: "Krupali Patel",
+        profileImg: "https://res.cloudinary.com/dk962bx7h/image/upload/v1741164344/wkssulltmvmbs8gznfti.png",
+        rating: 5,
+        comment: "Best gynecologist.. office staff is also very friendly and so helpful. Doctor is very popular so you will notice some waiting but to get good care I don’t mind waiting. If you also think same than this doctor office is perfect choice for you."
+    },
+    {
+        patientName: "Kalpa Gada",
+        profileImg: "https://res.cloudinary.com/dk962bx7h/image/upload/v1741164344/wkssulltmvmbs8gznfti.png",
+        rating: 5,
+        comment: "I would have given 10 stars to Dr. Kirit Patel’s practice. Both Dr. Kirit Patel and Dr. Meghal Patel have been awesome throughout our pregnancy. With their experience, they helped us deliver our second baby without any issues."
+    }
+];
 
     useEffect(() => {
-        const fetchDoctorData = async () => {
+        const fetchDoctorDetails = async () => {
             try {
-                setLoading(true);
-                setError('');
-                const response = await axios.get(`http://localhost:8080/api/v1/user/doctors/${id}`);
+                const response = await axios.get(`http://localhost:8080/api/v1/user/doctors/${id}`, {
+                    headers: {
+                        "Content-Type": "application/json",
+                        Authorization: `Bearer ${localStorage.getItem("adminToken")}`
+                    }
+                });
                 setDoctor(response.data.doctor);
-            } catch (err) {
-                setError(err.response?.data?.message || 'Error fetching doctor data');
-            } finally {
+                setLoading(false);
+            } catch (error) {
+                setError(error.response?.data?.message || "Error fetching doctor data");
                 setLoading(false);
             }
         };
-
-        if (id) {
-            fetchDoctorData();
-        } else {
-            setError('No ID provided in the URL');
-            setLoading(false);
-        }
+        fetchDoctorDetails();
     }, [id]);
 
     if (loading) {
-        return (
-            <div className="d-flex justify-content-center align-items-center" style={{ height: '100vh' }}>
-                <Spinner animation="border" variant="primary" />
-            </div>
-        );
+        return <h1 className='text-center mt-4 text-danger'>Loading...</h1>;
     }
 
     if (error) {
-        return <Alert variant="danger" className="mt-5 text-center">{error}</Alert>;
-    }
-
-    if (!doctor) {
-        return <Alert variant="warning" className="mt-5 text-center">Doctor Not Found</Alert>;
+        return <h1 className='text-center mt-4 text-danger'>{error}</h1>;
     }
 
     return (
-        <>
-            <Topbar />
-            <div className="doctorpage py-4" style={{ backgroundColor: "lightgrey", minHeight: "100vh" }}>
-                <Container>
-                    <Row className="justify-content-center">
-                        <Col md={8} lg={6}>
-                            <Card>
+        <Container className='doctor-profile-container mt-2'>
+            <h3 className='text-center text-danger p-2'>Doctor Profile</h3>
+            <Row className="justify-content-center">
+                <Col xs={12} md={8} lg={8} className='profile-card-container'>
+                    <Card className='shadow-lg doctor-card p-4'>
+                        <Row className='align-items-center'>
+                            <Col md={4} className='text-center'>
+                                <Card.Img
+                                    src={doctor.docAvatar ? doctor.docAvatar.url : 'fallback-image-url'}
+                                    alt='Doctor Avatar'
+                                    className='doctor-img rounded-circle'
+                                />
+                            </Col>
+                            <Col md={8}>
+                                <Card.Body>
+                                    <Card.Title className='text-dark'>{doctor.firstname} {doctor.lastname}</Card.Title>
+                                    <Card.Text><strong>Email:</strong> {doctor.email}</Card.Text>
+                                    <Card.Text><strong>Phone:</strong> {doctor.phone}</Card.Text>
+                                    <Card.Text><strong>Gender:</strong> {doctor.gender}</Card.Text>
+                                    <Card.Text><strong>Department:</strong> {doctor.doctordepartment}</Card.Text>
+                                    <Card.Text><strong>About:</strong> {doctor.about || 'Doctor is very good and has a lot of experience.'}</Card.Text>
+                                    <Button variant='success' className='mt-3' href='/appointment'>Book an Appointment</Button>
+                                </Card.Body>
+                            </Col>
+                        </Row>
+                    </Card>
+                </Col>
+            </Row>
+            {/* Patient reviews  */}
+            <Row className='justify-content-center mt-5 mb-5'>
+            <Col xs={12}>
+                <h4 className='text-center text-primary mb-4'>Patient Reviews</h4>
+                <Row className="justify-content-center">
+                    {reviews.map((review, index) => (
+                        <Col key={index} xs={12} md={4} className="mb-4">
+                            <Card className='shadow-sm p-3 text-center'>
                                 <Card.Img
                                     variant="top"
-                                    src={doctor.docAvatar || '/placeholder-image.png'}
-                                    alt={doctor.firstname || 'Doctor'}
-                                    height={350}
+                                    src={review.profileImg}
+                                    alt={review.patientName}
+                                    className='rounded-circle mx-auto mt-3'
+                                    style={{ width: '60px', height: '60px' }}
                                 />
                                 <Card.Body>
-                                    <Card.Title className="text-center">
-                                        {doctor.firstname} {doctor.lastname}
-                                    </Card.Title>
-                                    <Card.Text className="text-muted text-center">
-                                        {doctor.specialization || "Specialization not provided"}
-                                    </Card.Text>
-                                    <hr />
-                                    <Card.Text>
-                                        <strong>Department:</strong> {doctor.doctordepartment || 'N/A'}
-                                    </Card.Text>
-                                    <Card.Text>
-                                        <strong>Email:</strong> {doctor.email || 'N/A'}
-                                    </Card.Text>
-                                    <Card.Text>
-                                        <strong>Phone:</strong> {doctor.phone || 'N/A'}
-                                    </Card.Text>
+                                    <Card.Title className='text-success'>{review.patientName}</Card.Title>
+                                    <div className="text-warning">
+                                        {"★".repeat(review.rating)}{"☆".repeat(5 - review.rating)}
+                                    </div>
+                                    <Card.Text className='mt-2'>{review.comment}</Card.Text>
                                 </Card.Body>
-                                <Card.Footer className="text-center">
-                                    <Button
-                                        onClick={() => navigate(`/appointment?doctorId=${id}`)}
-                                        variant="primary"
-                                    >
-                                        Book Appointment
-                                    </Button>
-                                </Card.Footer>
                             </Card>
                         </Col>
-                    </Row>
-                </Container>
-            </div>
-        </>
+                    ))}
+                </Row>
+            </Col>
+        </Row>
+          
+        </Container>
     );
 };
 
