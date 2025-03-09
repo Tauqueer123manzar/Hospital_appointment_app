@@ -274,7 +274,10 @@ h2 {
   border-top-left-radius: 12px;
   border-top-right-radius: 12px;
 }
-
+.doctor-card .card{
+  border-radius: 12px;
+  width: 350px;
+}
 .doctor-img {
   height: 280px;
   width: 100%;
@@ -289,8 +292,8 @@ h2 {
 /* Card Body */
 .doctor-card-body {
   /* text-align: center; */
-  height:220px;
-  /* width: 300px; */
+  height:230px;
+  /* width: 400px; */
   padding: 15px;
   margin: auto;
   background-color: #f9f9f9;
