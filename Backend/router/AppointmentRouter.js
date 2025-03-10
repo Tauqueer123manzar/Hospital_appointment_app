@@ -1,5 +1,5 @@
 const express = require("express");
-const { postAppointment, getAllAppointments, updateAppointmentStatus, getAllConfirmedAppointments } = require("../controllers/appointmentcontroller");
+const { postAppointment, getAllAppointments, updateAppointmentStatus, getAllConfirmedAppointments} = require("../controllers/appointmentcontroller");
 const { isPatientAuthenticated, isAdminAuthenticated } = require("../middlewares/auth");
 
 const router = express.Router();
@@ -10,6 +10,7 @@ router.get("/getall",getAllAppointments,isAdminAuthenticated);
 router.get("/getall:id",getAllAppointments,isAdminAuthenticated);
 router.put("/appointments/:id/status", updateAppointmentStatus);
 router.get("/confirmed",getAllConfirmedAppointments);
+// router.post("/notifications",sendAppointmentStatusMessage);
 module.exports = router;
 
 
