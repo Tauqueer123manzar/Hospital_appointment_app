@@ -424,4 +424,108 @@ h2 {
   padding: 12px 20px;
 }
 /* 
-/* Doctor profile page */
+/* Dashboard page */
+
+/* .banner {
+  background-color: #4810b8;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+} */
+
+.banner h3 {
+  font-weight: bold;
+  margin-bottom: 15px;
+  text-align: center;
+  color: #343a40;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #fff;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+thead {
+  background-color: #007bff;
+  color: white;
+}
+
+th, td {
+  padding: 12px;
+  text-align: left;
+  border-bottom: 1px solid #dee2e6;
+}
+
+th {
+  font-weight: bold;
+}
+
+tbody tr:hover {
+  background-color: #f1f1f1;
+}
+
+.value-pending {
+  color: #ffcc00;
+  font-weight: bold;
+}
+
+.value-accepted {
+  color: #28a745;
+  font-weight: bold;
+}
+
+.value-rejected {
+  color: #dc3545;
+  font-weight: bold;
+}
+
+select {
+  padding: 5px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  cursor: pointer;
+}
+
+select.value-pending {
+  background-color: #fff9c4;
+}
+
+select.value-accepted {
+  background-color: #c8e6c9;
+}
+
+select.value-rejected {
+  background-color: #f8d7da;
+}
+
+.green {
+  color: #28a745;
+  font-size: 18px;
+}
+
+.red {
+  color: #dc3545;
+  font-size: 18px;
+}
+
+/* Responsive Design */
+@media screen and (max-width: 768px) {
+  table {
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+
+  th, td {
+    padding: 8px;
+    font-size: 14px;
+  }
+
+  .banner {
+    padding: 15px;
+  }
+}

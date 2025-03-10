@@ -71,11 +71,43 @@ exports.postAppointment = catchAsyncErrors(async (req, res, next) => {
     }
 });
 
+// =============================== get all appointments ==========================
 exports.getAllAppointments=catchAsyncErrors(async(req,res,next)=>{
     const appointments=await Appointment.find();
     res.status(201).json({
         success:true,
         appointments
+    });
+});
+
+
+// ============================ get appointment by id ===========================
+exports.getAllAppointmentsById=catchAsyncErrors(async(req,res,next)=>{
+    const {id}=req.params;
+    const appointment=await Appointment.findById(id);
+    if(!appointment){
+        return next(new ErrorHandler("Appointment not found",400));
+    }
+    res.status(200).json({
+        success:true,
+        appointment
+    });
+});
+
+// ================================== update appointment status ======================================
+exports.updateAppointmentStatus=catchAsyncErrors(async(req,res,next)=>{
+    const {id}=req.params;
+    const {status}=req.body;
+    const appointment=await Appointment.findById(id);
+    if(!appointment){
+        return next(new ErrorHandler("Appointment not found",400));
+    }
+    appointment.status=status;
+    await appointment.save();
+    res.status(200).json({
+        success:true,
+        message:"Appointment status updated successfully",
+        appointment
     });
 });
 
