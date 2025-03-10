@@ -111,3 +111,26 @@ exports.updateAppointmentStatus=catchAsyncErrors(async(req,res,next)=>{
     });
 });
 
+// ====================================== getall confirmed appointments ==============================
+exports.getAllConfirmedAppointments = async (req, res, next) => {
+    try {
+      const appointments = await Appointment.find({ status: "Accepted" });
+  
+      if (!appointments) {
+        return res.status(404).json({
+          success: false,
+          message: "No confirmed appointments found",
+        });
+      }
+  
+      res.status(200).json({
+        success: true,
+        appointments,
+      });
+    } catch (error) {
+      console.error("Error fetching confirmed appointments:", error);
+      res.status(500).json({ success: false, message: "Server error" });
+    }
+  };
+  
+

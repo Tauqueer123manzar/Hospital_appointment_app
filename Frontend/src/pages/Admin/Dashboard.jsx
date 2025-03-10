@@ -16,6 +16,7 @@ const Dashboard = () => {
   const [totalUsers, setTotalUsers] = useState(0);
   const [totalAppointments, setTotalAppointments] = useState(0);
   const [totalDoctors, setTotalDoctors] = useState(0);
+  const [totalConfirmedAppointments,setTotalConfirmedAppointments]=useState(0);
   const [appointments, setAppointments] = useState([]);
 
   useEffect(() => {
@@ -24,6 +25,7 @@ const Dashboard = () => {
       return;
     }
 
+    // fetch get All Users
     const fetchUsers = async () => {
       try {
         const res = await axios.get("http://localhost:8080/api/v1/user/getallusers");
@@ -33,6 +35,7 @@ const Dashboard = () => {
       }
     };
 
+    // fetch get all appointments
     const fetchAppointments = async () => {
       try {
         const res = await axios.get("http://localhost:8080/api/v1/appointment/getall");
@@ -43,6 +46,7 @@ const Dashboard = () => {
       }
     };
 
+    // fetch get all doctors
     const fetchDoctors = async () => {
       try {
         const res = await axios.get("http://localhost:8080/api/v1/user/doctors");
@@ -52,14 +56,33 @@ const Dashboard = () => {
       }
     };
 
+    // fetch all confirmed appointments
+    const fetchConfirmedAppointments = async () => {
+      try {
+        const { data } = await axios.get("http://localhost:8080/api/v1/appointment/confirmed", {
+          withCredentials: true,
+        });
+    
+        if (data.success) {
+          setTotalConfirmedAppointments(data.appointments.length);
+        } else {
+          console.error("No confirmed appointments found");
+        }
+      } catch (error) {
+        console.error("Error fetching confirmed appointments:", error.response?.data || error.message);
+      }
+    };
+    
+
     fetchUsers();
     fetchAppointments();
     fetchDoctors();
-
+    fetchConfirmedAppointments();
     const interval = setInterval(() => {
       fetchUsers();
       fetchAppointments();
       fetchDoctors();
+      fetchConfirmedAppointments();
     }, 10000);
 
     return () => clearInterval(interval);
@@ -68,23 +91,23 @@ const Dashboard = () => {
   const handleUpdateStatus = async (id, status) => {
     try {
       const { data } = await axios.put(
-        `http://localhost:8080/api/v1/appointment/${id}`,
+        `http://localhost:8080/api/v1/appointment/appointments/${id}/status`,
         { status },
         { withCredentials: true }
       );
-
       setAppointments((prev) =>
         prev.map((appointment) =>
-          appointment._id === id ? { ...appointment, status } : appointment
+          appointment._id === id ? { ...appointment, status: data.appointment.status } : appointment
         )
       );
-
-      toast.success("Appointment status updated successfully");
+  
+      toast.success(data.message || "Appointment status updated successfully");
     } catch (error) {
-      toast.error("Failed to update appointment status");
+      console.error("Update status error:", error.response?.data || error.message);
+      toast.error(error.response?.data?.message || "Failed to update appointment status");
     }
   };
-
+  
   return (
     <>
       <Sidebar />
@@ -128,7 +151,7 @@ const Dashboard = () => {
               </i>
               <div>
                 <span>Confirm Booking</span>
-                <h3>4,000</h3>
+                <h3>{totalConfirmedAppointments}</h3>
               </div>
             </div>
 
@@ -206,7 +229,7 @@ const Dashboard = () => {
               )}
             </tbody>
           </table>
-          
+
         </div>
       </div>
     </>
