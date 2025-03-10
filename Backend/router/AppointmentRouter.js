@@ -11,7 +11,7 @@
 // router.delete("/delete/:id",isAdminAuthenticated,deleteAppointmentById);
 // module.exports=router;
 const express = require("express");
-const { postAppointment, getAllAppointments } = require("../controllers/appointmentcontroller");
+const { postAppointment, getAllAppointments, updateAppointmentStatus } = require("../controllers/appointmentcontroller");
 const { isPatientAuthenticated, isAdminAuthenticated } = require("../middlewares/auth");
 
 const router = express.Router();
@@ -19,6 +19,8 @@ const router = express.Router();
 // POST: Create Appointment
 router.post("/post", isPatientAuthenticated, postAppointment);
 router.get("/getall",getAllAppointments,isAdminAuthenticated);
+router.get("/getall:id",getAllAppointments,isAdminAuthenticated);
+router.put("/update/:id",isAdminAuthenticated,updateAppointmentStatus);
 
 module.exports = router;
 
