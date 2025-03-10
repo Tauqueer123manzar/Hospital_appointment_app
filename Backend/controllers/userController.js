@@ -21,6 +21,17 @@ exports.PatientRegister = catchAsyncErrors(async (req, res, next) => {
     user = await User.create({ firstname, lastname, email, phone, gender, password, role, });
     GenerateToken(user, "User Registered Successfully", 200, res);
 });
+
+// ============================================== Get All Users ==========================================
+exports.getallUsers = catchAsyncErrors(async (req, res, next) => {
+    const users = await User.find({ role: "Patient" });
+    res.status(200).json({
+        success: true,
+        users
+    });
+});
+
+
 // ============================================= Login ====================================================
 exports.loginRegister = catchAsyncErrors(async (req, res, next) => {
     const { email, password, confirmPassword, role } = req.body;

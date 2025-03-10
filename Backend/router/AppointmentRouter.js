@@ -11,13 +11,14 @@
 // router.delete("/delete/:id",isAdminAuthenticated,deleteAppointmentById);
 // module.exports=router;
 const express = require("express");
-const { postAppointment } = require("../controllers/appointmentcontroller");
-const { isPatientAuthenticated } = require("../middlewares/auth");
+const { postAppointment, getAllAppointments } = require("../controllers/appointmentcontroller");
+const { isPatientAuthenticated, isAdminAuthenticated } = require("../middlewares/auth");
 
 const router = express.Router();
 
 // POST: Create Appointment
 router.post("/post", isPatientAuthenticated, postAppointment);
+router.get("/getall",getAllAppointments,isAdminAuthenticated);
 
 module.exports = router;
 

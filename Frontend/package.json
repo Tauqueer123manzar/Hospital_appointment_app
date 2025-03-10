@@ -27,6 +27,7 @@
     "react-simple-typewriter": "^5.0.1",
     "react-table": "^7.8.0",
     "react-toastify": "^10.0.5",
+    "recharts": "^2.15.1",
     "toastify": "^2.0.1"
   },
   "devDependencies": {

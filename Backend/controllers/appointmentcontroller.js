@@ -70,3 +70,12 @@ exports.postAppointment = catchAsyncErrors(async (req, res, next) => {
         });
     }
 });
+
+exports.getAllAppointments=catchAsyncErrors(async(req,res,next)=>{
+    const appointments=await Appointment.find();
+    res.status(201).json({
+        success:true,
+        appointments
+    });
+});
+
