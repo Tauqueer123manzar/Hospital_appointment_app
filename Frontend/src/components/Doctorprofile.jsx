@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { Container, Card, Row, Col, Button, ListGroup } from 'react-bootstrap';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 import '../App.css';
 
 const DoctorProfile = () => {
@@ -14,19 +15,19 @@ const DoctorProfile = () => {
 const reviews = [
     {
         patientName: "Bhavika Dadia Sanghavi",
-        profileImg: "https://res.cloudinary.com/dk962bx7h/image/upload/v1741164344/wkssulltmvmbs8gznfti.png", // Replace with actual image
+        profileImg: "https://tse4.mm.bing.net/th?id=OIP.Blj2M36K5WYTyNd6v6Jz0QHaJf&pid=Api&P=0&h=180", // Replace with actual image
         rating: 5,
         comment: "Dr.Manisha Kumari and Dr. Sneha Kumari were really patient and awesome throughout my pregnancy consultation. They listen to you carefully and provide all the required guidance and support. Best gynecologists to go to."
     },
     {
         patientName: "Krupali Patel",
-        profileImg: "https://res.cloudinary.com/dk962bx7h/image/upload/v1741164344/wkssulltmvmbs8gznfti.png",
+        profileImg: "https://tse4.mm.bing.net/th?id=OIP.Blj2M36K5WYTyNd6v6Jz0QHaJf&pid=Api&P=0&h=180",
         rating: 5,
         comment: "Best gynecologist.. office staff is also very friendly and so helpful. Doctor is very popular so you will notice some waiting but to get good care I don’t mind waiting. If you also think same than this doctor office is perfect choice for you."
     },
     {
         patientName: "Kalpa Gada",
-        profileImg: "https://res.cloudinary.com/dk962bx7h/image/upload/v1741164344/wkssulltmvmbs8gznfti.png",
+        profileImg: "https://tse4.mm.bing.net/th?id=OIP.Blj2M36K5WYTyNd6v6Jz0QHaJf&pid=Api&P=0&h=180",
         rating: 5,
         comment: "I would have given 10 stars to Dr. Kirit Patel’s practice. Both Dr. Kirit Patel and Dr. Meghal Patel have been awesome throughout our pregnancy. With their experience, they helped us deliver our second baby without any issues."
     }
@@ -60,8 +61,8 @@ const reviews = [
     }
 
     return (
-        <Container className='doctor-profile-container mt-2'>
-        <h1 className='text-center text-blue p-2 m-3' style={{fontStyle:"initial"}}>Doctor Details Page</h1>
+        <Container className='doctor-profile-container mt-2' style={{backgroundColor:"#f0f0f0", borderRadius:"10px"}}>
+        <h1 className='text-center text-blue p-2 m-3' style={{fontStyle:"initial"}}>Doctor Profile</h1>
             <h3 className='text-center text-danger p-2'>{doctor.firstname} {doctor.lastname} - {doctor.doctordepartment}</h3>
             <Row className="justify-content-center">
                 <Col xs={12} md={8} lg={8} className='profile-card-container'>
@@ -83,6 +84,7 @@ const reviews = [
                                     <Card.Text><strong>Department:</strong> {doctor.doctordepartment}</Card.Text>
                                     <Card.Text><strong>About:</strong> {doctor.about || 'Doctor is very good and has a lot of experience.'}</Card.Text>
                                     <Button variant='success' className='mt-3' href='/appointment'>Book an Appointment</Button>
+                                    <Link to='/alldoctors' className='btn btn-primary ml-4 mt-3 gap-2'>Go Back</Link>
                                 </Card.Body>
                             </Col>
                         </Row>

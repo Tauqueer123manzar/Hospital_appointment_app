@@ -110,7 +110,7 @@ const Message = () => {
         <>
             <Sidebar />
             <Container className="my-3" style={{ marginLeft: "290px", backgroundColor: "#f9f9f9", padding: "20px" }}>
-                <h2 className="text-center" style={{ fontFamily: "initial" }}>Messages</h2>
+                <h2 className="text-center" style={{ fontFamily: "initial" }}>Patient Messages</h2>
                 <Form.Control
                     type="text"
                     placeholder="Search messages..."
