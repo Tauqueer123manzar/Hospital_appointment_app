@@ -32,7 +32,7 @@ const Services = () => {
   return (
     <>
       <Topbar />
-      <Container fluid style={{ maxWidth: "100%", maxHeight: "100%" }}>
+      <Container fluid style={{ minWidth: "100%", maxHeight: "100%",background: '#f8f9fa'}}>
         <Row className='mt-5'>
           <Col sm={12} lg={5} md={6}>
           <h1 className='mt-5 p-5' style={{ fontWeight: "700", fontFamily: "initial", fontSize: "45px" }}>
@@ -54,9 +54,9 @@ const Services = () => {
               </a>
             </Button>
           </Col>
-          <Col sm={12} lg={7} md={6} className='d-flex justify-content-center align-items-center position-relative'>
+          <Col sm={12} lg={7} md={6} className='d-flex justify-content-center align-items-center position-relative' style={{background:"#f8f9fa"}}>
             <img src={doctor} width={550} height={490} className='mt-5' style={{marginLeft:"950"}}/>
-            <img src={image1} width={200} height={60} className='image position-absolute' style={{ top: "400px", right: "500px", zIndex: 1 }} />
+            <img src={image1} width={200} height={60} className='image position-absolute' style={{ top: "400px", zIndex: 1 }} />
           </Col>
         </Row>
 
@@ -81,7 +81,7 @@ const Services = () => {
             ))}
         </Row>
         <Row>
-          <h1 className='mt-5 text-center' style={{ color: "rgba(0, 126, 133, 1)", fontWeight: "bold", fontFamily: "initial" }}>what our customer say</h1>
+          <h1 className='mt-5 text-center' style={{ color: "rgba(0, 126, 133, 1)", fontWeight: "bold", fontFamily: "initial",fontSize:"55px" }}>What our customer say</h1>
           <p className='text-center mt-2'>This is feedback of our customer side</p>
           <Col sm={12} md={6} lg={4} className='p-3'>
             <Card style={{ width: '25rem', marginLeft: "45px", height: "250px",border:"dotted",borderColor:"goldenrod"}}>

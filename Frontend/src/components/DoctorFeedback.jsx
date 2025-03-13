@@ -1,64 +1,69 @@
-import React, { useState } from "react";
-import { Modal, Button, Form, Container } from "react-bootstrap";
-import { FaStar } from "react-icons/fa";
-
+import React,{useState} from 'react'
+import {Modal,Button,Form,Container} from 'react-bootstrap';
+import {FaStar} from 'react-icons/fa';
+import axios from 'axios';
+import Feedback from 'react-bootstrap/esm/Feedback';
 const DoctorFeedback = () => {
-  const [show, setShow] = useState(false);
-  const [patientName, setPatientName] = useState("");
-  const [doctor, setDoctor] = useState("");
-  const [rating, setRating] = useState(0);
-  const [feedback, setFeedback] = useState("");
-  const [hover, setHover] = useState(null);
+  const[show,setShow]=useState(false);
+  const[patinetName,setPatientName]=useState('');
+  const[doctor,setDoctor]=useState('');
+  const[rating,setRating]=useState(0);
+  const[feedback,setFeedback]=useState('');
+  const[hover,setHover]=useState(null);
 
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
+  const handleClose=()=>{
+    setShow(false);
+  }
+  const handleShow=()=>{
+    setShow(true);
+  }
 
-  const handleSubmit = (e) => {
+  const handleSubmit=(e)=>{
     e.preventDefault();
-    console.log({ patientName, doctor, rating, feedback });
+    console.log(patinetName,doctor,rating,Feedback);
     handleClose();
   };
 
   return (
-    <Container className="text-center">
+   <>
+    <Container className='text-center'>
       <Button variant="primary" onClick={handleShow}>
         Give Feedback
       </Button>
-
       <Modal show={show} onHide={handleClose} centered>
         <Modal.Header closeButton>
-          <Modal.Title>Doctor Feedback</Modal.Title>
+          <Modal.Title className='text-danger'>Doctor Feedback</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Form onSubmit={handleSubmit}>
-            {/* Patient Name */}
-            <Form.Group className="mb-3">
+
+          {/* Patient Name */}
+            <Form.Group className='mb-3'>
               <Form.Label>Patient Name</Form.Label>
               <Form.Control
-                type="text"
-                placeholder="Enter your name"
-                value={patientName}
-                onChange={(e) => setPatientName(e.target.value)}
-                required
-              />
+               type="text"
+               placeholder='Enter your name'
+               value={patinetName}
+               onChange={(e)=>setPatientName(e.target.value)}
+               /> 
             </Form.Group>
 
             {/* Doctor Selection */}
-            <Form.Group className="mb-3">
+            <Form.Group className='mb-3'>
               <Form.Label>Select Doctor</Form.Label>
-              <Form.Select
+              <Form.Select 
                 value={doctor}
-                onChange={(e) => setDoctor(e.target.value)}
-                required
-              >
-                <option value="">Choose a Doctor</option>
-                <option value="Dr. John Doe">Dr. John Doe</option>
-                <option value="Dr. Jane Smith">Dr. Jane Smith</option>
-                <option value="Dr. Emily Brown">Dr. Emily Brown</option>
+                onChange={(e)=>setDoctor(e.target.value)}
+                required>
+               <option value=''>Select a doctor</option>
+               <option value='Dr.Suman'>Dr.Suman</option>
+                <option value='Dr.Sneha'>Dr.Sneha</option>
+                <option value='Dr.Manisha'>Dr.Mainsha</option>
+                <option value='Dr.Ravi'>Dr.Ravi</option>
               </Form.Select>
             </Form.Group>
 
-            {/* Star Rating */}
+            {/* Rating */}
             <Form.Group className="mb-3">
               <Form.Label>Rate the Doctor</Form.Label>
               <div>
@@ -99,7 +104,8 @@ const DoctorFeedback = () => {
         </Modal.Body>
       </Modal>
     </Container>
-  );
-};
+   </>
+  )
+}
 
-export default DoctorFeedback;
+export default DoctorFeedback

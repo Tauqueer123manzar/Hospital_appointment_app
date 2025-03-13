@@ -1,3 +1,94 @@
+/* Hero section styling */
+.hero_section {
+  width: 100%;
+  overflow: hidden;
+}
+
+.hero_row {
+  display: flex;
+  flex-wrap: wrap; /* Ensures columns stack on smaller screens */
+}
+
+.hero_title {
+  color: #333; /* Adjust color as needed */
+}
+
+.hero_description {
+  color: #555; /* Adjust color as needed */
+}
+
+.hero_image_col {
+  min-height: 400px; /* Ensures the image column has a minimum height */
+}
+
+@media (max-width: 768px) {
+  .hero_image_col {
+    min-height: 300px; /* Adjust for smaller screens */
+  }
+}
+
+/* ======================================================================================= */
+.highlight {
+  background-color: #f8f9fa; /* Light background color */
+}
+
+.highlight img {
+  transition: transform 0.3s ease;
+}
+
+.highlight img:hover {
+  transform: scale(1.1); /* Add hover effect to icons */
+}
+
+.box {
+  background-color: rgba(95, 111, 255, 1);
+  border-radius: 10px;
+  padding: 20px;
+}
+
+.btn-light {
+  background-color: #fff;
+  border: none;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.btn-light:hover {
+  background-color: #f8f9fa;
+}
+
+/* ====================================== Biography ===================================================== */
+.biography {
+  background-color: #f8f9fa; /* Light background color */
+}
+
+.biography_image {
+  border-radius: 10px; /* Rounded corners for the image */
+}
+
+@media (max-width: 768px) {
+  .biography_image {
+    height: 300px; /* Adjust image height for smaller screens */
+  }
+}
+
+/* ==================================  services ============================================================= */
+.service-image {
+  border-radius: 10px 10px 0 0; /* Rounded corners for the top of the image */
+}
+
+.card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px); /* Add hover effect */
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+.testimonial-card {
+  border: 2px dashed goldenrod; /* Dashed border for testimonials */
+}
+/* =================================================================================================================== */
 .hero_section{
   width: 100%;
 }
@@ -413,7 +504,7 @@ h2 {
 /* responsive design */
 @media (max-width: 450px) and (min-width: 200px) {
   .message-form {
-    height: fit-content;
+    height: 1000px;
   }
 }
 

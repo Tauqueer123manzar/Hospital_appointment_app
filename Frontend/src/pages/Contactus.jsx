@@ -24,7 +24,7 @@ const Contactus = () => {
                 }}>
                 </div>
             <Container fluid>
-              <Row style={{backgroundColor:"lightgray"}}>
+              <Row style={{background: '#f8f9fa'}}>
                 <h2 className='text-center mt-4' style={{fontWeight:"bold",fontFamily:"initial"}}>Get In Touch</h2>
                 <h2 className='text-center mt-2' style={{fontSize:"65px",fontWeight:"bold",fontFamily:"initial"}}>Contact Us</h2>
                 <p className='text-center mt-2' style={{fontSize:"22px",fontFamily:"initial"}}>Have questions or need more information? Reach out to us! </p>

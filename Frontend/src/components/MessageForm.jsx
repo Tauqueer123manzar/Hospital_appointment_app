@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { Container, Row, Col, Form, Button, Toast} from 'react-bootstrap';
 import axios from 'axios';
-import '../App.css'
 import { toast } from 'react-toastify';
+import '../App.css';
 const MessageForm = () => {
   const[firstname,setFirstName]=useState("");
   const[lastname,setLastname]=useState("");
@@ -34,12 +34,12 @@ const MessageForm = () => {
    }
   }
   return (
-    <Container fluid className='d-flex justify-content-center align-items-center' style={{height:'85vh'}}>
-      <div className="shadow-lg p-5 bg-white rounded mt-5 message-form" style={{ maxWidth: '700px', width: '100%',height:"90%",marginBottom:"60px"}}>
+    <Container fluid className='d-flex justify-content-center align-items-center' style={{height:'100vh'}}>
+      <div className="shadow-lg p-2 bg-white rounded message-form" style={{ maxWidth: '700px', width: '100%',height:"90%",marginBottom:"60px"}}>
         <h2 className='text-center fw-1' style={{ fontSize: "30px", fontWeight: "bold",color:"rgba(0, 126, 133, 1)"}}>Request a call back</h2>
         <Form onSubmit={handleMessage}>
-          <Row className="m-2">
-            <Col lg={6} md={4} sm={12} className='p-3'>
+          <Row className="m-1">
+            <Col lg={12} md={4} sm={12} className='p-3'>
               <Form.Group as={Col} controlId="formfname">
                 <Form.Control type="text"
                   value={firstname}
@@ -49,7 +49,7 @@ const MessageForm = () => {
               </Form.Group>
             </Col>
 
-            <Col lg={6} md={4} sm={12} className='p-3'>
+            <Col lg={12} md={4} sm={12} className='p-3'>
               <Form.Group as={Col} controlId="formlname">
                 <Form.Control type="text"
                   value={lastname}
@@ -60,8 +60,8 @@ const MessageForm = () => {
             </Col>
           </Row>
 
-          <Row className="m-2">
-            <Col lg={6} md={4} sm={12} className='p-3'>
+          <Row className="m-1">
+            <Col lg={12} md={4} sm={12} className='p-3'>
               <Form.Group as={Col} controlId="formemail">
                 <Form.Control type='text'
                   value={email}
@@ -71,7 +71,7 @@ const MessageForm = () => {
               </Form.Group>
             </Col>
 
-            <Col lg={6} md={4} sm={12} className='p-3'>
+            <Col lg={12} md={4} sm={12} className='p-3'>
               <Form.Group as={Col} controlId="formnumber">
                 <Form.Control type='number'
                   value={phonenumber}
@@ -82,12 +82,12 @@ const MessageForm = () => {
             </Col>
           </Row>
 
-          <Row className='m-2'>
+          <Row className='m-1'>
             <Col lg={12} md={12} sm={12}>
               <Form.Group controlId="textarea">
                 <Form.Control
                   as="textarea"
-                  rows={8}
+                  rows={5}
                   value={message}
                   onChange={(e)=> setMessage(e.target.value)}
                   placeholder='Write a message'
@@ -96,7 +96,7 @@ const MessageForm = () => {
             </Col>
           </Row>
 
-          <Row className='d-flex justify-content-center p-3'>
+          <Row className='d-flex justify-content-center p-3 m-1'>
             <Col xs='auto'>
               <Button variant='primary' type='submit' style={{ width: "150px" }}>
                 Send
