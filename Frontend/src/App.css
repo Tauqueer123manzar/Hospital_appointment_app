@@ -78,8 +78,13 @@
 }
 
 /* ==================================  services ============================================================= */
+
+.service-page{
+  width: 50%;
+}
+
 .service-image {
-  border-radius: 10px 10px 0 0; /* Rounded corners for the top of the image */
+  border-radius: 10px 10px 0 0;
 }
 
 .card {
@@ -87,13 +92,15 @@
 }
 
 .card:hover {
-  transform: translateY(-5px); /* Add hover effect */
+  transform: translateY(-5px); 
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
 }
 
 .testimonial-card {
-  border: 2px dashed goldenrod; /* Dashed border for testimonials */
+  border: 2px dashed goldenrod; 
 }
+
+
 /* =================================================================================================================== */
 .hero_section{
   width: 100%;
@@ -624,5 +631,42 @@ select.value-rejected {
 
   .banner {
     padding: 15px;
+  }
+}
+
+/* ======================================= Doctor Sidebar ========================================== */
+.sidebar-title {
+  font-size: 22px;
+  font-weight: bold;
+  text-align: center;
+}
+
+.sidebar-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 18px;
+  padding: 12px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.sidebar-item:hover {
+  background: rgba(0, 0, 255, 0.1);
+}
+
+.sidebar-links {
+  padding: 10px;
+}
+
+.sidebar {
+  width: 250px;
+  background: white;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+}
+
+@media (max-width: 768px) {
+  .sidebar {
+    width: 100%;
   }
 }
