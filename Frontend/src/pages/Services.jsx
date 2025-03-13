@@ -1,7 +1,7 @@
 import React from 'react'
-import { Container, Row, Col, Button, Card } from 'react-bootstrap'
-import Topbar from '../components/Topbar'
-import doctor from '../assets/Group 3.jpg'
+import { Container, Row, Col, Button, Card } from 'react-bootstrap';
+import Topbar from '../components/Topbar';
+import hospital from '../assets/hospital.jpg';
 import Ent from '../assets/ent.jpg';
 import Cardiology from '../assets/cardio.jpg';
 import Neurology from '../assets/neuro.jpg';
@@ -55,8 +55,8 @@ const Services = () => {
             </Button>
           </Col>
           <Col sm={12} lg={7} md={6} className='d-flex justify-content-center align-items-center position-relative' style={{background:"#f8f9fa"}}>
-            <img src={doctor} width={550} height={490} className='mt-5' style={{marginLeft:"950"}}/>
-            <img src={image1} width={200} height={60} className='image position-absolute' style={{ top: "400px", zIndex: 1 }} />
+            <img src={hospital} width={750} height={420} className='mt-5' style={{marginLeft:"950"}}/>
+            {/* <img src={image1} width={200} height={60} className='image position-absolute' style={{ top: "400px", zIndex: 1 }} /> */}
           </Col>
         </Row>
 
