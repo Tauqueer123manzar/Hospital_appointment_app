@@ -27,7 +27,7 @@ const Hero = ({ title, imageurl }) => {
                 fontWeight: '700',
                 fontSize: 'clamp(2rem, 5vw, 3.5rem)', // Responsive font size
                 lineHeight: '1.2',
-                marginBottom: '20px',
+                marginBottom: '20px'
               }}
             >
               {title}

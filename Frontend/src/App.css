@@ -27,6 +27,12 @@
   }
 }
 
+@media screen and (max-width: 768px) {
+  .hero_title{
+    margin-top: 60px;
+  }
+}
+
 /* ======================================================================================= */
 .highlight {
   background-color: #f8f9fa; /* Light background color */

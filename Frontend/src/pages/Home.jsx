@@ -43,7 +43,7 @@ const Home = () => {
       <Topbar />
       <Hero
         title={
-          <Typewriter
+          <Typewriter 
             words={["Welcome to EasyCare Clinic Your Trusted Healthcare Provider."]}
             loop={0}
             cursorStyle="_"
