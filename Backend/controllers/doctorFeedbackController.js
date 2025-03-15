@@ -46,7 +46,7 @@ exports.submitFeedback=catchAsyncErrors(async(req,res,next)=>{
 });
 
 // ===================================== get all feedbacks ==============================
-exports.getAllFeebacks=catchAsyncErrors(async(req,res,next)=>{
+exports.getAllFeedbacks=catchAsyncErrors(async(req,res,next)=>{
     const feedbacks=await DoctorFeedback.find();
     res.status(200).json({
         success:true,

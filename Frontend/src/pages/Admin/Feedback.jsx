@@ -16,32 +16,27 @@ const Feedback = () => {
   // Fetch feedback messages from the backend
   useEffect(() => {
     const fetchFeedback = async () => {
-      if (!adminToken) {
-        toast.error("Admin token missing! Please log in again.");
-        return;
-      }
       try {
         const response = await axios.get("http://localhost:8080/api/v1/feedback/getall", {
           withCredentials: true,
           headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer ${adminToken}`
+            Authorization: `Bearer ${adminToken}`,
           },
         });
-
-        if (response.data && response.data.messages) {
-          setData(response.data.messages);
+    
+        if (response.data && response.data.feedbacks) {
+          setData(response.data.feedbacks);
         } else {
           setData([]);
           toast.error("Unexpected API response format!");
         }
       } catch (error) {
-        console.error("Error fetching messages:", error.response);
-        toast.error(error.response?.data?.message || "Failed to fetch messages");
+        console.error("Error fetching feedbacks:", error.response);
+        toast.error(error.response?.data?.message || "Failed to fetch feedbacks");
         setData([]);
       }
     };
-
     fetchFeedback();
   }, [adminToken]);
 
@@ -86,19 +81,20 @@ const Feedback = () => {
 
   // Define columns for DataTable
   const columns = [
-    { name: "Patient", selector: (row) => row.name || "N/A", sortable: true },
-    { name: "Doctor", selector: (row) => `${row.firstname || "N/A"} ${row.lastname || ""}`, sortable: true },
-    { name: "Feedback", selector: (row) => row.Feedback || "N/A", sortable: true },
-    { name: "Message", selector: (row) => row.message || "No message", wrap: true },
-    {
-      name: "Actions",
-      cell: (row) => (
-        <Button variant="danger" onClick={() => handleDelete(row._id)}>
-          Delete
-        </Button>
-      ),
-    },
-  ];
+  { name: "Patient", selector: (row) => row.patientName || "N/A", sortable: true },
+  { name: "Doctor", selector: (row) => row.doctorId || "N/A", sortable: true }, // Doctor ID ko replace karo
+  { name: "Feedback", selector: (row) => row.feedback || "N/A", sortable: true }, // ✅ Fix: `row.Feedback` ki jagah `row.feedback`
+  { name: "Rating", selector: (row) => row.rating || "No Rating", wrap: true },
+  {
+    name: "Actions",
+    cell: (row) => (
+      <Button variant="danger" onClick={() => handleDelete(row._id)}>
+        Delete
+      </Button>
+    ),
+  },
+];
+
 
   return (
     <>
