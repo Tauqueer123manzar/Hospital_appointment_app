@@ -7,7 +7,6 @@ import { AiFillCloseCircle } from "react-icons/ai";
 import axios from "axios";
 import Sidebar from "../../components/DoctorSidebar";
 import "../../App.css";
-import '../../sidebar.css';
 import { toast } from "react-toastify";
 
 const Dashboard = () => {
@@ -77,19 +76,20 @@ const Dashboard = () => {
   };
 
   return (
-    <>
+    <div className="dashboard-wrapper">
       <Sidebar />
-      <div className="dashboard-container">
-        <h3 className="text-center mt-2 font-weight-bold">Doctor Dashboard</h3>
+      <div className="dashboard-content">
+        <h3 className="dashboard-title">Doctor Dashboard</h3>
 
-        <div className="values">
+        {/* Stats Section */}
+        <div className="stats-container">
           {[
             { icon: <FaUsers style={{ color: "blue" }} />, label: "Total Users", count: stats.totalUsers },
             { icon: <FaCalendarAlt color="pink" />, label: "Total Appointments", count: stats.totalAppointments },
             { icon: <FaCheck color="purple" />, label: "Confirm Booking", count: stats.totalConfirmedAppointments },
           ].map((item, index) => (
-            <div className="val-box mt-3" key={index}>
-              <i style={{ fontSize: "35px", fontWeight: "700", marginLeft: "20px" }}>{item.icon}</i>
+            <div className="stats-card" key={index}>
+              <div className="icon">{item.icon}</div>
               <div>
                 <span>{item.label}</span>
                 <h3>{item.count}</h3>
@@ -98,61 +98,58 @@ const Dashboard = () => {
           ))}
         </div>
 
-        <div className="banner mt-3">
-          <h3 className="font-weight-bold text-white">Manage Appointments</h3>
-          <table>
-            <thead>
-              <tr>
-                <th>Patient</th>
-                <th>Phone</th>
-                <th>Date</th>
-                <th>Doctor</th>
-                <th>Department</th>
-                <th>Status</th>
-                <th>Visited</th>
-              </tr>
-            </thead>
-            <tbody>
-              {appointments.length > 0 ? (
-                appointments.map((appointment) => (
-                  <tr key={appointment._id}>
-                    <td>{appointment.patientName || "N/A"}</td>
-                    <td>{appointment.phone || "N/A"}</td>
-                    <td>{appointment.appointment_date || "N/A"}</td>
-                    <td>{`${appointment.doctor?.firstName || "N/A"} ${appointment.doctor?.lastName || ""}`}</td>
-                    <td>{appointment.department || "N/A"}</td>
-                    <td>
-                      <select
-                        className={
-                          appointment.status === "Pending"
-                            ? "value-pending"
-                            : appointment.status === "Accepted"
-                            ? "value-accepted"
-                            : "value-rejected"
-                        }
-                        value={appointment.status}
-                        onChange={(e) => handleUpdateStatus(appointment._id, e.target.value)}
-                      >
-                        <option value="Pending" className="value-pending">Pending</option>
-                        <option value="Accepted" className="value-accepted">Accepted</option>
-                        <option value="Rejected" className="value-rejected">Rejected</option>
-                      </select>
-                    </td>
-                    <td>
-                      {appointment.hasVisited ? <GoCheckCircleFill className="green" /> : <AiFillCloseCircle className="red" />}
-                    </td>
-                  </tr>
-                ))
-              ) : (
+        {/* Appointments Table */}
+        <div className="appointments-container">
+          <h3 className="appointments-title">Manage Appointments</h3>
+          <div className="table-responsive">
+            <table>
+              <thead>
                 <tr>
-                  <td colSpan="7" className="text-center">No Appointments Found!</td>
+                  <th>Patient</th>
+                  <th>Phone</th>
+                  <th>Date</th>
+                  <th>Doctor</th>
+                  <th>Department</th>
+                  <th>Status</th>
+                  <th>Visited</th>
                 </tr>
-              )}
-            </tbody>
-          </table>
+              </thead>
+              <tbody>
+                {appointments.length > 0 ? (
+                  appointments.map((appointment) => (
+                    <tr key={appointment._id}>
+                      <td>{appointment.patientName || "N/A"}</td>
+                      <td>{appointment.phone || "N/A"}</td>
+                      <td>{appointment.appointment_date || "N/A"}</td>
+                      <td>{`${appointment.doctor?.firstName || "N/A"} ${appointment.doctor?.lastName || ""}`}</td>
+                      <td>{appointment.department || "N/A"}</td>
+                      <td>
+                        <select
+                          className={`status-dropdown ${appointment.status.toLowerCase()}`}
+                          value={appointment.status}
+                          onChange={(e) => handleUpdateStatus(appointment._id, e.target.value)}
+                        >
+                          <option value="Pending">Pending</option>
+                          <option value="Accepted">Accepted</option>
+                          <option value="Rejected">Rejected</option>
+                        </select>
+                      </td>
+                      <td>
+                        {appointment.hasVisited ? <GoCheckCircleFill className="green" /> : <AiFillCloseCircle className="red" />}
+                      </td>
+                    </tr>
+                  ))
+                ) : (
+                  <tr>
+                    <td colSpan="7" className="text-center">No Appointments Found!</td>
+                  </tr>
+                )}
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

@@ -9,22 +9,18 @@ const appointmentSchema = new mongoose.Schema({
     },
     phone: {
         type: String,
-        required: true,
         minLength: [10, "Phone number must be at least 10 characters"],
         maxLength: [12, "Phone number can be at most 12 characters"]
     },
     gender: {
         type: String,
-        required: true,
         enum: ["Male", "Female"]
     },
     appointment_date: {
-        type: String,
-        required: true
+        type: String
     },
     department: {
-        type: String,
-        required: true
+        type: String
     },
     doctor: {
         firstName: {
@@ -38,13 +34,11 @@ const appointmentSchema = new mongoose.Schema({
     },
     doctorId: {
         type: mongoose.Schema.ObjectId,
-        ref: "User",
-        required: true
+        ref: "User"
     },
     patientId: {
         type: mongoose.Schema.ObjectId,
-        ref: "User",
-        required: true
+        ref: "User"
     },
     hasVisited: {
         type: Boolean,

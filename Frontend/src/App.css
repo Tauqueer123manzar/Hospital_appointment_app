@@ -670,3 +670,98 @@ select.value-rejected {
     width: 100%;
   }
 }
+
+
+/* ======================================== Sidebar =============================================== */
+.dashboard-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.dashboard-content {
+  flex-grow: 1;
+  padding: 20px;
+}
+
+.dashboard-title {
+  text-align: center;
+  font-size: 22px;
+  margin-bottom: 20px;
+}
+
+.stats-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+}
+
+.stats-card {
+  display: flex;
+  align-items: center;
+  background: #f8f9fa;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  min-width: 150px;
+  flex: 1;
+}
+
+.icon {
+  font-size: 30px;
+  margin-right: 10px;
+}
+
+.appointments-container {
+  margin-top: 20px;
+  background: #ffffff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.table-responsive {
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th, td {
+  padding: 10px;
+  border: 1px solid #ddd;
+  text-align: center;
+}
+
+.status-dropdown {
+  padding: 5px;
+  border-radius: 4px;
+}
+
+.status-dropdown.pending {
+  background-color: yellow;
+}
+
+.status-dropdown.accepted {
+  background-color: lightgreen;
+}
+
+.status-dropdown.rejected {
+  background-color: lightcoral;
+}
+
+@media (max-width: 768px) {
+  .dashboard-wrapper {
+    flex-direction: column;
+  }
+
+  .stats-container {
+    flex-direction: column;
+  }
+
+  th, td {
+    font-size: 14px;
+  }
+}
