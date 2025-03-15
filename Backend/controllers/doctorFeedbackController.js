@@ -46,12 +46,31 @@ exports.submitFeedback=catchAsyncErrors(async(req,res,next)=>{
 });
 
 // ===================================== get all feedbacks ==============================
-exports.getAllFeedbacks=catchAsyncErrors(async(req,res,next)=>{
-    try {
-        const feedbacks = await Feedback.find().populate("doctorId", "firstName lastName");
-        res.status(200).json(feedbacks);
-    } catch (error) {
-        res.status(500).json({ error: "Error fetching feedback" });
-    }
+exports.getAllFeebacks=catchAsyncErrors(async(req,res,next)=>{
+    const feedbacks=await DoctorFeedback.find();
+    res.status(200).json({
+        success:true,
+        feedbacks
+    });
 });
+
+
+// ================================== delete feedback ==============================
+exports.deleteFeedback=catchAsyncErrors(async(req,res,next)=>{
+        const {id}=req.params;
+        const feedback=await DoctorFeedback.findByIdAndDelete(id);
+
+        if(!feedback){
+            return res.status(404).json({
+                success:false,
+                message:"Feedback not found"
+            });
+        }
+       res.status(200).json({
+           success:true,
+           message:"Feedback deleted successfully"
+       });
+});
+
+
 

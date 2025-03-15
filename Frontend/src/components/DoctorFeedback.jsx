@@ -2,12 +2,13 @@ import React, { useState, useEffect } from "react";
 import { Modal, Button, Form, Container } from "react-bootstrap";
 import { FaStar } from "react-icons/fa";
 import axios from "axios";
+import { toast } from "react-toastify";
 
 const DoctorFeedback = () => {
   const [show, setShow] = useState(false);
   const [patientName, setPatientName] = useState("");
-  const [doctor, setDoctor] = useState(""); // Stores selected doctor ID
-  const [doctors, setDoctors] = useState([]); // Stores list of doctors
+  const [selectedDoctor, setSelectedDoctor] = useState("");
+  const [doctors, setDoctors] = useState([]);
   const [rating, setRating] = useState(0);
   const [feedback, setFeedback] = useState("");
   const [hover, setHover] = useState(null);
@@ -16,23 +17,18 @@ const DoctorFeedback = () => {
     const fetchDoctors = async () => {
       try {
         const response = await axios.get("http://localhost:8080/api/v1/user/doctors");
-        console.log("Doctors API Response:", response.data); // Debugging log
-
-        if (Array.isArray(response.data)) {
-          setDoctors(response.data);
-        } else if (response.data?.doctors) {
-          setDoctors(response.data.doctors);
-        } else {
-          console.error("Unexpected API response format", response.data);
-          setDoctors([]); // Default empty array if data format is wrong
+        if (response?.status === 200) {
+          setDoctors(response.data?.doctors || []);
+          console.log("response:", response.data?.doctors);
         }
       } catch (error) {
         console.error("Error fetching doctors:", error);
-        setDoctors([]); // Set empty list on error
+        setDoctors([]);
       }
     };
 
     fetchDoctors();
+    console.log("doctors:", doctors);
   }, []);
 
   const handleClose = () => setShow(false);
@@ -41,27 +37,36 @@ const DoctorFeedback = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const selectedDoctor = doctors.find((doc) => doc._id === doctor); // Find doctor by ID
     if (!selectedDoctor) {
-      alert("Please select a valid doctor");
+      toast.error("Please select a valid doctor");
+      return;
+    }
+
+    const doctor = doctors.find((doc) => doc._id === selectedDoctor);
+    if (!doctor) {
+      toast.error("Selected doctor not found");
       return;
     }
 
     const feedbackData = {
       patientName,
-      doctorId: doctor,
-      doctorName: `${selectedDoctor.firstName} ${selectedDoctor.lastName}`, // Send doctor name
+      doctorId: doctor._id,
+      doctorName: `${doctor.firstName} ${doctor.lastName}`,
       rating,
-      feedback
+      feedback,
     };
 
     try {
       await axios.post("http://localhost:8080/api/v1/feedback/submit", feedbackData);
-      alert("Feedback submitted successfully!");
+      toast.success("Feedback submitted successfully!");
       handleClose();
+      setPatientName("");
+      setSelectedDoctor("");
+      setRating(0);
+      setFeedback("");
     } catch (error) {
       console.error("Error submitting feedback:", error);
-      alert("Error submitting feedback");
+      toast.error("Error submitting feedback");
     }
   };
 
@@ -94,29 +99,27 @@ const DoctorFeedback = () => {
               <Form.Group className="mb-3">
                 <Form.Label>Select Doctor</Form.Label>
                 <Form.Select
-                  value={doctor}
-                  onChange={(e) => setDoctor(e.target.value)}
+                  value={selectedDoctor}
+                  onChange={(e) => setSelectedDoctor(e.target.value)}
                   required
                 >
                   <option value="">Select a doctor</option>
-                  {doctors.length > 0 ? (
+                  {Array.isArray(doctors) && doctors.length > 0 &&
                     doctors.map((doc) => (
-                      <option key={doc._id} value={doc._id}>
-                        {doc.firstName} {doc.lastName}
+                      <option key={doc._id} value={doc._id} className="text-black">
+                        {doc.firstname} {doc.lastname}
                       </option>
                     ))
-                  ) : (
-                    <option disabled>No doctors available</option>
-                  )}
+                  }
                 </Form.Select>
               </Form.Group>
 
               {/* Show Selected Doctor Name */}
-              {doctor && (
+              {selectedDoctor && doctors.length > 0 && (
                 <p>
                   <strong>Selected Doctor:</strong>{" "}
-                  {doctors.find((doc) => doc._id === doctor)?.firstName}{" "}
-                  {doctors.find((doc) => doc._id === doctor)?.lastName}
+                  {doctors.find((doc) => doc._id === selectedDoctor)?.firstName}{" "}
+                  {doctors.find((doc) => doc._id === selectedDoctor)?.lastName}
                 </p>
               )}
 

@@ -21,6 +21,7 @@ import AddnewAdmin from './pages/Admin/AddnewAdmin'
 import Message from './pages/Admin/Message'
 import DoctorLogin from './pages/Doctor/DoctorLogin'
 import DoctorDashboard from './pages/Doctor/Dashboard';
+import Feedback from './pages/Admin/Feedback';
 import { ToastContainer} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import {context} from './main';
@@ -68,6 +69,7 @@ function App() {
         <Route path='/doctor/addnew' element={<AddnewDoctor/>}/>
         <Route path='/admin/addnew' element={<AddnewAdmin/>}/>
         <Route path='/messages' element={<Message/>}/>
+        <Route path='/feedback' element={<Feedback/>}/>
         <Route path='/doctor/login' element={<DoctorLogin />} />
         <Route path='/doctor/dashboard' element={<DoctorDashboard />} />
       </Routes>
