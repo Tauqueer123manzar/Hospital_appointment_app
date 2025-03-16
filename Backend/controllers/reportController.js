@@ -1,53 +1,40 @@
-const fs = require("fs");
-const PDFDocument = require("pdfkit");
-const cloudinary = require("cloudinary").v2;
-const Appointment = require("../models/AppointmentSchema");
+const Appointment=require("../models/AppointmentSchema");
+const catchAsyncErrors=require("../middlewares/catchAsyncErrors");
+// ========================================= Get Report ================================
+exports.getReport=catchAsyncErrors(async(req,res,next)=>{
+  const appointments=await Appointment.find({status:"Accepted"});
+  res.status(200).json({
+    success:true,
+    appointments
+  });
+});
 
-// Report Generate Controller
-const generateReport = async (req, res) => {
-  try {
-    const appointments = await Appointment.find();
 
-    if (appointments.length === 0) {
-      return res.status(400).json({ message: "No appointments found" });
-    }
+// ================================== date wise report ================================
+exports.dateWiseReport = catchAsyncErrors(async (req, res, next) => {
+  const { date } = req.params;
 
-    // PDF Create
-    const doc = new PDFDocument();
-    const filePath = "report.pdf";
-    const writeStream = fs.createWriteStream(filePath);
-    doc.pipe(writeStream);
-
-    doc.fontSize(18).text("Doctor Appointment Report", { align: "center" });
-    doc.moveDown();
-
-    appointments.forEach((appt, index) => {
-      doc.fontSize(12).text(
-        `${index + 1}. Patient: ${appt.patientName}, Doctor: ${appt.doctorName}, Date: ${appt.date}`
-      );
-      doc.moveDown();
-    });
-
-    doc.end();
-
-    writeStream.on("finish", async () => {
-      try {
-        const result = await cloudinary.uploader.upload(filePath, {
-          resource_type: "raw",
-        });
-
-        fs.unlinkSync(filePath); // Local file delete karna
-
-        res.json({ message: "Report generated successfully", url: result.url });
-      } catch (uploadError) {
-        console.error(uploadError);
-        res.status(500).json({ message: "Error uploading report" });
-      }
-    });
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: "Error generating report" });
+  if (!date) {
+    return res.status(400).json({ success: false, message: "Date is required" });
   }
-};
 
-module.exports = { generateReport };
+  // MongoDB me string ya Date format check karne ke liye query modify karo:
+  const appointments = await Appointment.find({
+    $or: [{ date: date }, { date: new Date(date) }]
+  });
+
+  if (appointments.length === 0) {
+    return res.status(404).json({ success: false, message: "No appointments found for this date" });
+  }
+
+console.log("Requested Date:", date);
+console.log("Appointments Found:", appointments);
+
+
+  res.status(200).json({
+    success: true,
+    appointments,
+  });
+});
+
+

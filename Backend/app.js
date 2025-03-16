@@ -35,7 +35,7 @@ app.use("/api/v1/message", MessageRouter);
 app.use("/api/v1/user",UserRouter);
 app.use("/api/v1/appointment",AppointmentRouter);
 app.use("/api/v1/feedback",doctorFeedbackRouter);
-app.use("/api/reports", reportRoutes);
+app.use("/api/v1/reports", reportRoutes);
 app.use(Errormiddleware);
 
   

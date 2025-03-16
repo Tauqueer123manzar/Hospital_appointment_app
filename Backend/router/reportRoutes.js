@@ -1,8 +1,12 @@
-const express = require("express");
-const { generateReport } = require("../controllers/reportController");
+const express=require("express");
+const {getReport,dateWiseReport}=require("../controllers/reportController");
 
-const router = express.Router();
+const router=express.Router();
 
-router.get("/generate-report", generateReport);
+router.get("/getreport",getReport);
 
-module.exports = router;
+router.get("/getreport/:date",dateWiseReport);
+
+module.exports=router;
+
+

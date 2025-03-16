@@ -82,8 +82,8 @@ const Feedback = () => {
   // Define columns for DataTable
   const columns = [
   { name: "Patient", selector: (row) => row.patientName || "N/A", sortable: true },
-  { name: "Doctor", selector: (row) => row.doctorId || "N/A", sortable: true }, // Doctor ID ko replace karo
-  { name: "Feedback", selector: (row) => row.feedback || "N/A", sortable: true }, // ✅ Fix: `row.Feedback` ki jagah `row.feedback`
+  { name: "Doctor", selector: (row) => `${row.firstname} ${row.lastname}`|| "N/A", sortable: true },
+  { name: "Feedback", selector: (row) => row.feedback || "N/A", sortable: true },
   { name: "Rating", selector: (row) => row.rating || "No Rating", wrap: true },
   {
     name: "Actions",

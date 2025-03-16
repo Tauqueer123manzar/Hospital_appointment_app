@@ -8,6 +8,7 @@ import axios from "axios";
 import Sidebar from "../../components/Sidebar";
 import "../../App.css";
 import { toast } from "react-toastify";
+import DataTable from "react-data-table-component";
 
 const Dashboard = () => {
   const { isAuthenticated } = useContext(context);
@@ -16,7 +17,7 @@ const Dashboard = () => {
   const [totalUsers, setTotalUsers] = useState(0);
   const [totalAppointments, setTotalAppointments] = useState(0);
   const [totalDoctors, setTotalDoctors] = useState(0);
-  const [totalConfirmedAppointments,setTotalConfirmedAppointments]=useState(0);
+  const [totalConfirmedAppointments, setTotalConfirmedAppointments] = useState(0);
   const [appointments, setAppointments] = useState([]);
 
   useEffect(() => {
@@ -25,66 +26,29 @@ const Dashboard = () => {
       return;
     }
 
-    // fetch get All Users
-    const fetchUsers = async () => {
+    const fetchData = async () => {
       try {
-        const res = await axios.get("http://localhost:8080/api/v1/user/getallusers");
-        setTotalUsers(res.data.users.length);
-      } catch (error) {
-        console.error("Error fetching users:", error);
-      }
-    };
+        const [usersRes, appointmentsRes, doctorsRes, confirmedRes] = await Promise.all([
+          axios.get("http://localhost:8080/api/v1/user/getallusers"),
+          axios.get("http://localhost:8080/api/v1/appointment/getall"),
+          axios.get("http://localhost:8080/api/v1/user/doctors"),
+          axios.get("http://localhost:8080/api/v1/appointment/confirmed", { withCredentials: true }),
+        ]);
 
-    // fetch get all appointments
-    const fetchAppointments = async () => {
-      try {
-        const res = await axios.get("http://localhost:8080/api/v1/appointment/getall");
-        setTotalAppointments(res.data.appointments.length);
-        setAppointments(res.data.appointments);
-      } catch (error) {
-        console.error("Error fetching appointments:", error);
-      }
-    };
-
-    // fetch get all doctors
-    const fetchDoctors = async () => {
-      try {
-        const res = await axios.get("http://localhost:8080/api/v1/user/doctors");
-        setTotalDoctors(res.data.doctors.length);
-      } catch (error) {
-        console.error("Error fetching doctors:", error);
-      }
-    };
-
-    // fetch all confirmed appointments
-    const fetchConfirmedAppointments = async () => {
-      try {
-        const { data } = await axios.get("http://localhost:8080/api/v1/appointment/confirmed", {
-          withCredentials: true,
-        });
-    
-        if (data.success) {
-          setTotalConfirmedAppointments(data.appointments.length);
-        } else {
-          console.error("No confirmed appointments found");
+        setTotalUsers(usersRes.data.users.length);
+        setTotalAppointments(appointmentsRes.data.appointments.length);
+        setAppointments(appointmentsRes.data.appointments);
+        setTotalDoctors(doctorsRes.data.doctors.length);
+        if (confirmedRes.data.success) {
+          setTotalConfirmedAppointments(confirmedRes.data.appointments.length);
         }
       } catch (error) {
-        console.error("Error fetching confirmed appointments:", error.response?.data || error.message);
+        console.error("Error fetching data:", error);
       }
     };
-    
 
-    fetchUsers();
-    fetchAppointments();
-    fetchDoctors();
-    fetchConfirmedAppointments();
-    const interval = setInterval(() => {
-      fetchUsers();
-      fetchAppointments();
-      fetchDoctors();
-      fetchConfirmedAppointments();
-    }, 10000);
-
+    fetchData();
+    const interval = setInterval(fetchData, 10000);
     return () => clearInterval(interval);
   }, [isAuthenticated, navigateTo]);
 
@@ -100,136 +64,94 @@ const Dashboard = () => {
           appointment._id === id ? { ...appointment, status: data.appointment.status } : appointment
         )
       );
-  
+
       toast.success(data.message || "Appointment status updated successfully");
     } catch (error) {
-      console.error("Update status error:", error.response?.data || error.message);
       toast.error(error.response?.data?.message || "Failed to update appointment status");
     }
   };
-  
+
+  const columns = [
+    { name: "Patient", selector: (row) => row.patientName || "N/A", sortable: true },
+    { name: "Phone", selector: (row) => row.phone || "N/A", sortable: true },
+    { name: "Date", selector: (row) => row.appointment_date || "N/A", sortable: true },
+    {
+      name: "Doctor",
+      selector: (row) => `${row.doctor?.firstName || "N/A"} ${row.doctor?.lastName || ""}`,
+      sortable: true,
+    },
+    { name: "Department", selector: (row) => row.department || "N/A", sortable: true },
+    {
+      name: "Status",
+      cell: (row) => (
+        <select
+          className={`status-select ${
+            row.status === "Pending"
+              ? "value-pending"
+              : row.status === "Accepted"
+              ? "value-accepted"
+              : "value-rejected"
+          }`}
+          value={row.status}
+          onChange={(e) => handleUpdateStatus(row._id, e.target.value)}
+        >
+          <option value="Pending">Pending</option>
+          <option value="Accepted">Accepted</option>
+          <option value="Rejected">Rejected</option>
+        </select>
+      ),
+    },
+    {
+      name: "Visited",
+      cell: (row) =>
+        row.hasVisited ? <GoCheckCircleFill className="green" /> : <AiFillCloseCircle className="red" />,
+      center: true,
+    },
+  ];
+
   return (
     <>
       <Sidebar />
-      <div
-        style={{
-          backgroundColor: "rgb(45, 193, 226)",
-          width: "100%",
-          height: "100vh",
-          overflowY: "scroll",
-        }}
-      >
-        <h3 className="text-center mt-2 font-weight-bold" style={{ marginLeft: "280px", color: "white" }}>
-          Admin Dashboard
-        </h3>
+      <div className="dashboard-container">
+        <h3 className="text-center dashboard-title">Admin Dashboard</h3>
 
-        <div className="values">
-          <div className="value mt-3">
-            <div className="val-box">
-              <i style={{ fontSize: "35px", fontWeight: "700", marginLeft: "20px" }}>
-                <FaUsers style={{ color: "blue" }} />
-              </i>
-              <div>
-                <span>Total Users</span>
-                <h3>{totalUsers}</h3>
-              </div>
+        <div className="stats-container">
+          <div className="stat-box">
+            <FaUsers className="stat-icon blue" />
+            <div>
+              <span>Total Users</span>
+              <h3>{totalUsers}</h3>
             </div>
+          </div>
 
-            <div className="val-box">
-              <i style={{ fontSize: "35px", fontWeight: "700", marginLeft: "20px" }}>
-                <FaCalendarAlt color="pink" />
-              </i>
-              <div>
-                <span>Total Appointments</span>
-                <h3>{totalAppointments}</h3>
-              </div>
+          <div className="stat-box">
+            <FaCalendarAlt className="stat-icon pink" />
+            <div>
+              <span>Total Appointments</span>
+              <h3>{totalAppointments}</h3>
             </div>
+          </div>
 
-            <div className="val-box">
-              <i style={{ fontSize: "35px", fontWeight: "700", marginLeft: "20px" }}>
-                <FaCheck color="purple" />
-              </i>
-              <div>
-                <span>Confirm Booking</span>
-                <h3>{totalConfirmedAppointments}</h3>
-              </div>
+          <div className="stat-box">
+            <FaCheck className="stat-icon purple" />
+            <div>
+              <span>Confirmed Appointments</span>
+              <h3>{totalConfirmedAppointments}</h3>
             </div>
+          </div>
 
-            <div className="val-box">
-              <i style={{ fontSize: "35px", fontWeight: "700", marginLeft: "20px" }}>
-                <FaUsers />
-              </i>
-              <div>
-                <span>Registered Doctors</span>
-                <h3>{totalDoctors}</h3>
-              </div>
+          <div className="stat-box">
+            <FaUsers className="stat-icon green" />
+            <div>
+              <span>Registered Doctors</span>
+              <h3>{totalDoctors}</h3>
             </div>
           </div>
         </div>
 
-        <div className="banner mt-3" style={{ marginLeft: "270px",marginRight:"20px"}}>
-          <h3 className="font-weight-bold text-white">Manage Appointments</h3>
-          <table>
-            <thead>
-              <tr>
-                <th>Patient</th>
-                <th>Phone</th>
-                <th>Date</th>
-                <th>Doctor</th>
-                <th>Department</th>
-                <th>Status</th>
-                <th>Visited</th>
-              </tr>
-            </thead>
-            <tbody>
-              {appointments.length > 0 ? (
-                appointments.map((appointment) => (
-                  <tr key={appointment._id}>
-                    <td>{appointment.patientName || "N/A"}</td>
-                    <td>{appointment.phone || "N/A"}</td>
-                    <td>{appointment.appointment_date|| "N/A"}</td>
-                    <td>{`${appointment.doctor?.firstName || "N/A"} ${appointment.doctor?.lastName || ""}`}</td>
-                    <td>{appointment.department || "N/A"}</td>
-                    <td>
-                      <select
-                        className={
-                          appointment.status === "Pending"
-                            ? "value-pending"
-                            : appointment.status === "Accepted"
-                            ? "value-accepted"
-                            : "value-rejected"
-                        }
-                        value={appointment.status}
-                        onChange={(e) => handleUpdateStatus(appointment._id, e.target.value)}
-                      >
-                        <option value="Pending" className="value-pending">
-                          Pending
-                        </option>
-                        <option value="Accepted" className="value-accepted">
-                          Accepted
-                        </option>
-                        <option value="Rejected" className="value-rejected">
-                          Rejected
-                        </option>
-                      </select>
-                    </td>
-                    <td>
-                      {appointment.hasVisited ? (
-                        <GoCheckCircleFill className="green" />
-                      ) : (
-                        <AiFillCloseCircle className="red" />
-                      )}
-                    </td>
-                  </tr>
-                ))
-              ) : (
-                <tr>
-                  <td colSpan="7" className="text-center">No Appointments Found!</td>
-                </tr>
-              )}
-            </tbody>
-          </table>
-
+        <div className="appointment-table">
+          <h3 className="table-title">Manage Appointments</h3>
+          <DataTable columns={columns} data={appointments} pagination responsive striped highlightOnHover />
         </div>
       </div>
     </>
@@ -237,4 +159,3 @@ const Dashboard = () => {
 };
 
 export default Dashboard;
-
