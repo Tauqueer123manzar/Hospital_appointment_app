@@ -50,8 +50,7 @@ const DoctorFeedback = () => {
 
     const feedbackData = {
       patientName,
-      doctorId: doctor._id,
-      doctorName: `${doctor.firstName} ${doctor.lastName}`,
+      doctorId:doctor._id,
       rating,
       feedback,
     };
@@ -107,7 +106,7 @@ const DoctorFeedback = () => {
                   {Array.isArray(doctors) && doctors.length > 0 &&
                     doctors.map((doc) => (
                       <option key={doc._id} value={doc._id} className="text-black">
-                        {doc.firstname} {doc.lastname}
+                        {doc.firstName} {doc.lastName}
                       </option>
                     ))
                   }
