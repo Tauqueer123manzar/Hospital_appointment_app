@@ -36,6 +36,7 @@ const DoctorFeedback = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    // console.log("Form submitted", patientName, selectedDoctor, rating, feedback);
 
     if (!selectedDoctor) {
       toast.error("Please select a valid doctor");
