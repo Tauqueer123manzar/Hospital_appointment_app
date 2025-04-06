@@ -10,6 +10,7 @@ const AppointmentRouter=require("./router/AppointmentRouter");
 const doctorFeedbackRouter=require("./router/doctorFeedbackRoutes");
 const reportRoutes=require("./router/reportRoutes");
 const connectDb=require('./database/dbconnection');
+const chatbotRoutes = require("./router/chatbotRoutes");
 const router=express.Router();
 dotenv.config({ path: "./config/.env" });
 const app = express();
@@ -36,6 +37,7 @@ app.use("/api/v1/user",UserRouter);
 app.use("/api/v1/appointment",AppointmentRouter);
 app.use("/api/v1/feedback",doctorFeedbackRouter);
 app.use("/api/v1/reports", reportRoutes);
+app.use("/api",chatbotRoutes);
 app.use(Errormiddleware);
 
   

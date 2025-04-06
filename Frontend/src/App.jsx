@@ -30,6 +30,7 @@ import {context} from './main';
 // import axios from 'axios'
 import './App.css'
 import DoctorFeedback from './components/DoctorFeedback'
+// import Chatbot from './pages/Chatbot'
 function App() {
   const {isAuthenticated,setIsAuthenticated}=useContext(context);
 
