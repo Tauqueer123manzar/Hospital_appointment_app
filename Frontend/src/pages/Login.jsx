@@ -105,22 +105,6 @@ const Login = () => {
                 </Col>
               </Row>
 
-              {/* <Row className='d-flex justify-content-center'>
-                <Col xs={12}>
-                  <Form.Group className='mb-3 p-2' controlId='confirmPassword'>
-                    <Form.Control
-                      required
-                      type='password'
-                      name='confirmPassword'
-                      value={formdata.confirmPassword}
-                      onChange={handleChange}
-                      placeholder='Confirm Password'
-                      style={{ padding: '12px' }}
-                    />
-                  </Form.Group>
-                </Col>
-              </Row> */}
-
               <p className='text-center'>
                 Not registered?{' '}
                 <a href='/register' className='text-decoration-none'>

@@ -1,101 +1,185 @@
-import React, { useState } from 'react';
-import { Form, Card, ListGroup, Col, Row, Image,Container } from 'react-bootstrap';
-import image from '../assets/Tauqueer Image.jpg';
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
+import { Container, Card, Row, Col, Badge } from 'react-bootstrap';
+import { toast } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
+import { FiUser, FiMail, FiPhone, FiCalendar, FiAward } from 'react-icons/fi';
+import { FaTransgenderAlt } from 'react-icons/fa';
 import Topbar from '../components/Topbar';
-import GenerateReport from '../components/GenerateReport';
+import '../App.css';
+
 const MyProfile = () => {
-  // State for storing user profile, appointments, and prescriptions
-  const [profile, setProfile] = useState({
-    name: 'Md Tauqueer Manzar',
-    city: 'Hyderabad',
-    profilePicture: image
-  });
+  const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
 
-  const [appointments, setAppointments] = useState([
-    { id: 1, appointmentName: 'General Checkup', doctorName: 'Dr. Ahmed', date: '2024-09-30' },
-    { id: 2, appointmentName: 'Dermatology', doctorName: 'Dr. Sultana', date: '2024-10-05' }
-  ]);
-
-  const [prescriptions, setPrescriptions] = useState([]);
-
-  // Handle Profile Picture Upload
-  const handleProfilePictureChange = (e) => {
-    setProfile({ ...profile, profilePicture: URL.createObjectURL(e.target.files[0]) });
+  const fetchProfile = async () => {
+    try {
+      setLoading(true);
+      const { data } = await axios.get("http://localhost:8080/api/v1/user/me", {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`
+        }
+      });
+      setUser(data.user);
+    } catch (error) {
+      toast.error(error.response?.data?.message || "Error fetching profile");
+      if (error.response?.status === 401) {
+        navigate('/login');
+      }
+    } finally {
+      setLoading(false);
+    }
   };
 
-  // Handle Prescription Upload
-  const handlePrescriptionUpload = (e) => {
-    const newPrescription = URL.createObjectURL(e.target.files[0]);
-    setPrescriptions([...prescriptions, newPrescription]);
-  };
+  useEffect(() => {
+    fetchProfile();
+  }, []);
 
+  const formatDate = (dateString) => {
+    // Try to parse the input date
+    let date;
+    
+    if (dateString) {
+      date = new Date(dateString);
+      // If valid date, return formatted string
+      if (!isNaN(date.getTime())) {
+        return date.toLocaleDateString('en-US', {
+          year: 'numeric',
+          month: 'long',
+          day: 'numeric'
+        });
+      }
+    }
+    
+    // If no valid date, generate a default (account creation date)
+    const defaultDate = new Date(); // Current date as default
+    return defaultDate.toLocaleDateString('en-US', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric'
+    }) + ' (default)';
+  };
   return (
     <>
-    <Topbar/>
-    <Container fluid>
-    <div className="container mt-5">
-      {/* Profile Section */}
-      <Card className="mb-4" style={{marginTop:"100px"}}>
-        <Card.Header>My Profile</Card.Header>
-        <Card.Body>
-          <Row>
-            <Col md={3}>
-              {profile.profilePicture ? (
-                <Image src={profile.profilePicture} roundedCircle width="150" height="150" />
-              ) : (
-                <Image src="default-profile.png" roundedCircle width="150" height="150" />
-              )}
-              <Form.Group controlId="formFile" className="mt-3">
-                <Form.Label>Upload Profile Picture</Form.Label>
-                <Form.Control type="file" onChange={handleProfilePictureChange} />
-              </Form.Group>
-            </Col>
-            <Col md={9}>
-              <h4>{profile.name}</h4>
-              <p>{profile.city}</p>
-            </Col>
-            <Col md={3} className='mt-3' style={{ display: 'flex', alignItems: 'center' }}>
-              <GenerateReport/>
-            </Col>
-          </Row>
-        </Card.Body>
-      </Card>
+      <Topbar />
+      
+      <div className="profile-hero">
+        <Container>
+          <div className="profile-avatar">
+            <div className="avatar-circle">
+              {user?.firstname?.charAt(0).toUpperCase()}
+              {user?.lastname?.charAt(0).toUpperCase()}
+            </div>
+          </div>
+        </Container>
+      </div>
 
-      {/* Appointment Records Section */}
-      <Card className="mb-4">
-        <Card.Header>Appointment Records</Card.Header>
-        <Card.Body>
-          <ListGroup variant="flush">
-            {appointments.map(appointment => (
-              <ListGroup.Item key={appointment.id}>
-                <strong>{appointment.appointmentName}</strong> with {appointment.doctorName} on {appointment.date}
-              </ListGroup.Item>
-            ))}
-          </ListGroup>
-        </Card.Body>
-      </Card>
+      <Container className="profile-container">
+        <div className="profile-header text-center mb-5">
+          <h1 className="profile-name">
+            {user?.firstname} {user?.lastname}
+          </h1>
+          <Badge pill bg="primary" className="role-badge">
+            {user?.role || 'Member'}
+          </Badge>
+        </div>
 
-      {/* Prescription Upload Section */}
-      <Card className="mb-4">
-        <Card.Header>Upload Prescriptions</Card.Header>
-        <Card.Body>
-          <Form.Group controlId="prescriptionUpload">
-            <Form.Label>Upload Prescription</Form.Label>
-            <Form.Control type="file" onChange={handlePrescriptionUpload} />
-          </Form.Group>
+        {loading ? (
+          <div className="text-center py-5">
+            <div className="spinner-border text-primary" role="status">
+              <span className="visually-hidden">Loading...</span>
+            </div>
+          </div>
+        ) : user ? (
+          <Card className="profile-card">
+            <Card.Body>
+              <Row>
+                <Col md={6} className="mb-4">
+                  <div className="info-section">
+                    <h4 className="section-title">
+                      <FiUser className="me-2" />
+                      Personal Information
+                    </h4>
+                    <div className="info-item">
+                      <span className="info-label">Full Name</span>
+                      <span className="info-value">
+                        {user.firstname} {user.lastname}
+                      </span>
+                    </div>
+                    <div className="info-item">
+                      <span className="info-label">
+                        <FaTransgenderAlt className="me-1" />
+                        Gender
+                      </span>
+                      <span className="info-value">
+                        {user.gender || 'Not specified'}
+                      </span>
+                    </div>
+                  </div>
+                </Col>
 
-          {/* Display uploaded prescriptions */}
-          <Row className="mt-3">
-            {prescriptions.map((prescription, index) => (
-              <Col md={4} key={index} className="mb-3">
-                <Image src={prescription} thumbnail />
-              </Col>
-            ))}
-          </Row>
-        </Card.Body>
-      </Card>
-    </div>
-    </Container>
+                <Col md={6} className="mb-4">
+                  <div className="info-section">
+                    <h4 className="section-title">
+                      <FiMail className="me-2" />
+                      Contact Information
+                    </h4>
+                    <div className="info-item">
+                      <span className="info-label">Email Address</span>
+                      <span className="info-value">{user.email}</span>
+                    </div>
+                    <div className="info-item">
+                      <span className="info-label">
+                        <FiPhone className="me-1" />
+                        Phone Number
+                      </span>
+                      <span className="info-value">
+                        {user.phone || 'Not provided'}
+                      </span>
+                    </div>
+                  </div>
+                </Col>
+              </Row>
+
+              <Row>
+                <Col md={12}>
+                  <div className="info-section">
+                    <h4 className="section-title">
+                      <FiAward className="me-2" />
+                      Account Information
+                    </h4>
+                    <div className="info-grid">
+                      <div className="info-item">
+                        <span className="info-label">Account Type</span>
+                        <span className="info-value">
+                          <Badge bg="secondary">{user.role}</Badge>
+                        </span>
+                      </div>
+                      <div className="info-item">
+                        <span className="info-label">
+                          <FiCalendar className="me-1" />
+                          Member Since
+                        </span>
+                        <span className="info-value">
+                          {formatDate(user?.createdAt)}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </Col>
+              </Row>
+            </Card.Body>
+          </Card>
+        ) : (
+          <Card className="text-center py-5">
+            <Card.Body>
+              <h4>No profile data available</h4>
+            </Card.Body>
+          </Card>
+        )}
+      </Container>
     </>
   );
 };
