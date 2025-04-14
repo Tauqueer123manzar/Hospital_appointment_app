@@ -8,5 +8,3 @@ router.get("/getreport",getReport);
 router.get("/getreport/:date",dateWiseReport);
 
 module.exports=router;
-
-

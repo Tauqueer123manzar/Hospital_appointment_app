@@ -6,7 +6,7 @@ exports.submitFeedback=catchAsyncErrors(async(req,res,next)=>{
     try {
         const {patientName,doctorId,rating,feedback}=req.body;
         
-        //validate rating
+       
         if(rating<1 || rating>5){
             return res.status(400).json({
                 success:false,
@@ -14,7 +14,7 @@ exports.submitFeedback=catchAsyncErrors(async(req,res,next)=>{
             })
         }
 
-        // check if doctor exists
+       
         const doctorExists=await User.findById(doctorId);
         if(!doctorExists){
             return res.status(400).json({
@@ -23,7 +23,7 @@ exports.submitFeedback=catchAsyncErrors(async(req,res,next)=>{
             });
         }
 
-        //create new feedback entry
+       
         const feedbackEntry=new DoctorFeedback({
             patientName,
             doctorId,

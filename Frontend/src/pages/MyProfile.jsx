@@ -44,34 +44,32 @@ const MyProfile = () => {
 
   // ⬆️ Upload prescription
   const handlePrescriptionUpload = async () => {
-    if (!file) return toast.error("Please select a file");
-
+    if (!file) {
+      toast.error("Please select a file first.");
+      return;
+    }
+  
     const formData = new FormData();
-    formData.append("file", file);
-    console.log(file);
-
-    setUploading(true);
+    formData.append("prescription", file);
+  
     try {
-      const { data } = await axios.post("http://localhost:8080/api/upload", formData);
-
-      setPrescriptionUrl(data.url);
-
-      // 🔄 Update prescription on server
-      await axios.put("http://localhost:8080/api/v1/user/update-prescription",
-        { prescription: data.url },
-        {
-          headers: { Authorization: `Bearer ${localStorage.getItem("token")}` }
+      setUploading(true);
+      const res = await axios.post("http://localhost:8080/api/uploadprescription", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data"
         }
-      );
-
+      });
+  
+      setPrescriptionUrl(res.data.url); // Update this depending on your API's response
       toast.success("Prescription uploaded successfully!");
     } catch (err) {
-      toast.error("Upload failed!");
+      console.error("Upload Error:", err);
+      toast.error("Failed to upload prescription");
     } finally {
       setUploading(false);
     }
   };
-
+   
   // 📅 Format joined date
   const formatDate = (date) => {
     if (!date) return 'Not Available';

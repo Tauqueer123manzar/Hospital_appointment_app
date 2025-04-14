@@ -3,15 +3,14 @@ import { context } from '../main';
 import { useNavigate } from 'react-router-dom';
 import { toast } from "react-toastify";
 import { Navbar, Offcanvas, Nav, Button } from 'react-bootstrap';
-import { 
-  FiHome, 
-  FiUser, 
-  FiFileText, 
-  FiMessageSquare, 
-  FiLogOut,
-  FiMenu 
+import {
+  FiHome,
+  FiUser,
+  FiFileText,
+  FiMessageSquare,
+  FiMenu,
+  FiLogOut
 } from 'react-icons/fi';
-import '../App.css';
 
 const DoctorSidebar = () => {
   const [show, setShow] = useState(false);
@@ -19,10 +18,11 @@ const DoctorSidebar = () => {
   const navigateTo = useNavigate();
 
   const handleLogout = () => {
+    console.log("Logout clicked"); // Debug log
     try {
-      toast.success("Logged out successfully");
       localStorage.clear();
       setIsAuthenticated(false);
+      toast.success("Logged out successfully");
       navigateTo("/doctor/login");
     } catch (error) {
       toast.error("Logout failed");
@@ -30,12 +30,21 @@ const DoctorSidebar = () => {
   };
 
   const menuItems = [
-    { icon: <FiHome size={20} />, name: "Dashboard", action: () => navigateTo("/doctor/dashboard") },
-    { icon: <FiUser size={20} />, name: "Profile", action: () => navigateTo("/doctorprofile") },
-    { icon: <FiFileText size={20} />, name: "Reports", action: () => navigateTo("/reports") },
-    { icon: <FiMessageSquare size={20} />, name: "Messages", action: () => navigateTo("/chats") },
-    { icon: <FiLogOut size={20} />, name: "Logout", action: handleLogout },
+    { icon: <FiHome size={20} />, name: "Dashboard", path: "/doctor/dashboard" },
+    { icon: <FiUser size={20} />, name: "Profile", path: "/doctorprofile" },
+    { icon: <FiFileText size={20} />, name: "Reports", path: "/reports" },
+    { icon: <FiMessageSquare size={20} />, name: "Messages", path: "/chats" },
+    
   ];
+
+  const sidebarItemStyle = {
+    display: "flex",
+    alignItems: "center",
+    padding: "10px 20px",
+    borderRadius: "5px",
+    cursor: "pointer",
+    color: "#000",
+  };
 
   return (
     isAuthenticated && (
@@ -44,8 +53,8 @@ const DoctorSidebar = () => {
         <Navbar className="bg-white shadow-sm p-2 d-md-none fixed-top">
           <div className="d-flex justify-content-between w-100 align-items-center">
             <span className="text-primary fw-bold">EASY CARE</span>
-            <Button 
-              variant="outline-primary" 
+            <Button
+              variant="outline-primary"
               onClick={() => setShow(true)}
               className="border-0"
             >
@@ -55,55 +64,68 @@ const DoctorSidebar = () => {
         </Navbar>
 
         {/* Desktop Sidebar */}
-        <div className="d-none d-md-block sidebar-desktop bg-white shadow">
-          <div className="sidebar-header p-4">
+        <div className="d-none d-md-block position-fixed" style={{
+          width: '240px',
+          height: '100vh',
+          backgroundColor: '#fff',
+          boxShadow: '2px 0 5px rgba(0,0,0,0.1)',
+          paddingTop: '60px'
+        }}>
+          <div className="p-4">
             <h4 className="text-primary fw-bold">EASY CARE</h4>
             <small className="text-muted">Doctor Portal</small>
           </div>
           <Nav className="flex-column px-3">
             {menuItems.map((item, index) => (
-              <Nav.Link 
-                key={index} 
-                className="sidebar-item py-3 px-3 my-1 rounded"
-                onClick={item.action}
+              <div
+                key={index}
+                style={sidebarItemStyle}
+                onClick={() => navigateTo(item.path)}
               >
-                <div className="d-flex align-items-center">
-                  <span className="sidebar-icon me-3">{item.icon}</span>
-                  <span className="sidebar-text">{item.name}</span>
-                </div>
-              </Nav.Link>
+                <span className="me-3">{item.icon}</span>
+                <span>{item.name}</span>
+              </div>
             ))}
+            <div
+              style={{ ...sidebarItemStyle, color: "red", marginTop: "20px" }}
+              onClick={handleLogout}
+            >
+              <span className="me-3"><FiLogOut size={20} /></span>
+              <span>Logout</span>
+            </div>
           </Nav>
         </div>
 
         {/* Mobile Offcanvas Sidebar */}
-        <Offcanvas 
-          show={show} 
-          onHide={() => setShow(false)} 
-          responsive="md"
-          className="sidebar-mobile"
-          placement="start"
-        >
-          <Offcanvas.Header closeButton className="border-bottom">
+        <Offcanvas show={show} onHide={() => setShow(false)} placement="start">
+          <Offcanvas.Header closeButton>
             <Offcanvas.Title className="text-primary fw-bold">EASY CARE</Offcanvas.Title>
           </Offcanvas.Header>
-          <Offcanvas.Body className="p-0">
+          <Offcanvas.Body>
             <Nav className="flex-column">
               {menuItems.map((item, index) => (
-                <Nav.Link 
-                  key={index} 
-                  className="sidebar-item py-3 px-4"
-                  onClick={() => { 
-                    item.action(); 
-                    setShow(false); 
+                <div
+                  key={index}
+                  style={sidebarItemStyle}
+                  onClick={() => {
+                    navigateTo(item.path);
+                    setShow(false);
                   }}
                 >
-                  <div className="d-flex align-items-center">
-                    <span className="sidebar-icon me-3">{item.icon}</span>
-                    <span className="sidebar-text">{item.name}</span>
-                  </div>
-                </Nav.Link>
+                  <span className="me-3">{item.icon}</span>
+                  <span>{item.name}</span>
+                </div>
               ))}
+              <div
+                style={{ ...sidebarItemStyle, color: "red", marginTop: "20px" }}
+                onClick={() => {
+                  handleLogout();
+                  setShow(false);
+                }}
+              >
+                <span className="me-3"><FiLogOut size={20} /></span>
+                <span>Logout</span>
+              </div>
             </Nav>
           </Offcanvas.Body>
         </Offcanvas>

@@ -4,6 +4,7 @@ const ErrorHandler = require("../middlewares/Errorhandler");
 const { GenerateToken } = require("../utils/jwtToken");
 const mongoose=require("mongoose");
 const cloudinary = require("cloudinary");
+const Appointment = require("../models/AppointmentSchema");
 // ==================================== Patient Register ============================================
 exports.PatientRegister = catchAsyncErrors(async (req, res, next) => {
     const { firstname, lastname, email, phone, gender, password, role, } = req.body;
@@ -312,3 +313,65 @@ exports.updateDoctorProfile = catchAsyncErrors(async (req, res, next) => {
     });
 });
 
+// ============================== doctor wise appointment ===================================
+exports.getDoctorTotalAppointments=catchAsyncErrors(async(req,res,next)=>{
+    const {id}=req.params;
+    const appointments=await Appointment.find({doctor:id});
+    if(!appointments){
+        return next(new ErrorHandler("No appointments found for this doctor",404));
+    }
+    res.status(200).json({
+        success:true,
+        appointments
+    });
+});
+
+// ======================================= doctor wise confirmed appointments =========================
+exports.getDoctorConfirmedAppointments = catchAsyncErrors(async (req, res, next) => {
+    const { id } = req.params;
+    const appointments = await Appointment.find({ doctor: id, status: "Accepted" });
+
+    if (!appointments || appointments.length === 0) {
+        return next(new ErrorHandler("No confirmed appointments found", 404));
+    }
+
+    res.status(200).json({
+        success: true,
+        count: appointments.length,
+        appointments,
+    });
+});
+
+
+// ======================================= doctor wise rejected appointments =========================
+exports.getDoctorRejectedAppointments = catchAsyncErrors(async (req, res, next) => {
+    const { id } = req.params;
+    const appointments = await Appointment.find({ doctor: id, status: "Rejected" });
+
+    if (!appointments || appointments.length === 0) {
+        return next(new ErrorHandler("No rejected appointments found", 404));
+    }
+
+    res.status(200).json({
+        success: true,
+        count: appointments.length,
+        appointments,
+    });
+});
+
+
+// ======================================= doctor wise pending appointments =========================
+exports.getDoctorPendingAppointments = catchAsyncErrors(async (req, res, next) => {
+    const { id } = req.params;
+    const appointments = await Appointment.find({ doctor: id, status: "Pending" });
+
+    if (!appointments || appointments.length === 0) {
+        return next(new ErrorHandler("No pending appointments found", 404));
+    }
+
+    res.status(200).json({
+        success: true,
+        count: appointments.length,
+        appointments,
+    });
+});
