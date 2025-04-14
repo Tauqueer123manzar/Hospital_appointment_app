@@ -634,43 +634,6 @@ select.value-rejected {
   }
 }
 
-/* ======================================= Doctor Sidebar ========================================== */
-.sidebar-title {
-  font-size: 22px;
-  font-weight: bold;
-  text-align: center;
-}
-
-.sidebar-item {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  font-size: 18px;
-  padding: 12px;
-  cursor: pointer;
-  transition: background 0.3s ease;
-}
-
-.sidebar-item:hover {
-  background: rgba(0, 0, 255, 0.1);
-}
-
-.sidebar-links {
-  padding: 10px;
-}
-
-.sidebar {
-  width: 250px;
-  background: white;
-  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
-}
-
-@media (max-width: 768px) {
-  .sidebar {
-    width: 100%;
-  }
-}
-
 
 /* ======================================== Sidebar =============================================== */
 .dashboard-wrapper {

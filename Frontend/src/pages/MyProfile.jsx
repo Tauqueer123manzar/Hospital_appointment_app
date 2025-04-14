@@ -3,7 +3,10 @@ import axios from 'axios';
 import { Container, Card, Row, Col, Badge, Button, Form } from 'react-bootstrap';
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
-import { FiUser, FiMail, FiPhone, FiCalendar, FiAward, FiUpload, FiFileText } from 'react-icons/fi';
+import {
+  FiUser, FiMail, FiPhone, FiCalendar,
+  FiAward, FiUpload, FiFileText
+} from 'react-icons/fi';
 import { FaTransgenderAlt } from 'react-icons/fa';
 import Topbar from '../components/Topbar';
 import '../App.css';
@@ -16,48 +19,48 @@ const MyProfile = () => {
   const [uploading, setUploading] = useState(false);
   const navigate = useNavigate();
 
-  const fetchProfile = async () => {
-    try {
-      setLoading(true);
-      const { data } = await axios.get("http://localhost:8080/api/v1/user/me", {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${localStorage.getItem("token")}`
-        }
-      });
-      setUser(data.user);
-      setPrescriptionUrl(data.user.prescription || '');
-    } catch (error) {
-      toast.error(error.response?.data?.message || "Error fetching profile");
-      if (error.response?.status === 401) {
-        navigate('/login');
+  // 🔁 Fetch user profile
+  useEffect(() => {
+    const fetchProfile = async () => {
+      try {
+        const { data } = await axios.get("http://localhost:8080/api/v1/user/me", {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("token")}`
+          }
+        });
+        setUser(data.user);
+        setPrescriptionUrl(data.user.prescription || '');
+      } catch (error) {
+        toast.error(error.response?.data?.message || "Error fetching profile");
+        if (error.response?.status === 401) navigate('/login');
+      } finally {
+        setLoading(false);
       }
-    } finally {
-      setLoading(false);
-    }
-  };
+    };
 
+    fetchProfile();
+  }, [navigate]);
+
+  // ⬆️ Upload prescription
   const handlePrescriptionUpload = async () => {
     if (!file) return toast.error("Please select a file");
 
     const formData = new FormData();
     formData.append("file", file);
+    console.log(file);
 
     setUploading(true);
     try {
-      const { data } = await axios.post("http://localhost:8080/api/upload", formData, {
-        headers: { "Content-Type": "multipart/form-data" },
-      });
+      const { data } = await axios.post("http://localhost:8080/api/upload", formData);
+
       setPrescriptionUrl(data.url);
 
-      // Update prescription URL in the user profile on the server
-      await axios.put(
-        "http://localhost:8080/api/v1/user/update-prescription",
+      // 🔄 Update prescription on server
+      await axios.put("http://localhost:8080/api/v1/user/update-prescription",
         { prescription: data.url },
         {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
+          headers: { Authorization: `Bearer ${localStorage.getItem("token")}` }
         }
       );
 
@@ -69,29 +72,14 @@ const MyProfile = () => {
     }
   };
 
-  const formatDate = (dateString) => {
-    let date;
-    if (dateString) {
-      date = new Date(dateString);
-      if (!isNaN(date.getTime())) {
-        return date.toLocaleDateString('en-US', {
-          year: 'numeric',
-          month: 'long',
-          day: 'numeric'
-        });
-      }
-    }
-    const defaultDate = new Date();
-    return defaultDate.toLocaleDateString('en-US', {
-      year: 'numeric',
-      month: 'long',
-      day: 'numeric'
-    }) + ' (default)';
+  // 📅 Format joined date
+  const formatDate = (date) => {
+    if (!date) return 'Not Available';
+    const d = new Date(date);
+    return isNaN(d.getTime()) ? 'Invalid Date' : d.toLocaleDateString('en-US', {
+      year: 'numeric', month: 'long', day: 'numeric'
+    });
   };
-
-  useEffect(() => {
-    fetchProfile();
-  }, []);
 
   return (
     <>
@@ -100,8 +88,8 @@ const MyProfile = () => {
         <Container>
           <div className="profile-avatar">
             <div className="avatar-circle">
-              {user?.firstname?.charAt(0).toUpperCase()}
-              {user?.lastname?.charAt(0).toUpperCase()}
+              {user?.firstname?.[0]?.toUpperCase()}
+              {user?.lastname?.[0]?.toUpperCase()}
             </div>
           </div>
         </Container>
@@ -109,9 +97,7 @@ const MyProfile = () => {
 
       <Container className="profile-container">
         <div className="profile-header text-center mb-5">
-          <h1 className="profile-name">
-            {user?.firstname} {user?.lastname}
-          </h1>
+          <h1 className="profile-name">{user?.firstname} {user?.lastname}</h1>
           <Badge pill bg="primary" className="role-badge">
             {user?.role || 'Member'}
           </Badge>
@@ -154,10 +140,7 @@ const MyProfile = () => {
                     <p>No prescription uploaded</p>
                   )}
                   <Form.Group className="mt-3">
-                    <Form.Label>
-                      <FiUpload className="me-2" />
-                      Upload New Prescription
-                    </Form.Label>
+                    <Form.Label><FiUpload className="me-2" /> Upload New Prescription</Form.Label>
                     <Form.Control
                       type="file"
                       accept="application/pdf"
@@ -166,7 +149,7 @@ const MyProfile = () => {
                     />
                     {uploading && <div className="mt-2 text-primary">Uploading...</div>}
                   </Form.Group>
-                  <Button onClick={handlePrescriptionUpload} disabled={uploading}>
+                  <Button onClick={handlePrescriptionUpload} disabled={uploading} className="mt-2">
                     {uploading ? "Uploading..." : "Upload Prescription"}
                   </Button>
                 </Col>

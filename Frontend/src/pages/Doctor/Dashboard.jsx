@@ -7,7 +7,8 @@ import {
   FaCheck, 
   FaClock,
   FaUserMd,
-  FaHistory
+  FaHistory,
+  FaBars
 } from "react-icons/fa";
 import { 
   GoCheckCircleFill,
@@ -16,13 +17,13 @@ import {
 import { AiFillCloseCircle } from "react-icons/ai";
 import DataTable from 'react-data-table-component';
 import axios from "axios";
-import Sidebar from "../../components/DoctorSidebar";
-import "../../App.css";
 import { toast } from "react-toastify";
-
-const Dashboard = () => {
+// import "../../DoctorDashboard.css";
+const DoctorDashboard = () => {
   const { isAuthenticated, user } = useContext(context);
   const navigateTo = useNavigate();
+  const [sidebarOpen, setSidebarOpen] = useState(true);
+  const [mobileSidebarOpen, setMobileSidebarOpen] = useState(false);
 
   const [stats, setStats] = useState({
     totalAppointments: 0,
@@ -116,6 +117,7 @@ const Dashboard = () => {
       name: 'Patient',
       selector: row => row.patientName || 'N/A',
       sortable: true,
+      cell: row => <span className="fw-semibold">{row.patientName || 'N/A'}</span>
     },
     {
       name: 'Phone',
@@ -125,10 +127,16 @@ const Dashboard = () => {
       name: 'Date & Time',
       selector: row => row.appointment_date || 'N/A',
       sortable: true,
+      cell: row => (
+        <span className="text-primary">
+          {new Date(row.appointment_date).toLocaleString()}
+        </span>
+      )
     },
     {
       name: 'Department',
       selector: row => row.department || 'N/A',
+      cell: row => <span className="badge bg-secondary">{row.department || 'N/A'}</span>
     },
     {
       name: 'Status',
@@ -137,9 +145,10 @@ const Dashboard = () => {
           <span className="badge bg-success">Completed</span>
         ) : (
           <select
-            className={`form-select status-select ${row.status.toLowerCase()}`}
+            className={`form-select form-select-sm status-select ${row.status.toLowerCase()}`}
             value={row.status}
             onChange={(e) => handleUpdateStatus(row._id, e.target.value)}
+            disabled={row.hasVisited}
           >
             <option value="Pending">Pending</option>
             <option value="Accepted">Accepted</option>
@@ -159,33 +168,96 @@ const Dashboard = () => {
     },
   ];
 
+  const toggleSidebar = () => {
+    setSidebarOpen(!sidebarOpen);
+  };
+
+  const toggleMobileSidebar = () => {
+    setMobileSidebarOpen(!mobileSidebarOpen);
+  };
+
   return (
-    <div className="dashboard-container">
-      <Sidebar />
+    <div className={`dashboard-container ${sidebarOpen ? 'sidebar-open' : 'sidebar-collapsed'}`}>
+      {/* Mobile Sidebar Toggle */}
+      <button 
+        className="mobile-sidebar-toggle btn btn-primary"
+        onClick={toggleMobileSidebar}
+      >
+        <FaBars />
+      </button>
+
+      {/* Sidebar */}
+      <div className={`sidebar doctor-sidebar ${mobileSidebarOpen ? 'mobile-open' : ''}`}>
+        <div className="sidebar-header">
+          <h3>Doctor Panel</h3>
+        </div>
+        <ul className="sidebar-menu">
+          <li className="active">
+            <a href="#">
+              <FaUserMd className="icon" />
+              <span>Dashboard</span>
+            </a>
+          </li>
+          <li>
+            <a href="#">
+              <FaCalendarAlt className="icon" />
+              <span>Appointments</span>
+            </a>
+          </li>
+          <li>
+            <a href="#">
+              <FaUsers className="icon" />
+              <span>Patients</span>
+            </a>
+          </li>
+          <li>
+            <a href="#">
+              <FaHistory className="icon" />
+              <span>History</span>
+            </a>
+          </li>
+        </ul>
+        <div className="sidebar-footer">
+          <button className="btn btn-sm btn-outline-light">
+            <span>Logout</span>
+          </button>
+        </div>
+      </div>
       
+      {/* Main Content */}
       <div className="main-content">
         {/* Header */}
         <div className="dashboard-header">
-          <h2 className="welcome-title">
-            Welcome, Dr. {user?.firstName} {user?.lastName}
-          </h2>
-          <p className="welcome-subtitle">
-            <GoCalendar className="me-2" />
-            Today is {new Date().toLocaleDateString('en-US', { 
-              weekday: 'long', 
-              year: 'numeric', 
-              month: 'long', 
-              day: 'numeric' 
-            })}
-          </p>
+          <div className="header-left">
+            <button 
+              className="sidebar-toggle btn btn-link"
+              onClick={toggleSidebar}
+            >
+              <FaBars />
+            </button>
+            <h2 className="welcome-title">
+              Welcome, Dr. {user?.firstName} {user?.lastName}
+            </h2>
+          </div>
+          <div className="header-right">
+            <p className="welcome-subtitle">
+              <GoCalendar className="me-2" />
+              {new Date().toLocaleDateString('en-US', { 
+                weekday: 'long', 
+                year: 'numeric', 
+                month: 'long', 
+                day: 'numeric' 
+              })}
+            </p>
+          </div>
         </div>
 
         {/* Stats Cards */}
         <div className="row stats-row">
-          <div className="col-md-3">
-            <div className="stat-card bg-primary-light">
+          <div className="col-xl-3 col-md-6 mb-4">
+            <div className="stat-card total-appointments">
               <div className="stat-icon">
-                <FaCalendarAlt className="text-primary" />
+                <FaCalendarAlt />
               </div>
               <div className="stat-info">
                 <h3>{stats.totalAppointments}</h3>
@@ -193,10 +265,10 @@ const Dashboard = () => {
               </div>
             </div>
           </div>
-          <div className="col-md-3">
-            <div className="stat-card bg-warning-light">
+          <div className="col-xl-3 col-md-6 mb-4">
+            <div className="stat-card pending-appointments">
               <div className="stat-icon">
-                <FaClock className="text-warning" />
+                <FaClock />
               </div>
               <div className="stat-info">
                 <h3>{stats.pendingAppointments}</h3>
@@ -204,10 +276,10 @@ const Dashboard = () => {
               </div>
             </div>
           </div>
-          <div className="col-md-3">
-            <div className="stat-card bg-success-light">
+          <div className="col-xl-3 col-md-6 mb-4">
+            <div className="stat-card confirmed-appointments">
               <div className="stat-icon">
-                <FaCheck className="text-success" />
+                <FaCheck />
               </div>
               <div className="stat-info">
                 <h3>{stats.confirmedAppointments}</h3>
@@ -215,10 +287,10 @@ const Dashboard = () => {
               </div>
             </div>
           </div>
-          <div className="col-md-3">
-            <div className="stat-card bg-info-light">
+          <div className="col-xl-3 col-md-6 mb-4">
+            <div className="stat-card completed-appointments">
               <div className="stat-icon">
-                <FaHistory className="text-info" />
+                <FaHistory />
               </div>
               <div className="stat-info">
                 <h3>{stats.completedAppointments}</h3>
@@ -229,59 +301,70 @@ const Dashboard = () => {
         </div>
 
         {/* Appointments Section */}
-        <div className="appointments-section">
-          <div className="section-header">
-            <h3>Appointments Management</h3>
+        <div className="appointments-section card">
+          <div className="card-header">
+            <h3 className="card-title">Appointments Management</h3>
             <div className="filter-buttons">
               <button 
-                className={`btn ${filter === 'all' ? 'btn-primary' : 'btn-outline-primary'}`}
+                className={`btn btn-sm ${filter === 'all' ? 'btn-primary' : 'btn-outline-primary'}`}
                 onClick={() => setFilter('all')}
               >
                 All
               </button>
               <button 
-                className={`btn ${filter === 'pending' ? 'btn-primary' : 'btn-outline-primary'}`}
+                className={`btn btn-sm ${filter === 'pending' ? 'btn-primary' : 'btn-outline-primary'}`}
                 onClick={() => setFilter('pending')}
               >
                 Pending
               </button>
               <button 
-                className={`btn ${filter === 'confirmed' ? 'btn-primary' : 'btn-outline-primary'}`}
+                className={`btn btn-sm ${filter === 'confirmed' ? 'btn-primary' : 'btn-outline-primary'}`}
                 onClick={() => setFilter('confirmed')}
               >
                 Confirmed
               </button>
               <button 
-                className={`btn ${filter === 'completed' ? 'btn-primary' : 'btn-outline-primary'}`}
+                className={`btn btn-sm ${filter === 'completed' ? 'btn-primary' : 'btn-outline-primary'}`}
                 onClick={() => setFilter('completed')}
               >
                 Completed
               </button>
             </div>
           </div>
-
-          <div className="appointments-table">
+          <div className="card-body">
             <DataTable
               columns={columns}
               data={filteredAppointments}
               pagination
               progressPending={loading}
-              noDataComponent={<div className="py-4">No appointments found</div>}
+              noDataComponent={
+                <div className="py-4 text-center text-muted">
+                  No appointments found
+                </div>
+              }
               customStyles={{
                 headCells: {
                   style: {
                     backgroundColor: '#f8f9fa',
                     fontWeight: '600',
+                    fontSize: '14px',
+                  },
+                },
+                cells: {
+                  style: {
+                    fontSize: '14px',
                   },
                 },
                 rows: {
                   style: {
                     '&:hover': {
-                      backgroundColor: '#f8f9fa',
+                      backgroundColor: '#f8f9fa!important',
                     },
                   },
                 },
               }}
+              paginationPerPage={10}
+              paginationRowsPerPageOptions={[10, 25, 50]}
             />
           </div>
         </div>
@@ -290,4 +373,4 @@ const Dashboard = () => {
   );
 };
 
-export default Dashboard;
+export default DoctorDashboard;
