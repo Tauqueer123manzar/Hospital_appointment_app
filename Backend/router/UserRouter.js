@@ -1,4 +1,4 @@
-const {PatientRegister,loginRegister,addnewAdmin, getallDoctors, getUserDetails, adminLogout, patientLogout, addnewDoctor,DoctorRegister,getDoctorById, getallUsers,getMyProfile} = require("../controllers/userController");
+const {PatientRegister,loginRegister,addnewAdmin, getallDoctors, getUserDetails, adminLogout, patientLogout, addnewDoctor,DoctorRegister,getDoctorById, getallUsers,getMyProfile,updatePrescription} = require("../controllers/userController");
 const express = require("express");
 const router = express.Router();
 const {isAdminAuthenticated,isPatientAuthenticated}=require("../middlewares/auth");
@@ -15,7 +15,7 @@ router.get("/admin/logout",isAdminAuthenticated,adminLogout);
 router.get("/patient/logout",isPatientAuthenticated,patientLogout);
 router.post("/doctor/addnew", isAdminAuthenticated, addnewDoctor);
 router.post("/register",DoctorRegister);
-
+router.put("/update-prescription",isPatientAuthenticated,updatePrescription);
 router.get('/me', isPatientAuthenticated, getMyProfile);
 
 // router.get("/me",getMyProfile);

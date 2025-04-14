@@ -3,16 +3,9 @@ const Appointment=require("../models/AppointmentSchema");
 const catchAsyncErrors = require("../middlewares/catchAsyncErrors");
 const ErrorHandler = require("../middlewares/Errorhandler");
 const User=require("../models/UserSchema");
-const twilio=require("twilio");
 const dotenv=require("dotenv");
 dotenv.config({path:"./config/.env"});
 
-
-// ==================================== Twilio Credentials ==============================
-//  const accountSid=process.env.TWILIO_ACCOUNT_SID;
-//  const authToken=process.env.TWILIO_AUTH_TOKEN;
-//  const twilioClient=twilio(accountSid,authToken);
-//  const twilioNumber=process.env.TWILIO_PHONE_NUMBER;
 
 // =========================== POST APPOINTMENT ===========================
 exports.postAppointment = catchAsyncErrors(async (req, res, next) => {
@@ -142,24 +135,3 @@ exports.getAllConfirmedAppointments = async (req, res, next) => {
     }
   };
   
-// ================================ sendAppointmentStatusMessage =========================================
-// exports.sendAppointmentStatusMessage = async (req, res, next) => {
-//     try {
-//         const message=await twilioClient.messages.create({
-//             body:`Hello ${req.body.patientName}, your appointment status has been updated to: ${req.body.status}. Thank you for using our services.`,
-//             from:twilioNumber,
-//             to:`+91${req.body.phone}` 
-//         });
-//         console.log("Message Sent Successfully",message.sid);
-//         res.status(200).json({
-//             success:true,
-//             message:"Message Sent Successfully"
-//         })
-//     } catch (error) {
-//         console.error("Error Sending Message:",error);
-//         res.status(500).json({
-//             success:false,
-//             message:"Internal Server Error"
-//         });
-//     };
-// }

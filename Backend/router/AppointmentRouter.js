@@ -10,7 +10,6 @@ router.get("/getall",getAllAppointments,isAdminAuthenticated);
 router.get("/getall:id",getAllAppointments,isAdminAuthenticated);
 router.put("/appointments/:id/status", updateAppointmentStatus);
 router.get("/confirmed",getAllConfirmedAppointments);
-// router.post("/notifications",sendAppointmentStatusMessage);
 module.exports = router;
 
 

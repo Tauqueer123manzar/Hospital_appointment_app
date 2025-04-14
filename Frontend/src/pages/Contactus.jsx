@@ -8,7 +8,6 @@ import { IoLocationSharp } from "react-icons/io5";
 import { GrEmergency } from "react-icons/gr";
 import { IoTime } from "react-icons/io5";
 import { IoCall } from "react-icons/io5";
-import GenerateReport from '../components/GenerateReport';
 const Contactus = () => {
     return (
         <>

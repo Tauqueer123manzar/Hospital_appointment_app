@@ -74,7 +74,6 @@ const Topbar = () => {
                   {isAuthenticated ? (
                     <>
                       <Dropdown.Item href="/myprofile">My Profile</Dropdown.Item>
-                      <Dropdown.Item href='/report'>Report</Dropdown.Item>
                       <Dropdown.Item onClick={() => setShowChatbot(true)}>Chat With Us</Dropdown.Item>
                       <Dropdown.Item onClick={handlelogout}>Logout</Dropdown.Item>
                     </>

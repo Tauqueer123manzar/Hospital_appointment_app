@@ -248,5 +248,26 @@ exports.getMyProfile = catchAsyncErrors(async (req, res, next) => {
     });
   });
 
+// ===================================update prescription ========================================
+exports.updatePrescription = catchAsyncErrors(async (req, res, next) => {
+    try {
+        const user=await User.findById(req.user.id);
+        if(!user){
+            return next(new ErrorHandler("User not found",404));
+        }
+        user.prescription=req.body.prescription;
+        await user.save();
+        res.status(200).json({
+            success:true,
+            message:"Prescription updated successfully",
+            prescription:user.prescription
+        });
+    } catch (error) {
+        return next(new ErrorHandler("Failed to update prescription", 500));
+    }
+});
+
+
+
 
 

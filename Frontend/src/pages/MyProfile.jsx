@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { Container, Card, Row, Col, Badge } from 'react-bootstrap';
+import { Container, Card, Row, Col, Badge, Button, Form } from 'react-bootstrap';
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
-import { FiUser, FiMail, FiPhone, FiCalendar, FiAward } from 'react-icons/fi';
+import { FiUser, FiMail, FiPhone, FiCalendar, FiAward, FiUpload, FiFileText } from 'react-icons/fi';
 import { FaTransgenderAlt } from 'react-icons/fa';
 import Topbar from '../components/Topbar';
 import '../App.css';
@@ -11,6 +11,9 @@ import '../App.css';
 const MyProfile = () => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [file, setFile] = useState(null);
+  const [prescriptionUrl, setPrescriptionUrl] = useState('');
+  const [uploading, setUploading] = useState(false);
   const navigate = useNavigate();
 
   const fetchProfile = async () => {
@@ -23,6 +26,7 @@ const MyProfile = () => {
         }
       });
       setUser(data.user);
+      setPrescriptionUrl(data.user.prescription || '');
     } catch (error) {
       toast.error(error.response?.data?.message || "Error fetching profile");
       if (error.response?.status === 401) {
@@ -33,17 +37,42 @@ const MyProfile = () => {
     }
   };
 
-  useEffect(() => {
-    fetchProfile();
-  }, []);
+  const handlePrescriptionUpload = async () => {
+    if (!file) return toast.error("Please select a file");
+
+    const formData = new FormData();
+    formData.append("file", file);
+
+    setUploading(true);
+    try {
+      const { data } = await axios.post("http://localhost:8080/api/upload", formData, {
+        headers: { "Content-Type": "multipart/form-data" },
+      });
+      setPrescriptionUrl(data.url);
+
+      // Update prescription URL in the user profile on the server
+      await axios.put(
+        "http://localhost:8080/api/v1/user/update-prescription",
+        { prescription: data.url },
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
+
+      toast.success("Prescription uploaded successfully!");
+    } catch (err) {
+      toast.error("Upload failed!");
+    } finally {
+      setUploading(false);
+    }
+  };
 
   const formatDate = (dateString) => {
-    // Try to parse the input date
     let date;
-    
     if (dateString) {
       date = new Date(dateString);
-      // If valid date, return formatted string
       if (!isNaN(date.getTime())) {
         return date.toLocaleDateString('en-US', {
           year: 'numeric',
@@ -52,19 +81,21 @@ const MyProfile = () => {
         });
       }
     }
-    
-    // If no valid date, generate a default (account creation date)
-    const defaultDate = new Date(); // Current date as default
+    const defaultDate = new Date();
     return defaultDate.toLocaleDateString('en-US', {
       year: 'numeric',
       month: 'long',
       day: 'numeric'
     }) + ' (default)';
   };
+
+  useEffect(() => {
+    fetchProfile();
+  }, []);
+
   return (
     <>
       <Topbar />
-      
       <div className="profile-hero">
         <Container>
           <div className="profile-avatar">
@@ -97,77 +128,47 @@ const MyProfile = () => {
             <Card.Body>
               <Row>
                 <Col md={6} className="mb-4">
-                  <div className="info-section">
-                    <h4 className="section-title">
-                      <FiUser className="me-2" />
-                      Personal Information
-                    </h4>
-                    <div className="info-item">
-                      <span className="info-label">Full Name</span>
-                      <span className="info-value">
-                        {user.firstname} {user.lastname}
-                      </span>
-                    </div>
-                    <div className="info-item">
-                      <span className="info-label">
-                        <FaTransgenderAlt className="me-1" />
-                        Gender
-                      </span>
-                      <span className="info-value">
-                        {user.gender || 'Not specified'}
-                      </span>
-                    </div>
-                  </div>
+                  <h4><FiUser className="me-2" /> Personal Information</h4>
+                  <p><strong>Full Name:</strong> {user.firstname} {user.lastname}</p>
+                  <p><strong><FaTransgenderAlt className="me-1" /> Gender:</strong> {user.gender || 'Not specified'}</p>
                 </Col>
-
                 <Col md={6} className="mb-4">
-                  <div className="info-section">
-                    <h4 className="section-title">
-                      <FiMail className="me-2" />
-                      Contact Information
-                    </h4>
-                    <div className="info-item">
-                      <span className="info-label">Email Address</span>
-                      <span className="info-value">{user.email}</span>
-                    </div>
-                    <div className="info-item">
-                      <span className="info-label">
-                        <FiPhone className="me-1" />
-                        Phone Number
-                      </span>
-                      <span className="info-value">
-                        {user.phone || 'Not provided'}
-                      </span>
-                    </div>
-                  </div>
+                  <h4><FiMail className="me-2" /> Contact Information</h4>
+                  <p><strong>Email:</strong> {user.email}</p>
+                  <p><strong><FiPhone className="me-1" /> Phone:</strong> {user.phone || 'Not provided'}</p>
                 </Col>
               </Row>
-
               <Row>
-                <Col md={12}>
-                  <div className="info-section">
-                    <h4 className="section-title">
-                      <FiAward className="me-2" />
-                      Account Information
-                    </h4>
-                    <div className="info-grid">
-                      <div className="info-item">
-                        <span className="info-label">Account Type</span>
-                        <span className="info-value">
-                          <Badge bg="secondary">{user.role}</Badge>
-                        </span>
-                      </div>
-                      <div className="info-item">
-                        <span className="info-label">
-                          <FiCalendar className="me-1" />
-                          Member Since
-                        </span>
-                        <span className="info-value">
-                          {formatDate(user?.createdAt)}
-                        </span>
-                      </div>
-                    </div>
-                  </div>
+                <Col md={6}>
+                  <h4><FiAward className="me-2" /> Account Info</h4>
+                  <p><strong>Role:</strong> <Badge bg="secondary">{user.role}</Badge></p>
+                  <p><strong><FiCalendar className="me-1" /> Joined:</strong> {formatDate(user.createdAt)}</p>
+                </Col>
+                <Col md={6}>
+                  <h4><FiFileText className="me-2" /> Prescription</h4>
+                  {prescriptionUrl ? (
+                    <a href={prescriptionUrl} target="_blank" rel="noreferrer">
+                      View Uploaded Prescription
+                    </a>
+                  ) : (
+                    <p>No prescription uploaded</p>
+                  )}
+                  <Form.Group className="mt-3">
+                    <Form.Label>
+                      <FiUpload className="me-2" />
+                      Upload New Prescription
+                    </Form.Label>
+                    <Form.Control
+                      type="file"
+                      accept="application/pdf"
+                      onChange={(e) => setFile(e.target.files[0])}
+                      disabled={uploading}
+                    />
+                    {uploading && <div className="mt-2 text-primary">Uploading...</div>}
+                  </Form.Group>
+                  <Button onClick={handlePrescriptionUpload} disabled={uploading}>
+                    {uploading ? "Uploading..." : "Upload Prescription"}
+                  </Button>
                 </Col>
               </Row>
             </Card.Body>
