@@ -6,9 +6,9 @@ import { GoCheckCircleFill } from "react-icons/go";
 import { AiFillCloseCircle } from "react-icons/ai";
 import axios from "axios";
 import Sidebar from "../../components/Sidebar";
-import "../../App.css";
 import { toast } from "react-toastify";
 import DataTable from "react-data-table-component";
+import "../../App.css";
 
 const Dashboard = () => {
   const { isAuthenticated } = useContext(context);

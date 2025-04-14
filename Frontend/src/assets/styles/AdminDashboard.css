@@ -1,0 +1,483 @@
+/* ==================================== Admin Dashboard ======================================== */
+.sidebar{
+    position: fixed;
+    width: 300px;
+    background-color: #1836dd;
+    display: flex;
+    flex-direction: column;
+    top: 0;
+    left: 0;
+    height: 100%;
+    align-items: center;
+    color: #18d7dd;
+    padding: 30px 0;
+  }
+  .sidebar .links{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    gap: 35px;
+    cursor: pointer;
+  }
+  .items {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px 0;
+    width: 300px;
+    transition: background-color 0.3s ease, transform 0.3s ease-in-out;
+  }
+  .items:hover {
+    background-color: #fff;
+    transform: scale(1.0);
+  }
+  
+  .items svg {
+    font-size: 40px;
+    color: #18d7dd;
+    transition: color 0.3s ease;
+  }
+  
+  .items:hover svg {
+    color: #1836dd; /* Change icon color on hover */
+  }
+  .values{
+    margin-left: 310px;
+    margin-top: -10px;
+    padding: 20px;
+  }
+  .value{
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+  }
+  
+  .values .val-box{
+   width: 300px;
+   height: 100px;
+   display: flex;
+   justify-content: flex-start;
+   padding: 15px 15px 10px 0;
+   background: #ffffff;
+   border-radius: 5px;
+  }
+  .values .val-box span,h3{
+    font-size: 20px;
+    font-weight: 600;
+    margin-left: 40px;
+  }
+  .values .val-box i{
+    font-size: 65px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: cadetblue;
+  }
+  
+  table{
+    border-collapse: collapse;
+  }
+  tr{
+    border-bottom: 1px solid #d7dbe6;
+  }
+  thead td{
+    font-size: 14px;
+    text-transform: uppercase;
+    font-weight: 400;
+    background: #F9FAFB;
+    text-align: start;
+    padding: 15px;
+  }
+  tbody tr td{
+    padding: 10px 15px;
+  }
+  .active p{
+    background: #8ff59b;
+    padding: 2px 10px;
+    display: inline-block;
+    border-radius: 40px;
+    color: #2b2b2b;
+  }
+  .edit a{
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 600;
+    color: #6019bd;
+  }
+  
+  .dashboard-container {
+    padding: 20px;
+    background-color: #f8f9fa;
+  }
+  
+  h2 {
+    margin-bottom: 20px;
+  }
+  
+  .table {
+    border-radius: 8px;
+  }
+  
+  .badge {
+    font-size: 0.9rem;
+  }
+  
+  
+  @media (max-width: 477px) {
+    .button {
+      display: flex;
+      justify-content: center;
+      width: 100%;
+      margin-top: 5px;
+    }
+  }
+  .box{
+    width: 100%;
+    max-height: 200vh;
+  }
+  .box-1{
+    width: 100%;
+    max-height: 300vh;
+    background-color: rgb(205, 205, 205);
+  }
+  .home:hover{
+    border-bottom: 2px solid rgb(0, 34, 255);
+  }
+  .about:hover{
+    border-bottom: 2px solid rgb(0, 34, 255);
+  }
+  .appointment:hover{
+    border-bottom: 2px solid rgb(0, 34, 255);
+  }
+  .service:hover{
+     border-bottom: 2px solid rgb(0, 34, 255);
+  }
+  .contact:hover{
+     border-bottom: 2px solid rgb(0, 34, 255);
+  }
+  .alldoctor:hover{
+    border-bottom: 2px solid rgb(0, 34, 255);
+  }
+  .servicecard{
+    display: flex;
+    flex-direction: column;
+    margin-left: 50px;
+    height: 100%;
+    width: 375px;
+    transition: transform 0.3s ease-in-out;
+  }
+  .servicecard:hover{
+    transform: scale(1.05);
+    cursor: pointer;
+  }
+  .service-image{
+    object-fit: cover;
+    width: 100%;
+    height: 300px;
+  }
+  .doctorcard {
+    display: flex;
+    flex-direction: column;
+    height: 350px;
+    width: 100%;
+    transition: transform 0.3s ease-in-out;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* ====================== card style ======================== */
+  /* General Styling */
+  .title {
+    font-family: 'Poppins', sans-serif;
+    font-size: 24px;
+    font-weight: bold;
+    color: #00796b;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+  
+  .subtitle {
+    font-family: 'Poppins', sans-serif;
+    font-size: 16px;
+    color: #666;
+    margin-bottom: 20px;
+  }
+  
+  /* Doctor Card Styling */
+  .doctor-card {
+    cursor: pointer;
+    border-radius: 12px;
+    overflow: hidden;
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+    border: none;
+  }
+  
+  .doctor-card:hover {
+    transform: translateY(-10px);
+    /* box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.2); */
+  }
+  
+  /* Image Container */
+  .img-container {
+    overflow: hidden;
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
+  }
+  .doctor-card .card{
+    border-radius: 12px;
+    width: 350px;
+  }
+  .doctor-img {
+    height: 280px;
+    width: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease-in-out;
+  }
+  
+  .doctor-card:hover .doctor-img {
+    transform: scale(1.08);
+  }
+  
+  /* Card Body */
+  .doctor-card-body {
+    /* text-align: center; */
+    height:230px;
+    /* width: 400px; */
+    padding: 15px;
+    margin: auto;
+    background-color: #f9f9f9;
+  }
+  
+  /* Doctor Name */
+  .doctor-name {
+    color: #00796b;
+    font-weight: bold;
+    font-size: 18px;
+    /* display: flex;
+    align-items: center;
+    justify-content: center; */
+    gap: 8px;
+  }
+  
+  .status-icon {
+    font-size: 10px;
+    color: lightgreen;
+  }
+  
+  /* Additional Info */
+  .doctor-info {
+    font-size: 14px;
+    color: #444;
+    margin-top: 5px;
+    font-weight: 500;
+  }
+  
+  /* Show More Button */
+  .show-more-btn {
+    background: linear-gradient(45deg, #00796b, #009688);
+    border: none;
+    padding: 12px 25px;
+    font-size: 16px;
+    font-weight: bold;
+    color: white;
+    border-radius: 8px;
+  }
+  
+  .show-more-btn:hover {
+    background: linear-gradient(45deg, #009688, #00796b);
+  }
+  
+  /* =================== ended================ */
+  .image-wrapper {
+    height: 250px;
+    background-color: rgba(0, 179, 255, 0.2);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-bottom: 2px solid lightgray;
+  }
+  
+  .doctorimage {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease-in-out;
+    background-color: rgba(0, 179, 255, 0.1);
+  }
+  
+  .doctorcard:hover {
+    transform: scale(1.08);
+    cursor: pointer;
+  }
+  
+  .doctorcard:hover .doctorimage {
+    transform: scale(1.05); 
+  }
+  
+  .card {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .card-img-top {
+    border-radius: 10px 10px 0 0;
+  }
+  
+  .card-title {
+    font-size: 1.4rem;
+    font-weight: bold;
+  }
+  
+  .card-subtitle {
+    font-size: 1.1rem;
+    color: #6c757d;
+  }
+  
+  .card-text {
+    font-size: 0.95rem;
+  }
+  
+  .box1:hover{
+     transform: scale(1.05);
+     transition: cubic-bezier(0.165, 0.84, 0.44, 1) 0.3s;
+     cursor: pointer;
+  }
+  @media (max-width: 1200px) {
+    .doctorcard {
+      height: 380px;
+    }
+  }
+  
+  @media (max-width: 992px) {
+    .doctorcard {
+      height: 360px;
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .doctorcard {
+      height: 400px;
+    }
+  }
+  
+  /* responsive design */
+  @media (max-width: 450px) and (min-width: 200px) {
+    .message-form {
+      height: 1000px;
+    }
+  }
+  
+  /*anwar*/
+  .heighlight{
+    background-color: blue;
+    color: white;
+    padding: 12px 20px;
+  }
+  /* 
+  /* Dashboard page */
+  
+  /* .banner {
+    background-color: #4810b8;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  } */
+  
+  .banner h3 {
+    font-weight: bold;
+    margin-bottom: 15px;
+    text-align: center;
+    color: #343a40;
+  }
+  
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #fff;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  thead {
+    background-color: #007bff;
+    color: white;
+  }
+  
+  th, td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #dee2e6;
+  }
+  
+  th {
+    font-weight: bold;
+  }
+  
+  tbody tr:hover {
+    background-color: #f1f1f1;
+  }
+  
+  .value-pending {
+    color: #ffcc00;
+    font-weight: bold;
+  }
+  
+  .value-accepted {
+    color: #28a745;
+    font-weight: bold;
+  }
+  
+  .value-rejected {
+    color: #dc3545;
+    font-weight: bold;
+  }
+  
+  select {
+    padding: 5px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    cursor: pointer;
+  }
+  
+  select.value-pending {
+    background-color: #fff9c4;
+  }
+  
+  select.value-accepted {
+    background-color: #c8e6c9;
+  }
+  
+  select.value-rejected {
+    background-color: #f8d7da;
+  }
+  
+  .green {
+    color: #28a745;
+    font-size: 18px;
+  }
+  
+  .red {
+    color: #dc3545;
+    font-size: 18px;
+  }
+  
+  /* Responsive Design */
+  @media screen and (max-width: 768px) {
+    table {
+      display: block;
+      overflow-x: auto;
+      white-space: nowrap;
+    }
+  
+    th, td {
+      padding: 8px;
+      font-size: 14px;
+    }
+  
+    .banner {
+      padding: 15px;
+    }
+  }
+  
+  

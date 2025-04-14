@@ -1,14 +1,17 @@
 import React, { useState, useContext } from 'react';
 import { context } from '../main';
-import { TiHome } from "react-icons/ti";
-import { FaUserDoctor } from "react-icons/fa6";
-import { RiLogoutBoxRFill } from "react-icons/ri";
-import { IoChatbubbleEllipsesSharp } from "react-icons/io5";
-import { TbReportSearch } from "react-icons/tb";
-import { Navbar, Offcanvas, Nav, Button } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import { toast } from "react-toastify";
-import '../sidebar.css';
+import { Navbar, Offcanvas, Nav, Button } from 'react-bootstrap';
+import { 
+  FiHome, 
+  FiUser, 
+  FiFileText, 
+  FiMessageSquare, 
+  FiLogOut,
+  FiMenu 
+} from 'react-icons/fi';
+import '../App.css';
 
 const DoctorSidebar = () => {
   const [show, setShow] = useState(false);
@@ -17,41 +20,88 @@ const DoctorSidebar = () => {
 
   const handleLogout = () => {
     try {
-      toast.success("Doctor Logged out successfully");
+      toast.success("Logged out successfully");
       localStorage.clear();
-      navigateTo("/doctor/login");
       setIsAuthenticated(false);
+      navigateTo("/doctor/login");
     } catch (error) {
       toast.error("Logout failed");
     }
   };
 
   const menuItems = [
-    { icon: <TiHome />, name: "Dashboard", action: () => navigateTo("/doctor/dashboard") },
-    { icon: <FaUserDoctor />, name: "Doctors", action: () => navigateTo("/doctorprofile") },
-    { icon: <TbReportSearch />, name: "Reports", action: () => navigateTo("/reports") },
-    { icon: <IoChatbubbleEllipsesSharp />, name: "Chats", action: () => navigateTo("/chats") },
-    { icon: <RiLogoutBoxRFill />, name: "Logout", action: handleLogout },
+    { icon: <FiHome size={20} />, name: "Dashboard", action: () => navigateTo("/doctor/dashboard") },
+    { icon: <FiUser size={20} />, name: "Profile", action: () => navigateTo("/doctorprofile") },
+    { icon: <FiFileText size={20} />, name: "Reports", action: () => navigateTo("/reports") },
+    { icon: <FiMessageSquare size={20} />, name: "Messages", action: () => navigateTo("/chats") },
+    { icon: <FiLogOut size={20} />, name: "Logout", action: handleLogout },
   ];
 
   return (
     isAuthenticated && (
       <>
-        {/* Top Navbar */}
-        <Navbar className="bg-primary p-2 d-md-none">
-          <Button variant="light" onClick={() => setShow(true)}>☰ Menu</Button>
+        {/* Mobile Top Navbar */}
+        <Navbar className="bg-white shadow-sm p-2 d-md-none fixed-top">
+          <div className="d-flex justify-content-between w-100 align-items-center">
+            <span className="text-primary fw-bold">EASY CARE</span>
+            <Button 
+              variant="outline-primary" 
+              onClick={() => setShow(true)}
+              className="border-0"
+            >
+              <FiMenu size={24} />
+            </Button>
+          </div>
         </Navbar>
 
-        {/* Offcanvas Sidebar */}
-        <Offcanvas show={show} onHide={() => setShow(false)} className="sidebar" responsive="md">
-          <Offcanvas.Header closeButton>
-            <Offcanvas.Title className="sidebar-title">EASY CARE</Offcanvas.Title>
+        {/* Desktop Sidebar */}
+        <div className="d-none d-md-block sidebar-desktop bg-white shadow">
+          <div className="sidebar-header p-4">
+            <h4 className="text-primary fw-bold">EASY CARE</h4>
+            <small className="text-muted">Doctor Portal</small>
+          </div>
+          <Nav className="flex-column px-3">
+            {menuItems.map((item, index) => (
+              <Nav.Link 
+                key={index} 
+                className="sidebar-item py-3 px-3 my-1 rounded"
+                onClick={item.action}
+              >
+                <div className="d-flex align-items-center">
+                  <span className="sidebar-icon me-3">{item.icon}</span>
+                  <span className="sidebar-text">{item.name}</span>
+                </div>
+              </Nav.Link>
+            ))}
+          </Nav>
+        </div>
+
+        {/* Mobile Offcanvas Sidebar */}
+        <Offcanvas 
+          show={show} 
+          onHide={() => setShow(false)} 
+          responsive="md"
+          className="sidebar-mobile"
+          placement="start"
+        >
+          <Offcanvas.Header closeButton className="border-bottom">
+            <Offcanvas.Title className="text-primary fw-bold">EASY CARE</Offcanvas.Title>
           </Offcanvas.Header>
-          <Offcanvas.Body>
-            <Nav className="flex-column sidebar-links">
+          <Offcanvas.Body className="p-0">
+            <Nav className="flex-column">
               {menuItems.map((item, index) => (
-                <Nav.Link key={index} className="sidebar-item" onClick={() => { item.action(); setShow(false); }}>
-                  {item.icon} <span className="sidebar-text">{item.name}</span>
+                <Nav.Link 
+                  key={index} 
+                  className="sidebar-item py-3 px-4"
+                  onClick={() => { 
+                    item.action(); 
+                    setShow(false); 
+                  }}
+                >
+                  <div className="d-flex align-items-center">
+                    <span className="sidebar-icon me-3">{item.icon}</span>
+                    <span className="sidebar-text">{item.name}</span>
+                  </div>
                 </Nav.Link>
               ))}
             </Nav>

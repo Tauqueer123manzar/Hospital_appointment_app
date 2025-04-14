@@ -267,7 +267,48 @@ exports.updatePrescription = catchAsyncErrors(async (req, res, next) => {
     }
 });
 
+// ============================================ Get Doctor proifle by Id ===================================
+exports.getDoctorProfileById = catchAsyncErrors(async (req, res, next) => {
+    const { id } = req.params;
+  
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+      return next(new ErrorHandler("Invalid doctor ID format", 400));
+    }
+  
+    const doctor = await User.findById(id);
+  
+    if (!doctor) {
+      return next(new ErrorHandler("Doctor not found", 404));
+    }
+  
+    res.status(200).json({
+      success: true,
+      doctor,
+    });
+  });
+// ============================================ Update Doctor Profile ===================================
+exports.updateDoctorProfile = catchAsyncErrors(async (req, res, next) => {
+    const { id } = req.params;
+    const { firstname, lastname, email, phone, gender, password, doctordepartment } = req.body;
 
+    const doctor = await User.findById(id);
+    if (!doctor) {
+        return next(new ErrorHandler("Doctor not found", 404));
+    }
 
+    doctor.firstname = firstname;
+    doctor.lastname = lastname;
+    doctor.email = email;
+    doctor.phone = phone;
+    doctor.gender = gender;
+    doctor.password = password;
+    doctor.doctordepartment = doctordepartment;
 
+    await doctor.save();
+    res.status(200).json({
+        success: true,
+        message: "Doctor profile updated successfully",
+        doctor
+    });
+});
 
