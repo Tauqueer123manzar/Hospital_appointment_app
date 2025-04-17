@@ -44,4 +44,26 @@ exports.isPatientAuthenticated = catchAsyncErrors(async (req, res, next) => {
     }
 });
 
+exports.isDoctorAuthenticated = catchAsyncErrors(async (req, res, next) => {
+    const token = req.headers.authorization?.split(" ")[1];
+    console.log("Doctor Token: ", token);
+
+    if (!token) {
+        return next(new ErrorHandler("Doctor not Authenticated", 400));
+    }
+
+    try {
+        const decoded = jwt.verify(token, process.env.JWT_SECRET_KEY);
+        console.log("Decoded JWT: ", decoded);
+
+        req.user = await User.findById(decoded.id);
+        if (req.user.role !== "Doctor") {
+            return next(new ErrorHandler(`${req.user.role} not Authorized for this resource!`, 403));
+        }
+        next();
+    } catch (error) {
+        return next(new ErrorHandler("Invalid token or authentication failed", 400));
+    }
+});
+
 

@@ -31,7 +31,7 @@ const Sidebar = () => {
     // { icon: <MdPayments className="sidebar-icon" />, name: "Payments", action: () => navigateTo("/payments") },
     { icon: <TbReportSearch className="sidebar-icon" />, name: "Reports", action: () => navigateTo("/reports") },
     // { icon: <BsCalendarDateFill className="sidebar-icon" />, name: "Appointments", action: () => navigateTo("/appointments") },
-    { icon: <IoChatbubbleEllipsesSharp className="sidebar-icon" />, name: "Chats", action: () => navigateTo("/chats") },
+    // { icon: <IoChatbubbleEllipsesSharp className="sidebar-icon" />, name: "Chats", action: () => navigateTo("/chats") },
     { icon: <MdFeedback className="sidebar-icon" />, name: "Feedback", action: () => navigateTo("/feedback") },
 
     { icon: <RiLogoutBoxRFill className="sidebar-icon" />, name: "Logout", action: handleLogout },

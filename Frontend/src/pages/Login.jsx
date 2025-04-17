@@ -30,12 +30,6 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Password matching validation
-    // if (formdata.password !== formdata.confirmPassword) {
-    //   toast.error("Passwords do not match");
-    //   return;
-    // }
-
     try {
       const response = await axios.post("http://localhost:8080/api/v1/user/login", formdata, {
         headers: {

@@ -11,7 +11,7 @@ dotenv.config({path:"./config/.env"});
 exports.postAppointment = catchAsyncErrors(async (req, res, next) => {
     try {
         const { 
-            patientName, phone, gender, appointment_date, department, 
+            patientName, phone, gender, appointment_date, department,appointment_time,
             doctor_firstName, doctor_lastName, hasVisited 
         } = req.body;
 
@@ -19,7 +19,7 @@ exports.postAppointment = catchAsyncErrors(async (req, res, next) => {
         console.log("Received Appointment Request:", req.body);
 
         // Validate Required Fields
-        if (!patientName || !phone || !gender || !appointment_date || !department || !doctor_firstName || !doctor_lastName) {
+        if (!patientName || !phone || !gender || !appointment_date || !appointment_time || !department || !doctor_firstName || !doctor_lastName) {
             return next(new ErrorHandler("Missing required fields", 400));
         }
 
@@ -47,6 +47,7 @@ exports.postAppointment = catchAsyncErrors(async (req, res, next) => {
             phone,
             gender,
             appointment_date,
+            appointment_time,
             department,
             doctor: {
                  firstName: doctor_firstName,
@@ -135,3 +136,4 @@ exports.getAllConfirmedAppointments = async (req, res, next) => {
     }
   };
   
+

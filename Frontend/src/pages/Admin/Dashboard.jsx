@@ -80,6 +80,7 @@ const Dashboard = () => {
       selector: (row) => `${row.doctor?.firstName || "N/A"} ${row.doctor?.lastName || ""}`,
       sortable: true,
     },
+    { name: "Time", selector: (row) => row.appointment_time || "N/A", sortable: true },
     { name: "Department", selector: (row) => row.department || "N/A", sortable: true },
     {
       name: "Status",

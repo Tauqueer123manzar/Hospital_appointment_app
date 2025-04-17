@@ -24,7 +24,8 @@ import DoctorDashboard from './pages/Doctor/Dashboard';
 import Feedback from './pages/Admin/Feedback';
 import Report from './pages/Admin/Report';
 import Chat from './pages/Admin/Chat';
-import DoctorProfile from './components/Doctorprofile'
+import DoctorProfile1 from "./pages/Doctor/DoctorProfile"
+import Message1 from './pages/Doctor/Message';
 import { ToastContainer} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import {context} from './main';
@@ -78,7 +79,8 @@ function App() {
         <Route path='/chats' element={<Chat/>}/>
         <Route path='/doctor/login' element={<DoctorLogin />} />
         <Route path='/doctor/dashboard' element={<DoctorDashboard />} />
-        <Route path='/doctorprofile' element={<Doctorprofile/>}/>
+        <Route path='/doctor/profile' element={<DoctorProfile1/>}/>
+        <Route path="/doctor/messages" element={<Message1/>}/> 
       </Routes>
       <ToastContainer position="top-center"/>
      </Router> 

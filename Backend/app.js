@@ -12,7 +12,6 @@ const reportRoutes=require("./router/reportRoutes");
 const connectDb=require('./database/dbconnection');
 const chatbotRoutes = require("./router/chatbotRoutes");
 const router=express.Router();
-// const uploadRouter=require("./router/uploadRouter");
 dotenv.config({ path: "./config/.env" });
 const app = express();
 

@@ -11,5 +11,3 @@ router.get("/getall:id",getAllAppointments,isAdminAuthenticated);
 router.put("/appointments/:id/status", updateAppointmentStatus);
 router.get("/confirmed",getAllConfirmedAppointments);
 module.exports = router;
-
-

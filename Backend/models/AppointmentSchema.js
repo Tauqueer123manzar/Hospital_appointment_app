@@ -1,5 +1,4 @@
 const mongoose = require("mongoose");
-const validator = require("validator");
 
 const appointmentSchema = new mongoose.Schema({
     patientName: {
@@ -18,6 +17,15 @@ const appointmentSchema = new mongoose.Schema({
     },
     appointment_date: {
         type: String
+    },
+    appointment_time: {
+        type: String,
+        validate: {
+            validator: function (v) {
+                return /^((0?[1-9]|1[0-2]):[0-5][0-9] ?(AM|PM)|([01]\d|2[0-3]):[0-5]\d)$/i.test(v);
+            },
+            message: props => `${props.value} is not a valid time! Use format like "10:00 AM" or "14:30".`
+        }
     },
     department: {
         type: String
