@@ -28,7 +28,6 @@ const DoctorFeedback = () => {
     };
 
     fetchDoctors();
-    console.log("doctors:", doctors);
   }, []);
 
   const handleClose = () => setShow(false);
@@ -36,7 +35,6 @@ const DoctorFeedback = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // console.log("Form submitted", patientName, selectedDoctor, rating, feedback);
 
     if (!selectedDoctor) {
       toast.error("Please select a valid doctor");
@@ -51,7 +49,7 @@ const DoctorFeedback = () => {
 
     const feedbackData = {
       patientName,
-      doctorId:doctor._id,
+      doctorId: doctor._id,
       rating,
       feedback,
     };
@@ -118,8 +116,8 @@ const DoctorFeedback = () => {
               {selectedDoctor && doctors.length > 0 && (
                 <p>
                   <strong>Selected Doctor:</strong>{" "}
-                  {doctors.find((doc) => doc._id === selectedDoctor)?.firstName}{" "}
-                  {doctors.find((doc) => doc._id === selectedDoctor)?.lastName}
+                  {doctors.find((doc) => doc._id === selectedDoctor)?.firstname}{" "}
+                  {doctors.find((doc) => doc._id === selectedDoctor)?.lastname}
                 </p>
               )}
 
