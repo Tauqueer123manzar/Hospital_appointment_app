@@ -107,7 +107,7 @@ const DoctorFeedback = () => {
                   {Array.isArray(doctors) && doctors.length > 0 &&
                     doctors.map((doc) => (
                       <option key={doc._id} value={doc._id} className="text-black">
-                        {doc.firstName} {doc.lastName}
+                        {doc.firstname} {doc.lastname}
                       </option>
                     ))
                   }
