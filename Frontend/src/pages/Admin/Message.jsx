@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
-import { Container, Form, Button } from "react-bootstrap";
+import { Container, Form, Button, Row, Col } from "react-bootstrap";
 import { context } from "../../main";
 import { Navigate } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -10,8 +10,31 @@ import DataTable from "react-data-table-component";
 const Message = () => {
     const [messages, setMessages] = useState([]);
     const [filterText, setFilterText] = useState("");
+    const [sidebarVisible, setSidebarVisible] = useState(true);
     const { isAuthenticated } = useContext(context);
     const adminToken = localStorage.getItem("adminToken");
+    const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+
+    // Track window resize
+    useEffect(() => {
+        const handleResize = () => {
+            setWindowWidth(window.innerWidth);
+            // Auto-hide sidebar on small screens
+            if (window.innerWidth < 768) {
+                setSidebarVisible(false);
+            } else {
+                setSidebarVisible(true);
+            }
+        };
+
+        window.addEventListener('resize', handleResize);
+        // Initial check
+        handleResize();
+        
+        return () => {
+            window.removeEventListener('resize', handleResize);
+        };
+    }, []);
 
     // Fetch messages from the backend
     useEffect(() => {
@@ -83,6 +106,11 @@ const Message = () => {
         }
     };
 
+    // Toggle sidebar visibility
+    const toggleSidebar = () => {
+        setSidebarVisible(!sidebarVisible);
+    };
+
     // Filter messages based on search input
     const filteredMessages = messages.filter((msg) =>
         Object.values(msg).some((val) =>
@@ -90,44 +118,145 @@ const Message = () => {
         )
     );
 
-    // Define columns for DataTable
-    const columns = [
-        { name: "Name", selector: (row) => `${row.firstname} ${row.lastname}`, sortable: true },
-        { name: "Email", selector: (row) => row.email, sortable: true },
-        { name: "Phone", selector: (row) => row.phonenumber, sortable: true },
-        { name: "Message", selector: (row) => row.message, wrap: true },
-        {
-            name: "Actions",
-            cell: (row) => (
-                <Button variant="danger" onClick={() => handleDelete(row._id)}>
-                    Delete
-                </Button>
-            ),
-        },
-    ];
+    // Define columns for DataTable - adjusting based on screen size
+    const getColumns = () => {
+        const baseColumns = [
+            { 
+                name: "Name", 
+                selector: (row) => `${row.firstname} ${row.lastname}`, 
+                sortable: true,
+                // Make column width responsive
+                minWidth: "150px",
+                wrap: true
+            },
+            { 
+                name: "Email", 
+                selector: (row) => row.email, 
+                sortable: true,
+                wrap: true,
+                // Hide email on very small screens
+                omit: windowWidth < 480
+            },
+            { 
+                name: "Phone", 
+                selector: (row) => row.phonenumber, 
+                sortable: true,
+                // Hide phone on smaller screens
+                omit: windowWidth < 640
+            },
+            { 
+                name: "Message", 
+                selector: (row) => row.message, 
+                wrap: true,
+                // Adjust message display
+                grow: 2,
+                // On small screens, limit text length and show ellipsis
+                cell: row => windowWidth < 768 ? 
+                    (row.message.length > 30 ? row.message.substring(0, 30) + '...' : row.message) : 
+                    row.message
+            },
+            {
+                name: "Actions",
+                cell: (row) => (
+                    <Button 
+                        variant="danger" 
+                        onClick={() => handleDelete(row._id)}
+                        size={windowWidth < 768 ? "sm" : "md"}
+                    >
+                        Delete
+                    </Button>
+                ),
+                // Make actions column fixed width
+                width: "100px",
+                center: true
+            },
+        ];
+
+        return baseColumns;
+    };
+
+    const contentStyle = {
+        transition: "margin 0.3s ease",
+        padding: "20px",
+        backgroundColor: "#f9f9f9",
+        marginLeft: sidebarVisible && windowWidth >= 768 ? "240px" : "0",
+        width: "100%"
+    };
 
     return (
-        <>
-            <Sidebar />
-            <Container className="my-3" style={{ marginLeft: "290px", backgroundColor: "#f9f9f9", padding: "20px" }}>
-                <h2 className="text-center" style={{ fontFamily: "initial" }}>Patient Messages</h2>
-                <Form.Control
-                    type="text"
-                    placeholder="Search messages..."
-                    value={filterText}
-                    onChange={(e) => setFilterText(e.target.value)}
-                    className="mb-3"
-                />
-                <DataTable
-                    columns={columns}
-                    data={filteredMessages}
-                    pagination
-                    highlightOnHover
-                    striped
-                    responsive
-                />
-            </Container>
-        </>
+        <div className="d-flex flex-column flex-md-row">
+            {/* Sidebar with conditional rendering */}
+            {sidebarVisible && <Sidebar />}
+            
+            {/* Main content */}
+            <div style={contentStyle} className="flex-grow-1">
+                <Container fluid className="px-2 px-sm-3 py-3">
+                    <Row className="mb-3 align-items-center">
+                        <Col xs="auto">
+                            {windowWidth < 768 && (
+                                <Button 
+                                    variant="secondary" 
+                                    onClick={toggleSidebar}
+                                    className="me-2"
+                                >
+                                    ☰
+                                </Button>
+                            )}
+                        </Col>
+                        <Col>
+                            <h2 className="text-center m-0" style={{ fontFamily: "initial" }}>
+                                Patient Messages
+                            </h2>
+                        </Col>
+                    </Row>
+                    
+                    <Form.Control
+                        type="text"
+                        placeholder="Search messages..."
+                        value={filterText}
+                        onChange={(e) => setFilterText(e.target.value)}
+                        className="mb-3"
+                    />
+                    
+                    <div className="table-responsive">
+                        <DataTable
+                            columns={getColumns()}
+                            data={filteredMessages}
+                            pagination
+                            paginationPerPage={windowWidth < 768 ? 5 : 10}
+                            highlightOnHover
+                            striped
+                            responsive
+                            fixedHeader
+                            fixedHeaderScrollHeight="calc(100vh - 250px)"
+                            noHeader
+                            defaultSortFieldId={1}
+                            theme="default"
+                            customStyles={{
+                                rows: {
+                                    style: {
+                                        minHeight: '60px',
+                                    },
+                                },
+                                headCells: {
+                                    style: {
+                                        paddingLeft: '8px',
+                                        paddingRight: '8px',
+                                        fontWeight: 'bold',
+                                    },
+                                },
+                                cells: {
+                                    style: {
+                                        paddingLeft: '8px',
+                                        paddingRight: '8px',
+                                    },
+                                },
+                            }}
+                        />
+                    </div>
+                </Container>
+            </div>
+        </div>
     );
 };
 
