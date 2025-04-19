@@ -1,9 +1,12 @@
+const { getDoctorAllAppointments,getDoctorAllConfirmedAppointments} = require("../controllers/appointmentcontroller");
 const { PatientRegister, loginRegister, addnewAdmin, getallDoctors, getUserDetails,
     getDoctorTotalAppointments, getDoctorConfirmedAppointments, getDoctorRejectedAppointments, getDoctorPendingAppointments,
-    adminLogout, patientLogout, addnewDoctor, DoctorRegister, getDoctorById, getallUsers, getMyProfile, updatePrescription, getDoctorProfileById } = require("../controllers/userController");
+    adminLogout, patientLogout, addnewDoctor, DoctorRegister, getDoctorById, getallUsers, getMyProfile, updatePrescription, getDoctorProfileById, 
+    getDoctorAppointments} = require("../controllers/userController");
+
+const {isPatientAuthenticated,isAdminAuthenticated,isDoctorAuthenticated}=require("../middlewares/auth");
 const express = require("express");
 const router = express.Router();
-const { isAdminAuthenticated, isPatientAuthenticated } = require("../middlewares/auth");
 
 router.post("/patient/register", PatientRegister);
 router.get("/getallusers", getallUsers);
@@ -24,6 +27,8 @@ router.get("/doctor/:id/appointments", getDoctorTotalAppointments);
 router.get("/doctor/:id/appointments/confirmed", getDoctorConfirmedAppointments);
 router.get("/doctor/:id/appointments/pending", getDoctorPendingAppointments);
 router.get("/doctor/:id/appointments/rejected", getDoctorRejectedAppointments);
+router.get('/doctor/appointment/all',isDoctorAuthenticated,getDoctorAllAppointments)
+router.get('/doctor/appointment/confirmed',isDoctorAuthenticated,getDoctorAllConfirmedAppointments)
 
 
 // router.get("/me",getMyProfile);
