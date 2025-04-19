@@ -180,5 +180,19 @@ exports.getDoctorAllConfirmedAppointments = catchAsyncErrors(async (req, res, ne
       appointments,
     });
   });
+
+//   ======================================= Doctor upcoming Appointments ==================================
+exports.getDoctorAllUpcomingAppointments=catchAsyncErrors(async(req,res,next)=>{
+    const user=req.user;
+    const appointments=await Appointment.find({
+        doctorId:user._id,
+        status:"Pending"
+    });
+    res.status(200).json({
+        success:true,
+        count:appointments.length,
+        appointments
+    });
+})
   
 

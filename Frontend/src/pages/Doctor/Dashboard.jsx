@@ -14,10 +14,9 @@ const Dashboard = () => {
   const { isAuthenticated } = useContext(context);
   const navigateTo = useNavigate();
 
-  const [totalUsers, setTotalUsers] = useState(0);
   const [totalAppointments, setTotalAppointments] = useState(0);
-  const [totalDoctors, setTotalDoctors] = useState(0);
   const [totalConfirmedAppointments, setTotalConfirmedAppointments] = useState(0);
+  const [totalUpcomingAppointments, setTotalUpcomingAppointments] = useState(0);
   const [appointments, setAppointments] = useState([]);
 
   useEffect(() => {
@@ -28,7 +27,7 @@ const Dashboard = () => {
 
     const fetchData = async () => {
       try {
-        const [appointmentsRes, confirmedRes] = await Promise.all([
+        const [appointmentsRes, confirmedRes, upcomingRes] = await Promise.all([
           axios.get("http://localhost:8080/api/v1/user/doctor/appointment/all", {
             headers: {
               "Content-Type": "application/json",
@@ -41,15 +40,26 @@ const Dashboard = () => {
               Authorization: `Bearer ${localStorage.getItem("doctorToken")}`,
             },
           }),
+          axios.get("http://localhost:8080/api/v1/user/doctor/appointment/upcoming",{
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${localStorage.getItem("doctorToken")}`,
+            },
+          })
         ]);
     
         setTotalAppointments(appointmentsRes.data.data.length);
         setAppointments(appointmentsRes.data.data);
+        setTotalConfirmedAppointments(confirmedRes.data.data);
+        setTotalUpcomingAppointments(upcomingRes.data.data);
     
         if (confirmedRes.data.success) {
           setTotalConfirmedAppointments(confirmedRes.data.count || 0);
         }
         
+        if(upcomingRes.data.success){
+          setTotalUpcomingAppointments(upcomingRes.data.count || 0);
+        }
       } catch (error) {
         console.error("Error fetching data:", error);
       }
@@ -144,7 +154,7 @@ const Dashboard = () => {
             <FaUsers className="stat-icon green" />
             <div>
               <span>Upcoming Appointment</span>
-              <h3>{totalDoctors}</h3>
+              <h3>{totalUpcomingAppointments}</h3>
             </div>
           </div>
         </div>

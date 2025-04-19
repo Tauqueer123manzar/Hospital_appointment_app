@@ -1,8 +1,6 @@
-const { getDoctorAllAppointments,getDoctorAllConfirmedAppointments} = require("../controllers/appointmentcontroller");
-const { PatientRegister, loginRegister, addnewAdmin, getallDoctors, getUserDetails,
-    getDoctorTotalAppointments, getDoctorConfirmedAppointments, getDoctorRejectedAppointments, getDoctorPendingAppointments,
-    adminLogout, patientLogout, addnewDoctor, DoctorRegister, getDoctorById, getallUsers, getMyProfile, updatePrescription, getDoctorProfileById, 
-    getDoctorAppointments} = require("../controllers/userController");
+const { getDoctorAllAppointments,getDoctorAllConfirmedAppointments,getDoctorAllUpcomingAppointments} = require("../controllers/appointmentcontroller");
+const { PatientRegister, loginRegister, addnewAdmin, getallDoctors, getUserDetails,adminLogout, patientLogout, addnewDoctor,
+     DoctorRegister, getDoctorById, getallUsers, getMyProfile, updatePrescription, getDoctorProfileById,doctorProfile} = require("../controllers/userController");
 
 const {isPatientAuthenticated,isAdminAuthenticated,isDoctorAuthenticated}=require("../middlewares/auth");
 const express = require("express");
@@ -23,13 +21,9 @@ router.post("/register", DoctorRegister);
 router.put("/update-prescription", isPatientAuthenticated, updatePrescription);
 router.get('/me', isPatientAuthenticated, getMyProfile);
 router.get("/getdoctor/:id", getDoctorProfileById);
-router.get("/doctor/:id/appointments", getDoctorTotalAppointments);
-router.get("/doctor/:id/appointments/confirmed", getDoctorConfirmedAppointments);
-router.get("/doctor/:id/appointments/pending", getDoctorPendingAppointments);
-router.get("/doctor/:id/appointments/rejected", getDoctorRejectedAppointments);
 router.get('/doctor/appointment/all',isDoctorAuthenticated,getDoctorAllAppointments)
 router.get('/doctor/appointment/confirmed',isDoctorAuthenticated,getDoctorAllConfirmedAppointments)
+router.get('/doctor/appointment/upcoming',isDoctorAuthenticated,getDoctorAllUpcomingAppointments);
+router.get('/doctor/profile',isDoctorAuthenticated,doctorProfile);
 
-
-// router.get("/me",getMyProfile);
 module.exports = router

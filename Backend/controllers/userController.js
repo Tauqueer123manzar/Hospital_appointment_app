@@ -320,78 +320,20 @@ exports.updateDoctorProfile = catchAsyncErrors(async (req, res, next) => {
 });
 
 
-// ============================== Doctor's Total Appointments ===================================
-exports.getDoctorTotalAppointments = catchAsyncErrors(async (req, res, next) => {
-    const { id } = req.params;
-    
-    // Validate doctor ID
-    if (!id.match(/^[0-9a-fA-F]{24}$/)) {
-        return next(new ErrorHandler("Invalid doctor ID", 400));
+// ====================================== Doctor profile ==============================
+exports.doctorProfile = catchAsyncErrors(async (req, res, next) => {
+    const user = await User.findById(req.user.id);
+    if (!user) {
+      return next(new ErrorHandler("User not found", 404));
     }
-
-    const appointments = await Appointment.find({ doctor: id })
-        .populate('patient', 'name email phone')
-        .populate('doctor', 'name specialization');
-
     res.status(200).json({
-        success: true,
-        count: appointments.length,
-        appointments
+      success: true,
+      user
     });
-});
+  });
 
-// ======================================= specific doctor getting appointments ===========================
-exports.getDoctorAppointments=catchAsyncErrors(async(req,res,next)=>{
-    const {id}=req.params;
-    if(!id.match(/^[0-9a-fA-F]{24}$/)){
-        return next(new ErrorHandler("Invalid doctor ID",400));
-    }
-    const appointments=await Appointment.find({doctor:id}).populate('patient','name email phone');
-    res.status(200).json({
-        success:true,
-        count:appointments.length,
-        appointments
-    });
-});
 
-// ============================== specific doctor confrimed appointments ===========================
-exports.getDoctorConfirmedAppointments=catchAsyncErrors(async(req,res,next)=>{
-    const {id}=req.params;
-    if(!id.match(/^[0-9a-fA-F]{24}$/)){
-        return next(new ErrorHandler("Invalid doctor ID",400));
-    }
-    const appointments=await Appointment.find({doctor:id,status:"Accepted"}).populate('patient','name email phone');
-    res.status(200).json({
-        success:true,
-        count:appointments.length,
-        appointments
-    });
-});
 
-// =================================== specific doctor rejected appointments ===========================
-exports.getDoctorRejectedAppointments=catchAsyncErrors(async(req,res,next)=>{
-        const {id}=req.params;
-        if(!id.match(/^[0-9a-fA-F]{24}$/)){
-            return next(new ErrorHandler("Invalid doctor ID",400));
-        }
-        const appointments=await Appointment.find({doctor:id,status:"Rejected"}).populate('patient','name email phone');
-        res.status(200).json({
-            success:true,
-            count:appointments.length,
-            appointments
-        });
-});
 
-// ============================================ specific doctor pending appointments ===========================
-exports.getDoctorPendingAppointments=catchAsyncErrors(async(req,res,next)=>{
-    const {id}=req.params;
-    if(!id.match(/^[0-9a-fA-F]{24}$/)){
-        return next(new ErrorHandler("Invalid doctor ID",400));
-    }
-    const appointments=await Appointment.find({doctor:id,status:"Pending"}).populate('patient','name email phone');
-    res.status(200).json({
-        success:true,
-        count:appointments.length,
-        appointments
-    });
-});
+
+
