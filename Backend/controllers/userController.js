@@ -194,10 +194,12 @@ exports.addnewDoctor = catchAsyncErrors(async (req, res, next) => {
     if (isRegistered) {
         return next(new ErrorHandler(`${isRegistered.role} already registered with this email`, 400));
     }
-    const isName=await User.findOne({firstname,lastname});
-    if(isName){
-        return next(new ErrorHandler("Doctor already registered with this name",400));
+
+    const isPhone=await User.findOne({phone});
+    if(isPhone){
+        return next(new ErrorHandler("Doctor already registered with this phone number",400));
     }
+
 
     // Upload avatar to Cloudinary using the correct method
     let cloudinaryResponse;
