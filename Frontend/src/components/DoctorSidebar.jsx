@@ -32,7 +32,6 @@ const DoctorSidebar = () => {
   const menuItems = [
     { icon: <FiHome size={20} />, name: "Dashboard", path: "/doctor/dashboard" },
     { icon: <FiUser size={20} />, name: "Profile", path: "/doctor/profile" },
-    { icon: <FiFileText size={20} />, name: "Reports", path: "/reports" },
     { icon: <FiMessageSquare size={20} />, name: "Messages", path: "/doctor/messages" },
     
   ];

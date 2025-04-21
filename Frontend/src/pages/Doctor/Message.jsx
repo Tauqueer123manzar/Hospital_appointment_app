@@ -8,101 +8,96 @@ import Sidebar from '../../components/DoctorSidebar';
 import DataTable from "react-data-table-component";
 
 const Message = () => {
-    const [messages, setMessages] = useState([]);
+    const [feedbacks, setFeedbacks] = useState([]);
     const [filterText, setFilterText] = useState("");
     const { isAuthenticated } = useContext(context);
     const doctorToken = localStorage.getItem("doctorToken");
 
-    // Fetch messages from the backend
     useEffect(() => {
-        const fetchMessages = async () => {
+        const fetchFeedbacks = async () => {
             if (!doctorToken) {
                 toast.error("Doctor token missing! Please log in again.");
                 return;
             }
 
             try {
-                const response = await axios.get("http://localhost:8080/api/v1/message/getall", {
-                    withCredentials: true,
+                const response = await axios.get("http://localhost:8080/api/v1/feedback/doctor/feedback", {
                     headers: {
-                        "Content-Type": "application/json",
-                        Authorization: `Bearer ${adminToken}`,
+                        Authorization: `Bearer ${doctorToken}`,
                     },
                 });
 
-                if (response.data && response.data.messages) {
-                    setMessages(response.data.messages);
+                if (response.data?.feedbacks) {
+                    setFeedbacks(response.data.feedbacks);
                 } else {
-                    setMessages([]);
-                    toast.error("Unexpected API response format!");
+                    toast.error("Invalid response from server.");
+                    setFeedbacks([]);
                 }
             } catch (error) {
-                console.error("Error fetching messages:", error.response);
-                if (error.response?.status === 401) {
-                    toast.error("Unauthorized! Please log in again.");
-                    localStorage.removeItem("adminToken");
-                } else {
-                    toast.error(error.response?.data?.message || "Failed to fetch messages");
-                }
-                setMessages([]);
+                toast.error(error.response?.data?.message || "Error fetching feedbacks.");
+                setFeedbacks([]);
             }
         };
 
-        fetchMessages();
+        fetchFeedbacks();
     }, [doctorToken]);
 
     if (!isAuthenticated) {
         return <Navigate to="/doctor/login" />;
     }
 
-    // Function to delete a message
     const handleDelete = async (id) => {
         if (!doctorToken) {
             toast.error("Doctor token missing! Please log in again.");
             return;
         }
 
-        const confirmDelete = window.confirm("Are you sure you want to delete this message?");
+        const confirmDelete = window.confirm("Are you sure you want to delete this feedback?");
         if (!confirmDelete) return;
 
         try {
-            const response = await axios.delete(`http://localhost:8080/api/v1/message/delete/${id}`, {
+            const response = await axios.delete(`http://localhost:8080/api/v1/feedback/delete/${id}`, {
                 headers: {
-                    Authorization: `Bearer ${adminToken}`,
+                    Authorization: `Bearer ${doctorToken}`,
                 },
             });
 
             if (response.data.success) {
-                toast.success("Message deleted successfully");
-                setMessages(messages.filter((msg) => msg._id !== id)); // Update UI after deletion
+                toast.success("Feedback deleted successfully");
+                setFeedbacks(prev => prev.filter((fb) => fb._id !== id));
             } else {
-                toast.error("Failed to delete message");
+                toast.error("Failed to delete feedback");
             }
         } catch (error) {
-            toast.error(error.response?.data?.message || "Failed to delete message");
+            toast.error(error.response?.data?.message || "Failed to delete feedback");
         }
     };
 
-    // Filter messages based on search input
-    const filteredMessages = messages.filter((msg) =>
+    const filteredFeedbacks = feedbacks.filter((msg) =>
         Object.values(msg).some((val) =>
             val?.toString().toLowerCase().includes(filterText.toLowerCase())
         )
     );
 
-    // Define columns for DataTable
     const columns = [
-        { name: "Name", selector: (row) => `${row.firstname} ${row.lastname}`, sortable: true },
-        { name: "Email", selector: (row) => row.email, sortable: true },
-        { name: "Phone", selector: (row) => row.phonenumber, sortable: true },
-        { name: "Message", selector: (row) => row.message, wrap: true },
+        {
+            name: "Name",
+            selector: (row) => `${row?.firstname || ''} ${row?.lastname || ''}`,
+            sortable: true,
+        },
+        { name: "Email", selector: (row) => row?.email || '', sortable: true },
+        { name: "Phone", selector: (row) => row?.phonenumber || '', sortable: true },
+        { name: "Message", selector: (row) => row?.message || '', wrap: true },
         {
             name: "Actions",
-            cell: (row) => (
-                <Button variant="danger" onClick={() => handleDelete(row._id)}>
-                    Delete
-                </Button>
-            ),
+            cell: (row) =>
+                row?._id ? (
+                    <Button variant="danger" onClick={() => handleDelete(row._id)}>
+                        Delete
+                    </Button>
+                ) : (
+                    <span>No ID</span>
+                ),
         },
     ];
 
@@ -110,17 +105,17 @@ const Message = () => {
         <>
             <Sidebar />
             <Container className="my-3" style={{ marginLeft: "290px", backgroundColor: "#f9f9f9", padding: "20px" }}>
-                <h2 className="text-center" style={{ fontFamily: "initial" }}>Patient Messages</h2>
+                <h2 className="text-center" style={{ fontFamily: "initial" }}>Patient Feedbacks</h2>
                 <Form.Control
                     type="text"
-                    placeholder="Search messages..."
+                    placeholder="Search feedbacks..."
                     value={filterText}
                     onChange={(e) => setFilterText(e.target.value)}
                     className="mb-3"
                 />
                 <DataTable
                     columns={columns}
-                    data={filteredMessages}
+                    data={filteredFeedbacks}
                     pagination
                     highlightOnHover
                     striped
