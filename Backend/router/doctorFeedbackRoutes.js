@@ -7,6 +7,7 @@ const router = express.Router();
 router.post("/submit", submitFeedback, isAdminAuthenticated);
 router.get("/getall", getAllFeedbacks, isAdminAuthenticated);
 router.delete("/delete/:id", deleteFeedback);
-router.get("/doctor/feedback",getDoctorFeedbacks,isDoctorAuthenticated);
+router.get("/doctor/feedback/:id", getDoctorFeedbacks, isDoctorAuthenticated);
+
 
 module.exports = router;

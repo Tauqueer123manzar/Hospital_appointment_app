@@ -13,6 +13,9 @@ const Message = () => {
     const { isAuthenticated } = useContext(context);
     const doctorToken = localStorage.getItem("doctorToken");
 
+    // Assuming doctorId is stored in localStorage or passed from context
+    const doctorId = localStorage.getItem("doctorId");  // Or fetch it from context if it's available
+
     useEffect(() => {
         const fetchFeedbacks = async () => {
             if (!doctorToken) {
@@ -20,8 +23,13 @@ const Message = () => {
                 return;
             }
 
+            if (!doctorId) {
+                toast.error("Doctor ID is missing! Please log in again.");
+                return;
+            }
+
             try {
-                const response = await axios.get("http://localhost:8080/api/v1/feedback/doctor/feedback", {
+                const response = await axios.get(`http://localhost:8080/api/v1/feedback/doctor/feedback/${doctorId}`, {
                     headers: {
                         Authorization: `Bearer ${doctorToken}`,
                     },
@@ -40,7 +48,7 @@ const Message = () => {
         };
 
         fetchFeedbacks();
-    }, [doctorToken]);
+    }, [doctorToken, doctorId]);  // Add doctorId to the dependency array
 
     if (!isAuthenticated) {
         return <Navigate to="/doctor/login" />;

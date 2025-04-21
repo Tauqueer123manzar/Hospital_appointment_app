@@ -45,22 +45,30 @@ exports.isPatientAuthenticated = catchAsyncErrors(async (req, res, next) => {
 });
 
 exports.isDoctorAuthenticated = catchAsyncErrors(async (req, res, next) => {
-    const token = req.headers.authorization.split(" ")[1]; 
+    const token = req.headers.authorization?.split(" ")[1];
+    console.log("Doctor Token: ", token);
 
     if (!token) {
-    return next(new ErrorHandler("Doctor not Authenticated", 400));
-   }
-
-try {
-    const decoded = jwt.verify(token, process.env.JWT_SECRET_KEY);
-    console.log("Decoded JWT: ", decoded);
-
-    req.user = await User.findById(decoded.id); 
-    if (!req.user) {
-        return next(new ErrorHandler("Doctor not found!", 404));
+        return next(new ErrorHandler("Doctor not Authenticated", 400));
     }
-    next();
-} catch (error) {
-    return next(new ErrorHandler("Invalid token or authentication failed", 400));
-}
+
+    try {
+        const decoded = jwt.verify(token, process.env.JWT_SECRET_KEY);
+        console.log("Decoded JWT: ", decoded);
+
+        const user = await User.findById(decoded.id);
+
+        if (!user) {
+            return next(new ErrorHandler("Doctor not found!", 404));
+        }
+
+        if (user.role !== "Doctor") {
+            return next(new ErrorHandler(`${user.role} not Authorized for this resource!`, 403));
+        }
+
+        req.user = user;
+        next();
+    } catch (error) {
+        return next(new ErrorHandler("Invalid token or authentication failed", 400));
+    }
 });

@@ -75,21 +75,15 @@ exports.deleteFeedback = catchAsyncErrors(async(req, res, next) => {
 
 // ==================================== specific doctor feedback ============================
 exports.getDoctorFeedbacks = catchAsyncErrors(async (req, res, next) => {
-    const { id } = req.params;
+    const { id } = req.params; 
 
     try {
-        // Attempt to find user by ID
-        const user = await User.findById(id);
+        const user = await User.findById(id); 
 
         if (!user) {
             return next(new ErrorHandler("Doctor not found!", 404));
         }
 
-        if (!user._id) {
-            return next(new ErrorHandler("Doctor's ID is missing!", 400));
-        }
-
-        // Find feedbacks associated with the doctor's _id
         const feedbacks = await DoctorFeedback.find({ doctorId: user._id });
 
         if (!feedbacks.length) {
@@ -104,9 +98,11 @@ exports.getDoctorFeedbacks = catchAsyncErrors(async (req, res, next) => {
             feedbacks,
         });
     } catch (error) {
-        console.error("Error fetching doctor feedbacks:", error);
+        console.error("Error fetching doctor feedbacks:", error); // Log the actual error
         return next(new ErrorHandler("Internal Server Error", 500));
     }
 });
+
+
 
 
